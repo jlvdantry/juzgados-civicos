@@ -1,0 +1,17 @@
+truncate "public"."alcaldias";
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (2, 'AZCAPOTZALCO', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (3, 'COYOACÁN', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (4, 'CUAJIMALPA DE MORELOS', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (5, 'GUSTAVO A. MADERO', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (6, 'IZTACALCO', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (7, 'IZTAPALAPA', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (8, 'LA MAGDALENA CONTRERAS', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (9, 'MILPA ALTA', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (12, 'TLALPAN', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (13, 'XOCHIMILCO', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (14, 'BENITO JUÁREZ', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (15, 'CUAUHTÉMOC', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (16, 'MIGUEL HIDALGO', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (17, 'VENUSTIANO CARRANZA', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (11, 'TLÁHUAC', 1);
+INSERT INTO "public"."alcaldias" (id_cat_alcaldia,descripcion,estatus) VALUES (10, 'ÁLVARO OBREGÓN', 1);
