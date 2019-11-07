@@ -1,0 +1,151 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    id bigint NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    email character varying(255) NOT NULL,
+    email_verified_at timestamp(0) without time zone,
+    password character varying(255) NOT NULL,
+    remember_token character varying(100),
+    api_token character varying(80),
+    activo smallint DEFAULT 0::smallint,
+    nombres character varying(255) NOT NULL,
+    ape_pat character varying(255),
+    ape_mat character varying(255),
+    rfc character varying(255),
+    idjuzgado character varying(255),
+    num_telefono double precision,
+    cambiocontra character varying(255),
+    cb boolean,
+    epmr boolean,
+    erv boolean,
+    rpar boolean
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: COLUMN users.activo; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.activo IS '0=inactivo,1=activo,3=bloqueado';
+
+
+--
+-- Name: COLUMN users.idjuzgado; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.idjuzgado IS 'Id del juzgado de acuerdo al catalogo de juzgados';
+
+
+--
+-- Name: COLUMN users.num_telefono; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.num_telefono IS '10 digitos';
+
+
+--
+-- Name: COLUMN users.cb; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.cb IS 'Capacitación de brigadas de PC';
+
+
+--
+-- Name: COLUMN users.epmr; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.epmr IS 'Elaboración de programas internos para establecimientos o inmuebles de mediano riesgo';
+
+
+--
+-- Name: COLUMN users.erv; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.erv IS 'Estudios de riesgo de vulnerabilidad';
+
+
+--
+-- Name: COLUMN users.rpar; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.rpar IS 'Elaboración de programas internos de PC para establecimientos o inmuebles de alto riesgo';
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: users_api_token_unique; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_api_token_unique UNIQUE (api_token);
+
+
+--
+-- Name: users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

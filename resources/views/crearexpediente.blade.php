@@ -12,20 +12,10 @@
         <div class="col-lg-4">
 
           <a class="btn-registro active" id="policias" data-toggle="collapse" href="#policias" role="button">POLICIAS
-            <span id="btn-informacion" class="btn-arrow"></span>
           </a>
-{{--
-          <div class="collapse show" id="informacion-general">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="btn-submenu btn-submenu01 active" id="v-pills-informacion-tab" data-toggle="pill" href="#v-pills-informacion" role="tab" aria-controls="v-pills-informacion" aria-selected="true">
-                Información general
-                <img class="check mr-0 d-none" src="{{ url('') }}/src/img/check.svg" alt=""></a>
-            </div>
-          </div>
---}}
-
           <a class="btn-registro" id="infractores" data-toggle="collapse" href="#c_infractores" role="button">INFRACTOR(ES)
-            <span id="btn-infractores" class="btn-arrow"></span>
+          </a>
+          <a class="btn-registro" id="motivo" data-toggle="collapse" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN
           </a>
 
 
@@ -44,8 +34,7 @@
             <!-- Inicia tab-pane Información -->
 
         <div class="tab-pane fade show active" id="v-pills-informacion" role="tabpanel" aria-labelledby="v-pills-informacion-tab">
-
-      <form id="f_informacion" data-emailacreditado="{{{ Auth::user()->email }}}">
+      <form id="f_boleta" data-id="" data-usuario="{{{ Auth::user()->email }}}">
         <div class="row">
                   <div class="col-md-4 mb-3">
                     <label class="form-label-custom" for="rfc">*Boleta de remisión:</label>
@@ -194,7 +183,7 @@
                 </div>
 
                 <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="button" id="creaexpediente">Crear expediente</button>
+                  <button class="btn-01" type="submit" name="button" id="guardarexpediente">Crear expediente</button>
                 </div>
               </form>
             </div> <!-- Finaliza tabPane información general -->

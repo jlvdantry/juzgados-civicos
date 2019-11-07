@@ -1,0 +1,75 @@
+[2019-11-06 17:20:37] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:20:37] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:20:37] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:20:37] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:20:41] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:20:41] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:20:41] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:20:41] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:21:01] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:01] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:21:01] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:01] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:21:03] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:03] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:21:03] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:03] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:21:18] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:18] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:21:18] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:18] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:21:19] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:19] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:21:19] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:19] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:21:45] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:45] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:21:45] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:45] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:21:46] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:46] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:21:46] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:21:46] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:49:24] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:49:24] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:49:24] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:49:24] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
+[2019-11-06 17:49:25] local.ERROR: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "id_alcaldia" of relation "users" does not exist (SQL: ALTER TABLE users alter id_alcaldia  type numeric(6) USING id_alcaldia::numeric(6);) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42703): SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"id_alcaldia\" of relation \"users\" does not exist (SQL: ALTER TABLE users alter id_alcaldia  type numeric(6) USING id_alcaldia::numeric(6);) at /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Connection.php:664, Doctrine\\DBAL\\Driver\\PDOException(code: 42703): SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"id_alcaldia\" of relation \"users\" does not exist at /var/www/html/juzgados-civicos/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php:123, PDOException(code: 42703): SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"id_alcaldia\" of relation \"users\" does not exist at /var/www/html/juzgados-civicos/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php:121)
+[stacktrace]
+#0 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('ALTER TABLE use...', Array, Object(Closure))
+#1 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(459): Illuminate\\Database\\Connection->run('ALTER TABLE use...', Array, Object(Closure))
+#2 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(349): Illuminate\\Database\\Connection->statement('ALTER TABLE use...')
+#3 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(239): Illuminate\\Database\\DatabaseManager->__call('statement', Array)
+#4 /var/www/html/juzgados-civicos/database/migrations/2019_09_19_151238_alter_id_alcaldia_users.php(17): Illuminate\\Support\\Facades\\Facade::__callStatic('statement', Array)
+#5 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Schema/Blueprint.php(83): AlterIdAlcaldiaUsers->{closure}(Object(Illuminate\\Database\\Schema\\Blueprint))
+#6 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php(298): Illuminate\\Database\\Schema\\Blueprint->__construct('users', Object(Closure), '')
+#7 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php(151): Illuminate\\Database\\Schema\\Builder->createBlueprint('users', Object(Closure))
+#8 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(239): Illuminate\\Database\\Schema\\Builder->table('users', Object(Closure))
+#9 /var/www/html/juzgados-civicos/database/migrations/2019_09_19_151238_alter_id_alcaldia_users.php(18): Illuminate\\Support\\Facades\\Facade::__callStatic('table', Array)
+#10 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(387): AlterIdAlcaldiaUsers->up()
+#11 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(29): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}(Object(Illuminate\\Database\\PostgresConnection))
+#12 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(395): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#13 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(197): Illuminate\\Database\\Migrations\\Migrator->runMigration(Object(AlterIdAlcaldiaUsers), 'up')
+#14 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(162): Illuminate\\Database\\Migrations\\Migrator->runUp('/var/www/html/j...', 9, false)
+#15 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(109): Illuminate\\Database\\Migrations\\Migrator->runPending(Array, Array)
+#16 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(71): Illuminate\\Database\\Migrations\\Migrator->run(Array, Array)
+#17 [internal function]: Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#18 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#19 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#20 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#21 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#22 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#23 /var/www/html/juzgados-civicos/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#25 /var/www/html/juzgados-civicos/vendor/symfony/console/Application.php(934): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 /var/www/html/juzgados-civicos/vendor/symfony/console/Application.php(273): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\MigrateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 /var/www/html/juzgados-civicos/vendor/symfony/console/Application.php(149): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 /var/www/html/juzgados-civicos/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 /var/www/html/juzgados-civicos/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#31 {main}
+"} 
+[2019-11-06 17:54:32] local.DEBUG: routes/api.php URL=http://localhost Request::path()=/  
+[2019-11-06 17:54:32] local.DEBUG: routes/api.php entro en middleware  
+[2019-11-06 17:54:32] local.DEBUG: routes/web.php inioio URL=http://localhost Request::path()=/  
+[2019-11-06 17:54:32] local.DEBUG: routes/web.php Entro a middleware web http://localhost  
