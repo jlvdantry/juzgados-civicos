@@ -54,69 +54,138 @@
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
-
-          <div class="col-md-6 mb-3">
-            <legend class="form-label-custom">Tipo de persona*</legend>
-            <div class="form-check-inline">
-              <input class="form-check-input" type="radio" name="tipopersona" id="fisica" value="F" checked required>
-              <label class="form-check-label label-custom-check" for="fisica">
-                Física
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <input class="form-check-input" type="radio" name="tipopersona" id="moral" value="M" required>
-              <label class="form-check-label label-custom-check" for="moral">
-                Moral
-              </label>
-            </div>
-          </div>
+                  <div class="row col-md-4 mb-3  d-flex justify-content-end align-items-end">
+                    <div id='crearexpediente'>
+                        <label class="Crear-expediente mb-0 py-2" name="button" id="AgregarOtraBoleta">Agregar otra boleta</label>
+                        <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
+                    </div>
+                  </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-4 mb-3" id="nom">
-            <label class="form-label-custom" for="nombres" id="lnombres">Nombre(s)*</label>
-            <input type="text" class="form-control form-control-custom street-names" id="nombres" maxlength="50" placeholder="Escribe tu nombre" required>
-            <div class="invalid-feedback">
-              Asegúrate de introducir la información correctamente
-            </div>
-          </div>
-          <div class="col-md-4 mb-3" id="apa">
-            <label class="form-label-custom" for="ape_pat">Apellido paterno*</label>
-            <input type="text" class="form-control form-control-custom names" id="ape_pat" maxlength="50" placeholder="Escribe tu apellido paterno" required>
-            <div class="invalid-feedback">
-              Asegúrate de introducir la información correctamente
-            </div>
-          </div>
-          <div class="col-md-4 mb-3" id="ama">
-            <label class="form-label-custom" for="ape_mat">Apellido materno</label>
-            <input type="text" class="form-control form-control-custom names" id="ape_mat" maxlength="50" placeholder="Escribe tu apellido materno">
-            <div class="invalid-feedback">
-              Asegúrate de introducir la información correctamente
-            </div>
-          </div>
-        </div>
+        <div class="Policias-remitentes mb-3">Policias remitentes</div>
+        <div class="Policia-remitente">Policia remitente 01</div>
 
                 <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="folio_acta">Folio de acta constitutiva*</label>
-                    <input type="text" name="folio_acta" id="folioacta" class="form-control form-control-custom" value="" placeholder="Escribe el folio del acta" maxlength="15" required>
+                  <div class="col-md-6 mb-1">
+                    <label class="form-label-custom" for="placa1">*Número de empleado (placa de policia)</label>
+                    <input type="number" name="placa1" id="placa1" class="form-control form-control-custom" value="" placeholder="Escribe el número de placa" maxlength="15" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="numeroescritura">Número de escritura*</label>
-                    <input type="text" name="numeroescritura" id="numeroescritura" class="form-control form-control-custom" value="" placeholder="Escribe el número de escritura" maxlength="15" required>
+                  <div class="col-md-6 mb-1">
+                    <label class="form-label-custom" for="areadeadscripcion_1">*Área de adscripción</label>
+                    <input type="text" name="areadeadscripcion_1" id="areadeadscripcion_1" class="form-control form-control-custom" value="" placeholder="Escribe el área de adscripción" maxlength="30" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="numeronotario">Número de notario*</label>
-                    <input type="text" name="numeronotario" id="numeronotario" class="form-control form-control-custom numbers" value="" placeholder="Escribe el número de notario" maxlength="3" min=0 max=999 required>
+        <div class="row  mb-1">
+          <div class="col-md-4" id="nom">
+            <label class="form-label-custom" for="nombres" id=""nombre_1"">Nombre(s)*</label>
+            <input type="text" class="form-control form-control-custom street-names" id="nombre_1" maxlength="30" placeholder="Escribe el nombre(s)" required>
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+          <div class="col-md-4" id="apa">
+            <label class="form-label-custom" for="primer_apellido_1">*Primer apellido</label>
+            <input type="text" class="form-control form-control-custom names" id="primer_apellido_1" maxlength="30" placeholder="Escribe el primer apellido" required>
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+          <div class="col-md-4" id="ama">
+            <label class="form-label-custom" for="segundo_apellido_1">Segundo Apellido</label>
+            <input type="text" class="form-control form-control-custom names" id="segundo_apellido_1" maxlength="30" placeholder="Escribe el segundo apellido">
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+        </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-4">
+                    <label class="form-label-custom" for="id_mediotransporte_1">*Medio de transporte</label>
+                    <select class="form-control form-control-custom" id="id_mediotransporte_1" name="id_mediotransporte_1" required>
+                      <option disabled value="" selected hidden>Selecciona una</option>
+                      <option value="1">Patrulla</option>
+                      <option value="2">A pie</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Selecciona una opción
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label-custom" for="numerodepatrulla_1">*Número de patrulla</label>
+                    <input type="text" name="numerodepatrulla_1" id="numerodepatrulla_1" class="form-control form-control-custom numbers" value="" placeholder="Escribe el número de patrulla" maxlength="10" required>
+                    <div class="invalid-feedback">
+                      Maximo tres digitos
+                    </div>
+                  </div>
+
+                </div>
+        <div class="Policia-remitente mb-1">Policia remitente 02</div>
+
+                <div class="row  mb-1">
+                  <div class="col-md-6">
+                    <label class="form-label-custom" for="placa2">*Numero de empleado (placa de policia)</label>
+                    <input type="number" name="placa2" id="placa2" class="form-control form-control-custom" value="" placeholder="Escribe el número de placa" maxlength="15" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label-custom" for="areadeadscripcion_2">*Área de adscripción</label>
+                    <input type="text" name="areadeadscripcion_2" id="areadeadscripcion_2" class="form-control form-control-custom" value="" placeholder="Escribe el área de adscripción" maxlength="30" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                </div>
+
+        <div class="row  mb-1">
+          <div class="col-md-4" id="nom">
+            <label class="form-label-custom" for="nombre_2" >Nombre(s)*</label>
+            <input type="text" class="form-control form-control-custom street-names" id="nombre_2" maxlength="30" placeholder="Escribe el nombre(s)" required>
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+          <div class="col-md-4" id="apa">
+            <label class="form-label-custom" for="primer_apellido_2">*Primer apellido</label>
+            <input type="text" class="form-control form-control-custom names" id="primer_apellido_2" maxlength="30" placeholder="Escribe el primer apellido" required>
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+          <div class="col-md-4" id="ama">
+            <label class="form-label-custom" for="segundo_apellido_2">Segundo Apellido</label>
+            <input type="text" class="form-control form-control-custom names" id="segundo_apellido_2" maxlength="30" placeholder="Escribe el segundo apellido">
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+        </div>
+
+                <div class="row  mb-1">
+                  <div class="col-md-4">
+                    <label class="form-label-custom" for="id_mediotransporte_2">*Medio de transporte</label>
+                    <select class="form-control form-control-custom" id="id_mediotransporte_2" name="id_mediotransporte_2" required>
+                      <option disabled value="" selected hidden>Selecciona una</option>
+                      <option value="1">Patrulla</option>
+                      <option value="2">A pie</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Selecciona una opción
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label-custom" for="numerodepatrulla_2">*Número de patrulla</label>
+                    <input type="text" name="numerodepatrulla_2" id="numerodepatrulla_2" class="form-control form-control-custom numbers" value="" placeholder="Escribe el número de patrulla" maxlength="10" required>
                     <div class="invalid-feedback">
                       Maximo tres digitos
                     </div>
@@ -124,273 +193,8 @@
 
                 </div>
 
-
-                <h2>Representante legal o apoderado (persona moral)</h2>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <legend class="form-label-custom">Tipo de persona*</legend>
-            <div class="form-check-inline">
-              <input class="form-check-input" type="radio" name="tipopersona_" id="fisica_l" value="F" required >
-              <label class="form-check-label label-custom-check" for="fisica_l">
-                Física
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <input class="form-check-input" type="radio" name="tipopersona_" id="moral_l" value="M"  required>
-              <label class="form-check-label label-custom-check" for="moral_l">
-                Moral
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" id="fisi_0">
-          <div class="col-md-6 mb-2" id="nom_rl">
-            <label class="form-label-custom" for="nombres" id="lnombres_rl">Nombre(s)*</label>
-            <input autofocus type="text" class="form-control form-control-custom names" id="nombres_rl" maxlength="30" placeholder="Escribe tu nombre" >
-            <div class="invalid-feedback">
-              Asegúrate de introducir la información correctamente
-            </div>
-          </div>
-          <div class="col-md-6 mb-2" id="apa_rl">
-            <label class="form-label-custom" for="ape_pat">Primer apellido*</label>
-            <input type="text" class="form-control form-control-custom names" id="ape_pat_rl" maxlength="30" placeholder="Escribe tu apellido paterno" >
-            <div class="invalid-feedback">
-              Asegúrate de introducir la información correctamente
-            </div>
-          </div>
-        </div>
-
-
-                 <div class="row" id="fisi_1">
-                  <div class="col-md-6 mb-2" id="ama_rl">
-                   <label class="form-label-custom" for="ape_mat_rl">Segundo apellido</label>
-                   <input type="text" class="form-control form-control-custom names" id="ape_mat_rl" maxlength="30" placeholder="Escribe tu apellido materno">
-                   <div class="invalid-feedback">
-                    Asegúrate de introducir la información correctamente
-                   </div>
-                  </div>
-
-                  <div class="col-md-6 mb-2">
-                    <label class="form-label-custom" for="correo_responsable">Correo electrónico*</label>
-                    <input type="email" name="correo_responsable" id="email_rl" class="form-control form-control-custom" value="" placeholder="correo@dominio.com" >
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row" id="fisi_2">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="identificacion">Identificación oficial*</label>
-                    <select class="form-control form-control-custom" id="id_identificacion" name="id_identificacion" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-                      <option value="1">INE</option>
-                      <option value="2">Cartilla militar</option>
-                      <option value="3">Pasaporte</option>
-                      <option value="4">Forma migratoria</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="folioIdentificacion">Número o folio*</label>
-                    <input type="text" name="folioIdentificacion" id="folioIdentificacion" class="form-control form-control-custom" value="" placeholder="Número o folio de la identificación" maxlength="15">
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-                <div class="row" id="fisi_3">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="id_nacionalidad">Nacionalidad*</label>
-                    <select class="form-control form-control-custom" id="id_nacionalidad" name="id_nacionalidad" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-                      <option value="1">Mexicana</option>
-                      <option value="2">Otra</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="row" id="mora_0" >
-                  <div class="col-md-12 mb-1" >
-                     <label class="form-label-custom" for="nombres" id="lrazon_social_rl">Denominación o razón social*</label>
-                     <input autofocus type="text" class="form-control form-control-custom names-all" id="razon_social_rl" maxlength="50" placeholder="Escribe la razón social" >
-                     <div class="invalid-feedback">
-                          Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-               </div>
-
-                <div class="row" id="mora_1" >
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="folioacta_rl">Número de folio del acta ó poliza*</label>
-                    <input type="text" name="folioacta_rl" id="folioacta_rl" class="form-control form-control-custom" maxlength="30" value="" placeholder="Escribe el folio" >
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="fecha_otorgamiento">Fecha de otorgamiento*</label>
-                    <input type="date" name="fecha_otorgamiento" id="fechadeotorgamiento" class="form-control form-control-custom" min="1900-01-01" value="" >
-                    <div class="invalid-feedback">
-                      Ingresa una fecha válida
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row" id="mora_2" >
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label-custom" for="name_notario">Nombre del Notario, Corredor Público o Alcaldía que lo expide*</label>
-                    <input type="text" name="name_notario" id="nombreexpide" class="form-control form-control-custom names-all" maxlength="50" value="" placeholder="Escribe el nombre" >
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row" id="mora_3">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="name_notario">Número de Notaría o Correduría*</label>
-                    <input type="text" name="name_notario" id="numeronotario_el" class="form-control form-control-custom numbers" maxlength="6" value="" placeholder="Escribe el folio" >
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="entidad">Entidad Federativa*</label>
-                    <select class="form-control form-control-custom" id="id_entidad" name="entidad" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-{{--
-                      @foreach ($entidades as $entidad)
-                      <option value="{{ $entidad['id'] }}">{{ $entidad->descripcion}}</option>
-                      @endforeach
---}}
-
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <h2>Responsable del establecimiento</h2>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="nombre_responsable">Nombre(s)*</label>
-                    <input type="text" name="nombre_responsable" id="nombres_re" class="form-control form-control-custom names" maxlength="30" value="" placeholder="Escribe su(s) nombre(s)" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="primer_apellido_responsable">Primer apellido*</label>
-                    <input type="text" name="primer_apellido_responsable" id="ape_pat_re" class="form-control form-control-custom names" maxlength="30" value="" placeholder="Escribe su primer apellido" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="segundo_apellido_responsable">Segundo Apellido</label>
-                    <input type="text" name="segundo_apellido_responsable" id="ape_mat_re" class="form-control form-control-custom names" maxlength="30" value="" placeholder="Escribe su segundo apellido" >
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="correo_responsable">Correo electrónico*</label>
-                    <input type="email" name="correo_responsable" id="email_re" class="form-control form-control-custom" value="" placeholder="correo@dominio.com" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <h2>Características del establecimiento</h2>
-                <legend class="form-label-custom">Sector*</legend>
-                <div class="row">
-                  <div class="col-md-2">
-                    <div class="formulario-checkbox">
-                      <input class="form-check-input" type="radio" name="sector" value="PU" id="sector_publico"  >
-                      <label for="sector_publico">Público</label>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="formulario-checkbox">
-                      <input class="form-check-input" type="radio" name="sector" value="PR" id="sector_privado" >
-                      <label for="sector_privado">Privado</label>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="formulario-checkbox">
-                      <input class="form-check-input" type="radio" name="sector" value="SO" id="sector_social" >
-                      <label for="sector_social">Social</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row d-flex">
-                  <div class="col-md-6 mt-3">
-                    <legend class="form-label-custom">El inmueble es*</legend>
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="inmueblees" id="unico" value="U" >
-                      <label class="form-check-label label-custom-formulario" for="unico">
-                        Único
-                      </label>
-                    </div>
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="inmueblees" id="no_unico" value="C" >
-                      <label class="form-check-label label-custom-formulario" for="no_unico">
-                        Forma parte de un conjunto de inmuebles
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mt-3">
-                    <label class="form-label-custom" for="id_tipoestablecimiento">Tipo de establecimiento*</label>
-                    <select class="form-control form-control-custom" id="id_tipoestablecimiento" name="id_tipoestablecimiento" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-{{-- 
-                      @foreach ($tiposdeestablecimiento as $tiest)
-                      <option value="{{ $tiest['id'] }}">{{ $tiest->descripcion}}</option>
-                      @endforeach
---}}
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-                </div>
-
-
-                <h2>Carta de corresponsabilidad</h2>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="vigencia">Vigencia* (mínima 2 años)</label>
-                    <input type="date" name="vigencia" id="cartac_vigencia" class="form-control form-control-custom" value="" min="2017-01-01" placeholder="Escribe su(s) nombre(s)" required>
-                    <div class="invalid-feedback">
-                      Ingresa una fecha válida
-                    </div>
-                  </div>
-                </div>
-
                 <div class="contenedor-boton justify-content-end seccion">
-                  <!-- <button class="btn-01" type="submit" name="button" >Guardar y salir</button> -->
-                  <button class="btn-01" type="submit" name="button" id="creaestablecimiento">Guardar y seguir editando</button>
+                  <button class="btn-01" type="submit" name="button" id="creaexpediente">Crear expediente</button>
                 </div>
               </form>
             </div> <!-- Finaliza tabPane información general -->
@@ -400,7 +204,7 @@
             <div class="tab-pane fade" id="v-pills-domicilio" role="tabpanel" aria-labelledby="v-pills-domicilio-tab">
               <form id="f_domicilio" data-id="" >
                 <div class="row">
-                  <div class="col-md-12 mb-3">
+                  <div class="col-md-12">
                     <label class="form-label-custom" for="wl_alias">Alias*</label>
                     <input autofocus type="text" name="wl_alias" id="wl_alias" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe el alias con el que se va a identificar el inmueble" autofocus required>
                     <div class="invalid-feedback">
