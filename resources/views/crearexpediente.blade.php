@@ -49,7 +49,7 @@
         <div class="row">
                   <div class="col-md-4 mb-3">
                     <label class="form-label-custom" for="rfc">*Boleta de remisión:</label>
-                    <input autofocus type="text" onkeyup="mayus(this);" class="form-control form-control-custom" id="rfc" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$" placeholder="Escribe el folio de la boleta" maxlength="14" required>
+                    <input autofocus type="text" onkeyup="mayus(this);" class="form-control form-control-custom" id="boleta_remision" placeholder="Escribe el folio de la boleta" maxlength="20" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>

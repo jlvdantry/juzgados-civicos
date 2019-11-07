@@ -16,7 +16,7 @@ class CreateBoletasTable extends Migration
         Schema::create('boletas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('boleta_remision')->unique()->comment('Número de boleta de remisión de los policias');
+            $table->string('boleta_remision',20)->unique()->comment('Número de boleta de remisión de los policias');
             $table->integer('placa1')->nullable()->comment('Número de placa del policia 1');
             $table->string('areadeadscripcion_1',30)->nullable()->comment('Area de adscripción del policia 1');
             $table->string('nombre_1',30)->nullable()->comment('Nombre del policia 1');
