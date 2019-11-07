@@ -1,2 +1,2 @@
 truncate "public"."perfiles_users";
-INSERT INTO "public"."perfiles_users" (idperfil,idusuario) VALUES ((select id from public.perfiles where descripcion='Juez'),(select id from public.users where email='admon@hotmail.com'));
+INSERT INTO "public"."perfiles_users" (idperfil,idusuario) VALUES ((select id from public.perfiles where descripcion='Administrador de juzgado'),(select id from public.users where email='admon@hotmail.com'));
