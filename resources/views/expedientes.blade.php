@@ -44,25 +44,8 @@
       </form>
 
       <div class="overflow-auto">
-        <table class="tabla seccion">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>Nombre</th>
-              <th>Expediente</th>
-              <th>Edad</th>
-              <th>Sexo</th>
-              <th>Infracción</th>
-              <th>Estatus expediente<th>
-            </tr>
-          </thead>
-
-          <tbody id="dg_autorizacion">
-
-          </tbody>
-
-        </table>
+            <table id="dg_boletas" class="tabla seccion">
+            </table>
       </div>
 
     </section>

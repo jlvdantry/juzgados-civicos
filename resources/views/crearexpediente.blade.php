@@ -11,11 +11,11 @@
       <div class="row d-flex justify-content-center seccion">
         <div class="col-lg-4">
 
-          <a class="btn-registro active" id="policias" data-toggle="collapse" href="#policias" role="button">POLICIAS
+          <a class="btn-registro active" id="policias" data-toggle="tab" href="#c_policias" role="button">POLICIAS
           </a>
-          <a class="btn-registro" id="infractores" data-toggle="collapse" href="#c_infractores" role="button">INFRACTOR(ES)
+          <a class="btn-registro" id="infractores" data-toggle="tab" href="#c_infractores" role="button">INFRACTOR(ES)
           </a>
-          <a class="btn-registro" id="motivo" data-toggle="collapse" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN
+          <a class="btn-registro" id="motivo" data-toggle="tab" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN
           </a>
 
 
@@ -33,7 +33,7 @@
 
             <!-- Inicia tab-pane Información -->
 
-        <div class="tab-pane fade show active" id="v-pills-informacion" role="tabpanel" aria-labelledby="v-pills-informacion-tab">
+        <div class="tab-pane fade show active" id="c_policias" ">
       <form id="f_boleta" data-id="" data-usuario="{{{ Auth::user()->email }}}">
         <div class="row">
                   <div class="col-md-4 mb-3">
@@ -190,12 +190,48 @@
 
 
             <!-- Pan-Pane Domicilio -->
-            <div class="tab-pane fade" id="v-pills-domicilio" role="tabpanel" aria-labelledby="v-pills-domicilio-tab">
-              <form id="f_domicilio" data-id="" >
+            <div class="tab-pane fade" id="c_motivo" >
+              <form id="f_motivo" >
+
                 <div class="row">
-                  <div class="col-md-12">
-                    <label class="form-label-custom" for="wl_alias">Alias*</label>
-                    <input autofocus type="text" name="wl_alias" id="wl_alias" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe el alias con el que se va a identificar el inmueble" autofocus required>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="diahechos">*Fecha en que ocurrieron los hechos</label>
+                    <input type="date" name="diahechos" id="diahechos" class="form-control form-control-custom street-names" maxlength="12" value="" placeholder="dd/mm/aaaa" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="horahechos">*Hora en que ocurrieron los hechos</label>
+                    <input type="text" name="horahechos" id="horahechos" class="form-control form-control-custom street-names" maxlength="5" value="" placeholder="00:00" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                </div>
+
+
+                <h2 class="mb-0">Lugar de la detención</h2>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="calle_h">Calle:</label>
+                    <input autofocus type="text" name="calle_h" id="calle_h" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la calle" autofocus required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="exterior_h">No. exterior</label>
+                    <input type="text" name="exterior_h" id="exterior_h" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="interior_h">No. interior</label>
+                    <input type="text" name="interior_h" id="interior_h" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00">
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
@@ -203,125 +239,181 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_calle">Calle o avenida*</label>
-                    <input autofocus type="text" name="wl_calle" id="wl_calle" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe el nombre de la calle o avenida" autofocus required>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="cp_h">Código postal*</label>
+                    <input type="text" name="cp_h" id="cp_h" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00000" pattern="^[0-9]{4,5}$" required>
+                    <div class="invalid-feedback">
+                      Ingresa los cuatro o cinco dígitos de tu código postal
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="colonia_h">Colonia</label>
+                    <input type="text" name="colonia_h" id="colonia_h" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la colonia" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_exterior">Número exterior*</label>
-                    <input type="text" name="wl_exterior" id="wl_exterior" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_interior">Número interior*</label>
-                    <input type="text" name="wl_interior" id="wl_interior" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="00">
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_colonia">Colonia*</label>
-                    <input type="text" name="wl_colonia" id="wl_colonia" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la colonia" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_id_alcaldia">Alcaldía*</label>
-                    <select class="form-control form-control-custom" id="wl_id_alcaldia" name="wl_id_alcaldia" required>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="id_alcaldia_h">Alcaldía:</label>
+                    <select class="form-control form-control-custom" id="id_alcaldia_h" name="id_alcaldia_h" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
-{{--
-                      @foreach ($alcaldias as $alcaldia)
+                      @foreach ($data['alcaldias'] as $alcaldia)
                       <option value="{{ $alcaldia['id_cat_alcaldia'] }}">{{ $alcaldia->descripcion}}</option>
                       @endforeach
---}}
                     </select>
                     <div class="invalid-feedback">
                       Selecciona una opción
                     </div>
                   </div>
 
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_cp">Código postal*</label>
-                    <input type="text" name="wl_cp" id="wl_cp" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00000" pattern="^[0-9]{4,5}$" required>
-                    <div class="invalid-feedback">
-                      Ingresa los cuatro o cinco dígitos de tu código postal
-                    </div>
-                  </div>
                 </div>
 
-                <h2 class="mb-0">Se ubica</h2>
+                <h2 class="mb-0">Motivo</h2>
                 <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_entrecalle">Entre la calle*</label>
-                    <input type="text" name="wl_entrecalle" id="wl_entrecalle" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la calle" required>
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label-custom" for="motivo">*Datos de la probable infracción:</label>
+                    <textarea name="motivo" id="motivo" class="form-control form-control-custom street-names" maxlength="2000" value="" placeholder="Detallar el motivo por el que se realiza la presentación" required></textarea>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
 
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_ycalle">Y la calle*</label>
-                    <input type="text" name="wl_ycalle" id="wl_ycalle" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la calle" required>
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label-custom" for="objetos">Objeto(s) recogido(s) con la(s) probable(s) infracción(es)</label>
+                    <textarea name="objetos" id="objetos" class="form-control form-control-custom street-names" maxlength="2000" value="" placeholder="Describir los objetos" required></textarea>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                 </div>
 
-
-                <h2 class="mb-0">Referencias visuales</h2>
-
-                <div class="row">
-                  <div class="col-lg-12">
-                    <label  class="form-label-custom" for="wl_aladerecha">A la derecha</label>
-                    <textarea name="wl_aladerecha" id="wl_aladerecha" class="form-control form-control-custom" placeholder="Describe las referencias visuales localizadas a la derecha del inmueble" maxlength="1000"></textarea>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-12">
-                    <label class="form-label-custom" for="wl_alaizquierda">A la izquierda</label>
-                    <textarea name="wl_alaizquierda" id="wl_alaizquierda" class="form-control form-control-custom" placeholder="Describe las referencias visuales localizadas a la izquierda del inmueble" maxlength="1000"></textarea>
-                  </div>
-                </div>
                 <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari"  >Terminar registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="button" id="grabainmueble" >Guardar y seguir editando</button>
+                  <button class="btn-01" type="submit" name="button" id="grabamotivo" >Guardar y seguir editando</button>
                 </div>
               </form>
             </div> <!-- Finaliza tab-Panel Domicilio -->
 
-            <!-- Tab-Pane información inmueble -->
 
-            <div class="tab-pane fade" id="v-pills-informacion-inmueble" role="tabpanel" aria-labelledby="v-pills-informacion-inmueble-tab">
+            <div class="tab-pane fade" id="c_infractores_" >
+                  <table id="dg_infractores">
+                  </table>
+            </div>
+  
+            <div class="tab-pane fade" id="c_infractores" >
               <h4>*Esta información debe ser de acuerdo a Escritura Pública o a la información de Catastro de la Alcaldía</h4>
-              <form id="f_informacion-inmueble">
+              <form id="f_infractores">
 
+        <div class="row  mb-2">
+          <div class="col-md-6" id="nom">
+            <legend class="form-label-custom mb-1" for="nombres" id="nombre_I">Fotografía:</legend>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="nombre_I" maxlength="30" placeholder="Selecciona un archivo JPG o PNG" >
+                <label class="custom-file-label" for="s_id_file_0041">
+                              <p class="texto" id="l_s_id_file_0041">Selecciona un archivo PDF</p>
+                </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="Policias-remitentes mt-3">Datos personales</div>
+
+
+        <div class="row  mb-1">
+          <div class="col-md-4" id="nom">
+            <label class="form-label-custom" for="nombres" id="nombre_I">Nombre(s)*</label>
+            <input type="text" class="form-control form-control-custom street-names" id="nombre_I" maxlength="30" placeholder="Escribe el nombre(s)" required>
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+
+          <div class="col-md-4" id="apa">
+            <label class="form-label-custom" for="primer_apellido_I">*Primer apellido</label>
+            <input type="text" class="form-control form-control-custom names" id="primer_apellido_I" maxlength="30" placeholder="Escribe el primer apellido" required>
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+
+          <div class="col-md-4" id="ama">
+            <label class="form-label-custom" for="segundo_apellido_I">Segundo Apellido</label>
+            <input type="text" class="form-control form-control-custom names" id="segundo_apellido_I" maxlength="30" placeholder="Escribe el segundo apellido">
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+        </div>
+
+        <div class="row  mb-1">
+
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="sexo">*Sexo:</label>
+                    <select class="form-control form-control-custom" id="sexo" name="sexo" required>
+                      <option disabled value="" selected hidden>Selecciona una</option>
+                      <option value="F">FEMENINO</option>
+                      <option value="M">MASCULINO</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Selecciona una opción
+                    </div>
+                  </div>
+
+          <div class="col-md-4" id="apa">
+            <label class="form-label-custom" for="curp">Curp:</label>
+            <input type="text" class="form-control form-control-custom names" id="curp" maxlength="18" placeholder="AAAA111111BBBBBB22" >
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="identidad">Lugar de nacimiento:</label>
+                    <select class="form-control form-control-custom" id="identidad" name="identidad" required>
+                      <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['entidades'] as $entidad)
+                      <option value="{{ $entidad['id_entidad'] }}">{{ $entidad['descripcion'] }}</option>
+                      @endforeach
+                    </select>
+                    <div class="invalid-feedback">
+                      Selecciona una opción
+                    </div>
+                  </div>
+
+        </div>
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_m2_terreno">Metros cuadrados de terreno*</label>
-                    <input type="text" name="wl_m2_terreno" id="wl_m2_terreno" class="form-control form-control-custom coords" maxlength="6" value="" placeholder="00" autofocus required>
+                    <label class="form-label-custom" for="nacimiento">Fecha de nacimiento</label>
+                    <input type="date" name="nacimiento" id="nacimiento" class="form-control form-control-custom street-names" maxlength="12" value="" placeholder="dd/mm/aaaa" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_m2_construidos">Metros cuadrados construidos*</label>
-                    <input type="text" name="wl_m2_construidos" id="wl_m2_construidos" class="form-control form-control-custom coords" maxlength="6" value="" placeholder="00" required>
+                </div>
+
+        <div class="Policias-remitentes mt-3">Domicilio</div>
+
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="calle_i">Calle:</label>
+                    <input autofocus type="text" name="calle_i" id="calle_i" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la calle" autofocus required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="exterior_i">No. exterior</label>
+                    <input type="text" name="exterior_i" id="exterior_i" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="interior_i">No. interior</label>
+                    <input type="text" name="interior_i" id="interior_i" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00">
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
@@ -329,49 +421,43 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_niveles_ocupados">Cantidad de niveles que ocupa el solicitante*</label>
-                    <input type="text" name="wl_niveles_ocupados" id="wl_niveles_ocupados" class="form-control form-control-custom numbers" maxlength="2" value="" placeholder="00" >
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="cp_i">Código postal*</label>
+                    <input type="text" name="cp_i" id="cp_i" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00000" pattern="^[0-9]{4,5}$" required>
+                    <div class="invalid-feedback">
+                      Ingresa los cuatro o cinco dígitos de tu código postal
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="colonia_i">Colonia</label>
+                    <input type="text" name="colonia_i" id="colonia_i" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la colonia" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
-                  <div class="col-md-6 mb-3 d-none">
-                    <label class="form-label-custom" for="wl_niveles_inmueble">Niveles del inmueble*</label>
-                    <input type="text" name="wl_niveles_inmueble" id="wl_niveles_inmueble" class="form-control form-control-custom numbers" maxlength="2" value="" placeholder="00" >
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="id_alcaldia_i">Alcaldía:</label>
+                    <select class="form-control form-control-custom" id="id_alcaldia_i" name="id_alcaldia_i" required>
+                      <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['alcaldias'] as $alcaldia)
+                      <option value="{{ $alcaldia['id_cat_alcaldia'] }}">{{ $alcaldia->descripcion}}</option>
+                      @endforeach
+                    </select>
                     <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
+                      Selecciona una opción
                     </div>
                   </div>
+
                 </div>
 
-                <div class="row d-flex align-items-end">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_latitud">Latitud*</label>
-                    <input type="text" name="wl_lat" id="wl_lat" class="form-control form-control-custom coords" maxlength="9" value="" placeholder="19.000000" pattern="^([+]?[0-9]{2}([.][0-9]{6}))?$" required>
-                    <div class="invalid-feedback">
-                      Latitud se compone de dos números enteros, un punto y seis números decimales
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_longitud">Longitud</label>
-                    <input type="text" name="wl_long" id="wl_long" class="form-control form-control-custom coords" maxlength="10" value="" placeholder="-99.000000" pattern="^([-][0-9]{2}([.][0-9]{6}))?$" required>
-                    <div class="invalid-feedback">
-                      Longitud se compone de dos números enteros negativos, un punto y seis números decimales
-                    </div>
-                  </div>
-                </div>
-<!--
-                <div class="ubicacion">
-                  <p class="form-label-custom">Coloca el puntero sobre el punto de reunión</p>
-                  <iframe id="wl_position_I"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.6523177287463!2d-99.14205988517988!3d19.42742268688728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fed3fefcd391%3A0xa811aa43f8d3dbcc!2sFUTURA+CDMX+Centro+Interactivo!5e0!3m2!1ses!2smx!4v1564153551599!5m2!1ses!2smx"
-                    width="100%" height="229" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
--->
+
+
+
+
 
                 <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
                   <button class="btn-01" type="submit" name="guardar_seguir" id="guardarinformacion" >Guardar y seguir editando</button>
                 </div>
 
@@ -379,433 +465,6 @@
             </div> <!-- Finaliza tab-Panel Información inmueble-->
 
 
-            <!-- Tab-Pane población -->
-
-            <div class="tab-pane fade" id="v-pills-poblacion" role="tabpanel" aria-labelledby="v-pills-poblacion-tab">
-              <form id="f_poblacion">
-                <div class="row">
-                   <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_fija_esta">Población fija del establecimiento*</label>
-                    <input type="text" name="wl_po_fija_esta" id="wl_po_fija_esta" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00"  autofocus required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-  
-                 <!--
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" class="form-label-custom" for="wl_po_fija_inmue">Población fija del inmueble*</label>
-                    <input type="text" name="wl_po_fija_inmue" id="wl_po_fija_inmue" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  -->
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_flotante">Población flotante* (visitas e invitados)</label>
-                    <input type="text" name="wl_po_flotante" id="wl_po_flotante" class="form-control form-control-custom numbers" maxlength="6" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_disca_fisica">Población con discapacidad física*</label>
-                    <input type="text" name="wl_po_disca_fisica" id="wl_po_disca_fisica" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_disca_visual">Población con discapacidad visual*</label>
-                    <input type="text" name="wl_po_disca_visual" id="wl_po_disca_visual" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_disca_audi">Población con discapacidad auditiva*</label>
-                    <input type="type" name="wl_po_disca_audi" id="wl_po_disca_audi" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_disca_intele">Población con discapacidad intelectual*</label>
-                    <input type="text" name="wl_po_disca_intele" id="wl_po_disca_intele" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_disca_mental">Población con discapacidad mental*</label>
-                    <input type="text" name="wl_po_disca_mental" id="wl_po_disca_mental" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_po_lactantes">Lactantes e infantes*</label>
-                    <input type="text" name="wl_po_lactantes" id="wl_po_lactantes" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-                <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="button" id="guardarpoblacion" >Guardar y seguir editando</button>
-                </div>
-              </form>
-            </div> <!-- Finaliza tab-pane población -->
-
-            <!-- Inicia tab-pane construcción -->
-
-            <div class="tab-pane fade" id="v-pills-construccion" role="tabpanel" aria-labelledby="v-pills-construccion-tab">
-              <form id="f_construccion" >
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_id_zonageotecnica">Zona geotécnica*</label>
-                    <select class="form-control form-control-custom" id="wl_id_zonageotecnica" name="wl_id_zonageotecnica" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-{{--
-                      @foreach ($zonasgeotecnica as $zonas)
-                      <option value="{{ $zonas['id'] }}">{{ $zonas->descripcion}}</option>
-                      @endforeach
---}}
-
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_id_tipodeconstruccion">Tipo de construcción según RCCDMX*</label>
-                    <select class="form-control form-control-custom" id="wl_id_tipodeconstruccion" name="wl_id_tipodeconstruccion" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-{{--
-                      @foreach ($tiposdeconstruccion as $tiposc)
-                      <option value="{{ $tiposc['id'] }}">{{ $tiposc->descripcion}}</option>
-                      @endforeach
---}}
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_id_tipodecimentacion">Tipo de cimentación*</label>
-                    <select class="form-control form-control-custom" id="wl_id_tipodecimentacion" name="wl_id_tipodecimentacion" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-{{--
-                      @foreach ($tiposdecimentacion as $tiposci)
-                      <option value="{{ $tiposci['id'] }}">{{ $tiposci->descripcion}}</option>
-                      @endforeach
---}}
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_id_tipodeestructura">Tipo de estructura*</label>
-                    <select class="form-control form-control-custom" id="wl_id_tipodeestructura" name="wl_id_tipodeestructura" required>
-                      <option disabled value="" selected hidden>Selecciona una</option>
-{{--
-                      @foreach ($tiposdeestructura as $tipose)
-                      <option value="{{ $tipose['id'] }}">{{ $tipose->descripcion}}</option>
-                      @endforeach
---}}
-
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una opción
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <legend class="form-label-custom">¿Ha sufrido algún cambio en la estructura?*</legend>
-
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_cambioestructura" onclick="wl_fechadelcambio.disabled = false" id="si" value="1" required >
-                      <label class="form-check-label label-custom-formulario" for="si">
-                        Sí
-                      </label>
-                    </div>
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_cambioestructura" onclick="wl_fechadelcambio.disabled = true" id="no" value="0" required>
-                      <label class="form-check-label label-custom-formulario" for="no">
-                        No
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_fechadelcambio">Fecha del cambio*</label>
-                    <input type="date" name="wl_fechadelcambio" id="wl_fechadelcambio" class="form-control form-control-custom" min="1900-01-01" value="">
-                    <div class="invalid-feedback">
-                      Ingresa una fecha válida
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label-custom" for="ce_maco" >Material de construcción*</label>
-                    <input class="form-control form-control-custom street-names" type="text" name="ce_maco" id="ce_maco" value="" maxlength="100" placeholder="Escriba el material de construcción" required>
-                    <div class="invalid-feedback">
-                      Ingresa material de construcción
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="ce_anocons" >Año de construcción*</label>
-                    <select class="form-control form-control-custom" name="" id="ce_anocons" required></select>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="ce_niveles_totales" >Niveles totales sobre y bajo nivel de banqueta*</label>
-                    <input class="form-control form-control-custom numbers" type="text" name="ce_niveles_totales" id="ce_niveles_totales" maxlength="2" value="" placeholder="Escriba los niveles totales" required>
-                    <div class="invalid-feedback">
-                      Ingresa los niveles totales
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label-custom" for="ce_in_hidrosanitarias" >Descripción de las instalaciones hidrosanitarias*</label>
-                    <textarea class="form-control form-control-custom street-names" type="text" name="ce_in_hidrosanitarias" id="ce_in_hidrosanitarias" value=""
-                     placeholder="Escriba una descripción de las instalaciones hidrosanitarias" maxlength="1000" required> </textarea>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label-custom" for="ce_in_electricas" >Descripción de las instalaciones electricas*</label>
-                    <textarea class="form-control form-control-custom street-names" type="text" name="ce_in_electricas" id="ce_in_electricas" value=""
-                     placeholder="Escriba una descripción de las instalaciones electricas" maxlength="1000" required> </textarea>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label-custom" for="ce_in_especiales" >Descripción de las instalaciones especiales*</label>
-                    <textarea class="form-control form-control-custom stree-names" type="text" name="ce_in_especiales" id="ce_in_especiales" value=""
-                     placeholder="Escriba una descripción de las instalaciones especiales" maxlength="1000" required> </textarea>
-                  </div>
-                </div>
-
-                <div class="row d-flex align-items-start">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="ce_elevadores" >Cantidad de elevadores de personas y de carga*</label>
-                    <input class="form-control form-control-custom numbers" type="text" name="ce_elevadores" id="ce_elevadores" maxlength="3" value="" placeholder="Escriba la cantidad de elevadores de personas y de carga" required>
-                    <div class="invalid-feedback">
-                      Ingresa la cantidad de elevadores
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <legend class="form-label-custom">¿Cuenta con recipientes sujetos, a presión, recipientes criogenicos y generadores de vapor o calderas?*</legend>
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="ce_crsp" id="si" value="1" required>
-                      <label class="form-check-label label-custom-formulario" for="si">
-                        Sí
-                      </label>
-                    </div>
-                    <div class="form-check-inline d-inline">
-                      <input class="form-check-input" type="radio" name="ce_crsp" id="no" value="0" required>
-                      <label class="form-check-label label-custom-formulario" for="no">
-                        No
-                      </label>
-                      <div class="invalid-feedback">
-                        Seleccione una opción
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <legend class="form-label-custom">¿Maneja, almacena, transforma y/o transporta materiales y sustancias quimicas peligrsas?*</legend>
-
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="ce_matt" id="si" value="1" required>
-                      <label class="form-check-label label-custom-formulario" for="si">
-                        Sí
-                      </label>
-                    </div>
-                    <div class="form-check-inline d-inline">
-                      <input class="form-check-input" type="radio" name="ce_matt" id="no" value="0" required>
-                      <label class="form-check-label label-custom-formulario" for="no">
-                        No
-                      </label>
-                      <div class="invalid-feedback">
-                        Seleccione una opción
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-
-
-
-
-                <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="guardar_seguir" id="guardarconstruccion" >Guardar y seguir editando</button>
-                </div>
-              </form>
-            </div> <!-- Finaliza tabPane construcción -->
-
-            <!-- Inicia punto de reunión -->
-            <div class="tab-pane fade" id="v-pills-punto" role="tabpanel" aria-labelledby="v-pills-punto-tab">
-            <h4>*Debe registrar por lo menos un punto de reunión</h4>
-              <form id="f_punto">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <label class="form-label-custom" for="wl_pr_ubicacion">Ubicación*</label>
-                    <input type="text" name="wl_pr_ubicacion" id="wl_pr_ubicacion" value="" class="form-control form-control-custom street-names" maxlength="80" placeholder="Escribe la ubicación" autofocus required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row d-flex justify-content-between align-items-end">
-                  <div class="col-md-3 mt-3">
-                  <legend class="form-label-custom">Tipo*</legend>
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_pr_tipo" onclick="tipo_inmueble.disabled= true" id="wl_calle" value="C" checked>
-                      <label class="form-check-label label-custom-formulario" for="wl_calle">
-                        Calle
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_pr_tipo" onclick="tipo_inmueble.disabled= true" id="wl_parque" value="P" checked required>
-                      <label class="form-check-label label-custom-formulario" for="wl_parque">
-                        Parque
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_pr_tipo" onclick="tipo_inmueble.disabled= true" id="wl_jardin" value="J" checked required>
-                      <label class="form-check-label label-custom-formulario" for="wl_jardin">
-                        Jardín
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_pr_tipo" onclick="tipo_inmueble.disabled= true" id="wl_camellon" value="CA" checked required>
-                      <label class="form-check-label label-custom-formulario" for="wl_camellon">
-                        Camellón
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row d-flex justify-content-between align-items-center mt-3">
-                  <div class="col-md-4">
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_pr_tipo" onclick="tipo_inmueble.disabled= true" id="wl_estacionamiento" value="E" checked required>
-                      <label class="form-check-label label-custom-formulario" for="wl_estacionamiento">
-                        Estacionamiento
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="wl_pr_tipo" onclick="tipo_inmueble.disabled= false" id="wl_otro" value="O" checked required>
-                      <label class="form-check-label label-custom-formulario" for="wl_otro">
-                        Otro
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <input type="text" name="tipo_inmueble" value="" class="form-control form-control-custom street-names" id="wl_pr_otro" maxlength="50" placeholder="Escribe cual otro">
-                  </div>
-                </div>
-
-                <div class="row d-flex align-items-end mt-3">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_pr_m2_superficie">Metros cuadrados de superficie*</label>
-                    <input type="text" name="wl_pr_m2_superficie" id="wl_pr_m2_superficie" class="form-control form-control-custom coords" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="wl_pr_capacidad">Capacidad contemplada de personas*
-                      <p>Máximo 4 personas por metro cuadrado</p></label>
-                    <input type="text" name="wl_pr_capacidad" id="wl_pr_capacidad" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00" required>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row d-flex align-items-end">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="lat_pr">Latitud*</label>
-                    <input type="text" name="lat_pr" id="lat_pr" class="form-control form-control-custom coords" maxlength="9" value="" placeholder="19.000000" pattern="^([+]?[0-9]{2}([.][0-9]{6}))?$" required>
-                    <div class="invalid-feedback">
-                      Latitud se compone de dos números enteros, un punto y seis números decimales
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="long_pr">Longitud</label>
-                    <input type="text" name="long_pr" id="long_pr" class="form-control form-control-custom coords" maxlength="10" value="" placeholder="-99.000000" pattern="^([-][0-9]{2}([.][0-9]{6}))?$" required>
-                    <div class="invalid-feedback">
-                      Longitud se compone de dos números enteros negativos, un punto y seis números decimales
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row d-flex align-items-end">
-                  <div class="col-md-12 mb-3">
-                    <div class="contenedor-boton justify-content-end seccion">
-                      <button class="btn-01" type="submit" name="guardarpunto" id="guardarpunto">
-                          Añadir punto de reunión 
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="guardar_seguir" id="guardar_seguir" 
-                           data-posicion="punto" data-siguienteseccion="acciones" data-siguiente="analisis"
-                                 >Ir a la siguiente sección</button>
-                </div>
-              </form>
-            </div> <!-- Finaliza tabPane Punto de reunión -->
-
-            <!-- Análisis de riesgos -->
 
             <div class="tab-pane fade" id="v-pills-analisis" role="tabpanel" aria-labelledby="v-pills-analisis-tab">
               <form id="f_analisis" enctype="multipart/form-data" >

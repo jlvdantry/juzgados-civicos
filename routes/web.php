@@ -13,8 +13,8 @@
 use Illuminate\Support\Facades\Log;
 use App\User;
 use App\Perfiles;
-use App\Inmuebles;
 use App\Alcaldias;
+use App\Entidades;
 use App\Http\Controllers\userController;
 log::debug('routes/web.php inioio URL='.URL::current().' Request::path()='.\Request::path());
 Route::get('/', function () {
@@ -115,11 +115,23 @@ Route::group(['middleware' => ['auth:web']], function() {
 
 
     Route::get('crearexpediente/',  function () {
-              return view('crearexpediente');
+           $alcaldias = Alcaldias::all();
+           $entidades = Entidades::all();
+           $data = array (
+              'alcaldias' => $alcaldias,
+              'entidades' => $entidades
+           );
+           return view('crearexpediente')->with('data', $data);
     });
-
-    Route::get('/registrar-establecimiento/{id}', 'RegistroEstController@showRegistro');
-    Route::get('/registrar-establecimiento/{id}/{in}', 'RegistroEstController@showRegistro');
+    Route::get('crearexpediente/{id}',  function () {
+           $alcaldias = Alcaldias::all();
+           $entidades = Entidades::all();
+           $data = array (
+              'alcaldias' => $alcaldias,
+              'entidades' => $entidades
+           );
+              return view('crearexpediente')->with('data', $data);
+    });
 
     //Editar perfil
 

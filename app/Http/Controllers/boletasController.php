@@ -20,32 +20,20 @@ class boletasController extends Controller
     public function index(Request $request)
     {
       $filtro=array();
-      if ($request->has('rfc')) {
+
+      if ($request->has('nombres')) {
         if (strlen($request->rfc)>0) {
            array_push($filtro,['inmu.rfc','like',"%$request->rfc%"]);
         }
       }
-      if ($request->has('calle')) {
-           array_push($filtro,['calle','like',"%$request->calle%"]);
-      }
-      if ($request->has('alias')) {
-        if (strlen($request->alias)>0) {
-           array_push($filtro,['alias','like',"%$request->alias%"]);
-        }
-      }
-      if ($request->has('id_alcaldia')) {
-        if (strlen($request->id_alcaldia)>0) {
-           array_push($filtro,['id_alcaldia','=',"$request->id_alcaldia"]);
-        }
-      }
 
-      Log::debug('InmueblesControler auth='.print_r($filtro,true));
+      Log::debug('boletasControler auth='.print_r($filtro,true));
 
       if (count($filtro)==0) {
-         $datos = Inmuebles::getConcatalogosConLimite(\Auth::user());
+         $datos = Boletas::getConcatalogosConLimite(\Auth::user());
          return response()->json($datos);
       } else {
-         $datos = Inmuebles::getConcatalogosConLimite(\Auth::user(),$filtro);
+         $datos = Boletas::getConcatalogosConLimite(\Auth::user(),$filtro);
          return response()->json($datos);
       }
     }
@@ -107,25 +95,14 @@ class boletasController extends Controller
      */
     public function show($id)
     {
-          if(strlen($id)>11)  {   /* la consulta es por RFC */
-               $inmu=Inmuebles::select('*',DB::Raw('case when coalesce(estatus,0)=0 then \'Capturando\' else \'Capturado\' end desestatus'.
-                                                   ',trim(coalesce(calle,\'\')) || \' \'  || trim(coalesce(exterior,\'\')) || \' \' || trim(coalesce(interior,\'\')) calle_completa'))->where('rfc','=',$id)->get();
-               if ($inmu->count()>0) {
-                   Log::debug('inmueblesControler show email en establecimiento del acreditado='.print_r($inmu[0],true));
-                   return response()->json($inmu,200);
+               $filtro = [];
+               array_push($filtro,['id','=',$id]);
+               $datos = Boletas::getConcatalogosConLimite(\Auth::user(),$filtro);
+               if (count($datos)>0) {
+                       return response()->json($datos,200);
                } else {
-                   return response()->json([ 'data' => ['rfc' => 'No tiene inmuebles registrados el establecimiento']],200);
+                   return response()->json([ 'data' => ['id' => 'el ID de la boleta no existe']],200);
                }
-          } else {
-               $inmu=Inmuebles::select('*',DB::Raw('case when coalesce(estatus,0)=0 then \'Capturando\' else \'Capturado\' end desestatus'.
-                                                   ',trim(coalesce(calle,\'\')) || \' \'  || trim(coalesce(exterior,\'\')) || \' \' || trim(coalesce(interior,\'\')) calle_completa'))->where('id','=',$id)->get();
-               if ($inmu->count()>0) {
-                       return response()->json($inmu[0],200);
-               } else {
-                   return response()->json([ 'data' => ['id' => 'el ID del inmueble no existe']],200);
-               }
-          }
-
     }
 
     /**
@@ -286,11 +263,11 @@ class boletasController extends Controller
       }
 */
       $dato = $inmu[0]->update($request->all());
-      Log::debug('inmueblesController.php Despues de realizar el update='.print_r($data,true)." tipo de inmu=".gettype($inmu[0]));
+      Log::debug('inmueblesController.php Despues de realizar el update='.print_r($dato,true)." tipo de inmu=".gettype($inmu[0]));
       if ($dato==0) {
           return response()->json([ 'errors' => ['cambio' => 'Hubo problemas al actualizar el inmueble']],430);
       } else {
-          $inmu[0]['filesystem']=$dataf;
+          //$inmu[0]['filesystem']=$dataf;
           return response()->json($inmu[0],200);
       }
 

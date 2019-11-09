@@ -43,17 +43,6 @@ $(document).ready(function() {
                     return;
                   } else { $('#v-pills-'+quef+'-tab').children()[0].classList.remove('d-none'); }
 
-/*
-                  quef="punto";
-                  if (formpr.checkValidity() === false) {
-                    apaga_pills();
-                    prende_pills("punto");
-                    crearMensaje(true,"Atención", ' Hay errores en la sección Inmueble-Punto de reunión');
-                    formpr.classList.add('was-validated');
-                    return;
-                  } else { $('#v-pills-'+quef+'-tab').children()[0].classList.remove('d-none'); }
-*/
-
                   if (validaarchivos('f_analisis') === false) {
                   } else { $('#v-pills-analisis-tab').children()[0].classList.remove('d-none'); };
 
@@ -466,64 +455,15 @@ $("input[name='tipopersona']:checked").val()
         });
      }
 
-     if ($('form[id="f_poblacion"]')[0]!=undefined && $('form[id="f_poblacion"]')[0].id=='f_poblacion') {
-        var formp = $('form[id="f_poblacion"]')[0];
-        $('form[id="f_poblacion"] :input').on('change', function(e) {
+     if ($('form[id="f_motivo"]')[0]!=undefined && $('form[id="f_motivo"]')[0].id=='f_motivo') {
+        var formi = $('form[id="f_motivo"]')[0];
+        $('form[id="f_motivo"] :input').on('change', function(e) {
              cambia_dato(e);
-        });
-
-        $("#guardarpoblacion").click(function(e){
-                  e.preventDefault();
-                  if (formp.checkValidity() === false) {
-                    formp.classList.add('was-validated');
-                    return;
-                  }
-                  var Data1 = {
-                         po_fija_esta : $('#wl_po_fija_esta')[0].value,
-                        //po_fija_inmue : $('#wl_po_fija_inmue')[0].value,
-                        po_flotante : $('#wl_po_flotante')[0].value,
-                        po_disca_fisica : $('#wl_po_disca_fisica')[0].value,
-                        po_disca_visual : $('#wl_po_disca_visual')[0].value,
-                        po_disca_audi : $('#wl_po_disca_audi')[0].value,
-                        po_disca_intele : $('#wl_po_disca_intele')[0].value,
-                        po_disca_mental : $('#wl_po_disca_mental')[0].value,
-                        po_lactantes : $('#wl_po_lactantes')[0].value,
-                        rfc : $('#rfc')[0].value,
-                        pantalla : formp.id,
-                        email_acreditado : $('#nombre-usuario').data('email')
-                    };
-
-                    $.ajax({
-                       type: 'put',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id,
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       data: Data1,
-                       success: function(data){
-                             $('#v-pills-poblacion')[0].classList.remove('active');
-                             $('#v-pills-poblacion')[0].classList.remove('show')
-                             $('#v-pills-poblacion-tab')[0].classList.remove('active');
-                             $('#v-pills-poblacion-tab').children()[0].classList.remove('d-none'); 
-                             $('#v-pills-construccion')[0].classList.add('active');
-                             $('#v-pills-construccion')[0].classList.add('show')
-                             $('#v-pills-construccion-tab')[0].classList.add('active')
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
-                             }
-                             crearMensaje(false,"Atención", ' Se actualizó información de población');
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
         });
      }
 
      if ($('form[id="f_boleta"]')[0]!=undefined && $('form[id="f_boleta"]')[0].id=='f_boleta') {
-        var formi = $('form[id="f_boleta"]')[0];
+        var formb = $('form[id="f_boleta"]')[0];
         $('form[id="f_boleta"] :input').on('change', function(e) {
              cambia_dato(e);
         });
@@ -535,6 +475,71 @@ $("input[name='tipopersona']:checked").val()
         $("#nombre_2").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#primer_apellido_2").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#segundo_apellido_2").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+ 
+        if (window.location.href.split('/').length==6) {    /*  muestra una boleta */
+                  var Data1 = {
+                    };
+
+                  $.ajax({
+                            type: 'get',
+                            url: mipath()+'api/boletas/'+window.location.href.split('/')[5],
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data: Data1,
+                            success: function(data){
+                            if (data.length>0) {
+                                formb.dataset.id=data[0].id;
+                                muestradatos($('form[id="f_boleta"]')[0],data[0]);
+                                muestradatos($('form[id="f_motivo"]')[0],data[0]);
+                            } else {
+                                crearMensaje(true,"Atención", ' No se encontraron registros');
+                                return;
+                            }
+                         },
+                            error: function( jqXhr, textStatus, errorThrown ){
+                                  var errores=jqXhr.responseJSON.errors;
+                                  for (var x in errores) {
+                                        crearMensaje(true,"Error ", errores[x]);
+                                        break;
+                                 }
+                       }
+                  });
+        }
+
+
+        $("#infractores").click(function(e){
+             e.preventDefault();
+             var Data1 = {
+                 };
+                  $.ajax({
+                            type: 'get',
+                            url: mipath()+'api/infractores/0/'+window.location.href.split('/')[5],
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data: Data1,
+                            success: function(data){
+                            if (data.length>0) {
+                                   var dis = {
+                                                 id       : { header    : 'ID',  'class' : 'd-none'}
+                                               , nombres : { header : 'Nombre infractor', 'class' : 'font-weight-bold' }
+                                               , edad :  { header : 'edad', 'class' : 'font-weight-bold' }
+                                               , desestatus :  { header : 'Estatus Expediente', 'class' : 'font-weight-bold' }
+                                               , desentidad :  { header : 'Estatus Expediente', 'class' : 'font-weight-bold' }
+                                               , ver : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'bole_ed' }
+                                             }
+                                  armadatagrid(data,dis,'dg_infractores',true);
+                            } else {
+                                  crearMensaje(true,"Atención", ' No se encontraron infractores');
+                                  return;
+                            }
+                         },
+                            error: function( jqXhr, textStatus, errorThrown ){
+                                  var errores=jqXhr.responseJSON.errors;
+                                  for (var x in errores) {
+                                        crearMensaje(true,"Error ", errores[x]);
+                                        break;
+                                 }
+                       }
+                  });
+        });
 
         $("#guardarexpediente").click(function(e){
                   e.preventDefault();
@@ -1184,14 +1189,19 @@ $("input[name='tipopersona']:checked").val()
                             data: Data1,
                             success: function(data){
                             if (data.length>0) {
-                                   var dis = { numinmuebles : { header : 'numinmuebles', 'class' : 'font-weight-bold', 'funcion' : 'inmuebles_e', 'boton' : true , 'classb' : 'btn-mostrar','funcion' : 'ver_i'}
-                                               , nombres : { header : 'Solicitante', 'class' : 'font-weight-bold' }
-                                               , rfc :  { header : 'rfc', 'class' : 'font-weight-bold' }
-                                               , ver : { header : 'Ver perfil', 'boton' : true ,'classb' : 'btn-ver', 'funcion' : 'ver_e' }
-                                               , editar : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'ver_e' }
-                                               , eliminar : { header : 'Eliminar', 'boton' : true ,'classb' : 'btn-eliminar', 'funcion' : 'eliminar_e' }
+                                   var dis = { 
+                                                 id       : { header    : 'ID',  'class' : 'd-none'}
+                                               , diahechoss : { header : 'Fecha', 'class' : 'font-weight-bold' }
+                                               , horahechoss : { header : 'Hora', 'class' : 'font-weight-bold' }
+                                               , nombres : { header : 'Nombre infractor', 'class' : 'font-weight-bold' }
+                                               , expediente : { header : 'Expediente', 'class' : 'font-weight-bold' }
+                                               , edad :  { header : 'edad', 'class' : 'font-weight-bold' }
+                                               , sexo :  { header : 'sexo', 'class' : 'font-weight-bold' }
+                                               , boleta_remision :  { header : 'boleta', 'class' : 'font-weight-bold' }
+                                               , desestatus :  { header : 'Estatus Expediente', 'class' : 'font-weight-bold' }
+                                               , ver : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'bole_ed' }
                                              }
-                                  armadatagrid(data,dis);
+                                  armadatagrid(data,dis,'dg_boletas',true);
                             } else {
                                   crearMensaje(true,"Atención", ' No se encontraron registros');
                                   return;
@@ -1208,7 +1218,6 @@ $("input[name='tipopersona']:checked").val()
              });
         $("#buscar").trigger("click");
         $('#crearexpediente').on('click', function() {
-             //var id = $(this).data('id');
              window.location = mipath() + 'crearexpediente/';
         });
 
@@ -1590,13 +1599,19 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
 
 
 
-     window.armadatagrid_titulos = function (dis,trp) {
+ /*
+ *              parametro1 =json del armado de columnas
+ *              parametro2 =cuando es una subtabla indica sobre cual renglon pone la nueva tabla
+ *              parametro3 =sobre que nodo se agrega la tabla
+                 */
+
+     window.armadatagrid_titulos = function (dis,trp,quedg) {
          var dg=$('#__sd');
          if (dg[0]!=undefined) {
             var pn=dg[0].parentNode;
             pn.removeChild(dg[0])
          }
-          tr=document.createElement('tr');
+          tr=document.createElement('tr'); /* crea tr para un sub data grid */
           tr.setAttribute('id','__sd');
           tr.setAttribute('data-pnid',trp.id);   /* id del node parent */
           thp=document.createElement('th');
@@ -1606,7 +1621,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
           ta.setAttribute('class','tabla-inmuebles');
           thead=document.createElement('thead');
           tbody=document.createElement('tbody');
-          tbody.setAttribute('id','dg_hija');
+          tbody.setAttribute('id',quedg+'_body');
           trx=document.createElement('tr');
 
           for (var y in dis) {
@@ -1620,12 +1635,18 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
           }
 
           //thead.appendChild(trx);
-          tbody.appendChild(trx);
-          ta.appendChild(thead);
-          ta.appendChild(tbody);
-          thp.appendChild(ta);
-          tr.appendChild(thp);
-          $(tr).insertAfter(trp);
+          thead.appendChild(trx);
+          if (!trp) {
+             var dg=$('#'+quedg); 
+             dg[0].appendChild(thead);
+             dg[0].appendChild(tbody);
+          } else {
+            ta.appendChild(thead);
+            ta.appendChild(tbody);
+            thp.appendChild(ta);
+            tr.appendChild(thp);
+            $(tr).insertAfter(trp);
+          }
           return $(tbody);
      };
      /*
@@ -1638,9 +1659,9 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
      */
      window.armadatagrid = function (regs,dis=null,quedg='dg_autorizacion',titulos=false,ren=false) {
            if (titulos) {
-               dg=armadatagrid_titulos(dis,ren)
+               dg=armadatagrid_titulos(dis,ren,quedg)
            } else {
-             var dg=$('#'+quedg);
+             var dg=$('#'+quedg+" tbody");
              while (dg[0].firstChild) {
                   dg[0].removeChild(dg[0].firstChild);
              }
@@ -1652,10 +1673,12 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                console.log(regs[x]);
                tr=document.createElement('tr');
                tr.setAttribute('id','_'+regs[x].id+'_'+quedg);
+               tr.setAttribute('data-id',regs[x].id);
                dg[0].appendChild(tr)
                campos=regs[x];
                for (var y in dis) {
                     if (campos.hasOwnProperty(y)) {
+                        console.log('va a armar el campo'+y);
                         td=document.createElement('td');
                         p=document.createElement('p');
                         tdCelda = document.createTextNode(campos[y]+' ');
@@ -1678,6 +1701,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                         }
                     } else {
                         if ('boton' in dis[y]) {
+                           console.log('va a armar un boton'+y);
                            td=document.createElement('td');
                            bt=document.createElement('button');
                            bt.setAttribute('type', 'button');
@@ -1739,6 +1763,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                     }
                                 }
 
+/*
                                if (cv==0) {
                                    if (forma.checkValidity()==true) {
                                       $('#v-pills-'+forma.id.replace('f_','')+'-tab').children()[0].classList.remove('d-none')
@@ -1755,6 +1780,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                       $('#v-pills-'+forma.id.replace('f_','')+'-tab').children()[0].classList.remove('d-none')
                                   }
                                }
+*/
      }
 
      window.ver3 = function (ren){
@@ -1802,11 +1828,8 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
 
      }
 
-     window.inmu_ed = function (ren){  /* edita un inmueble */
-          console.log(ren);
-          ides=ren.closest('#__sd').dataset.pnid.split('_')[1];  // id del establecimiento
-          idin=ren.id.split('_')[1];   // id el inmueble
-          location.href = "registrar-establecimiento/"+ides+"/"+idin;
+     window.bole_ed = function (ren){  /* edita un inmueble */
+          location.href = "crearexpediente/"+ren.dataset.id;
      }
 
      window.inmu_ver = function (ren){  /* consulta un inmueble */

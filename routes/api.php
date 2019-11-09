@@ -40,9 +40,9 @@ Route::group(['middleware' => 'auth:web'], function() {
      Route::post('boletas', 'inmueblesController@store');
      Route::post('boletas/{id}', 'boletasController@update');
      Route::put('boletas/{id}', 'boletasController@update');
-     Route::get('inmuebles/{id}', 'inmueblesController@show');
+     Route::get('boletas/{id}', 'boletasController@show');
      Route::get('inmuebles/{rfc}/{email}', 'inmueblesController@showRfcEmailA');
-     Route::get('inmuebles', 'inmueblesController@index');
+     Route::get('boletas', 'boletasController@index');
      Route::delete('inmuebles/{id}', 'inmueblesController@destroy');
      Route::delete('simulacros/{id}', 'simulacrosController@destroy');
      Route::delete('comites/{id}', 'comitesController@destroy');

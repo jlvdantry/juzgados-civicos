@@ -24,12 +24,12 @@ class CreateInfractoresTable extends Migration
             $table->string('curp',18)->nullable()->comment('curp del infractor');
             $table->string('identidad',30)->nullable()->comment('Id del estado de nacimiento');
             $table->date('nacimiento')->nullable()->comment('Fecha de nacimientos');
-            $table->string('calle')->nullable()->comment('Domicilio calle');
-            $table->string('exterior')->nullable()->comment('Domicilio numero exterior');
-            $table->string('interior')->nullable()->comment('Domicilio numero interior');
-            $table->string('colonia')->nullable()->comment('Domicilio colonia');
-            $table->string('id_alcaldia')->nullable()->comment('Domicilio id de la alcaldia');
-            $table->integer('cp')->nullable()->comment('Domicilio codigo postal');
+            $table->string('calle_i')->nullable()->comment('Domicilio calle');
+            $table->string('exterior_i')->nullable()->comment('Domicilio numero exterior');
+            $table->string('interior_i')->nullable()->comment('Domicilio numero interior');
+            $table->string('colonia_i')->nullable()->comment('Domicilio colonia');
+            $table->string('id_alcaldia_i')->nullable()->comment('Domicilio id de la alcaldia');
+            $table->integer('cp_i')->nullable()->comment('Domicilio codigo postal');
             $table->integer('createdby')->nullable()->comment('id del usuario que creo el registro');
             $table->integer('updatedby')->nullable()->comment('id del ultimo usuairo que modifico el registro');
         });
