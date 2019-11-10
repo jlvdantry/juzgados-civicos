@@ -66,14 +66,12 @@ protected $guarded = [];
                                        ',case when coalesce(bole.estatus,0)=0 then \'Capturando\' else \'Capturado\' end desestatus'.
                                        ',coalesce(to_char(bole.diahechos,\'YYYY-MM-DD\'),\'\') diahechosS'.
                                        ',coalesce(to_char(bole.horahechos,\'HH:mm\'),\'\') horahechosS'.
-                                       //',trim(coalesce(calle,\'\')) || \' \' || trim(coalesce(exterior,\'\')) || \' \' || trim(coalesce(interior,\'\')) calle_completa'.
-                                       //',esta.id idesta '.
-                                       ' ,\' \' as nombres '.
-                                       ' ,\' \' as edad '.
-                                       ' ,\' \' as sexo '.
+                                       ',trim(coalesce(nombre_i,\'\')) || \' \' || trim(coalesce(primer_apellido_i,\'\')) || \' \' || trim(coalesce(segundo_apellido_i,\'\')) nombres'.
+                                       ',coalesce(date_part(\'year\',age(nacimiento)),\'0\') edad'.
+                                       ' ,coalesce(infra.sexo,\' \') as sexo '.
                                        ' from boletas bole'.
-                                       //', establecimientos esta '.
-                                       //' where inmu.rfc=esta.rfc '.
+                                       ' left join infractores infra '.
+                                       ' on bole.id=infra.idboleta '.
                                        //' and   inmu.email_acreditado=esta.email_acreditado '.
                                        $fila.$wlfiltro.
                                        ' ) a '.$fil);

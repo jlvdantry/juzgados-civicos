@@ -333,3 +333,25 @@ ul{
   letter-spacing: normal;
   color: #5d5d5d;
 }
+
+.Triangle {
+  width: 12px;
+  height: 8.6px;
+  object-fit: contain;
+//  transform: rotate(-90deg);
+  border-radius: 1px;
+//  background-color: #00b140;
+}
+
+.Infractores-del-expe {
+//  width: 255px;
+  height: 13px;
+  font-family: Gotham;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #00b140;
+}

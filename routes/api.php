@@ -41,6 +41,14 @@ Route::group(['middleware' => 'auth:web'], function() {
      Route::post('boletas/{id}', 'boletasController@update');
      Route::put('boletas/{id}', 'boletasController@update');
      Route::get('boletas/{id}', 'boletasController@show');
+
+     Route::put('infractores/{boleta}', 'infractoresController@store');
+     Route::put('infractores/{boleta}/{id}', 'infractoresController@update');
+     Route::post('infractores/{boleta}/{id}', 'infractoresController@update');
+
+     Route::get('infractores/{boleta}', 'infractoresController@index');
+     Route::get('infractores/{boleta}/{id}', 'infractoresController@show');
+
      Route::get('inmuebles/{rfc}/{email}', 'inmueblesController@showRfcEmailA');
      Route::get('boletas', 'boletasController@index');
      Route::delete('inmuebles/{id}', 'inmueblesController@destroy');

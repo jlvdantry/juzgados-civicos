@@ -194,25 +194,31 @@ $("input[name='tipopersona']:checked").val()
                   var id=this.id;
                   var quediv=$($("#l_" + this.id)[0].closest('div'));
                   var archivo=$("#l_" + this.id)[0].id.split('_')[3];
+                  formi=this.closest('form');
                   var Data1 = {
                         file : this.files[0],
                   };
                   var fd = new FormData();
                   fd.append(this.id,this.files[0]);
-                  fd.append('rfc',$('#rfc')[0].value);
-                  fd.append('email_acreditado',$('#nombre-usuario').data('email'));
-                  fd.append('pantalla',this.closest('form').id);
+                  var formdd = $('form[id="f_boleta"]')[0];
+                  if ('id' in formdd.dataset) {
+                         var idb=formdd.dataset.id;
+                  } else { var idb=''; }
+
+                  //fd.append('rfc',$('#rfc')[0].value);
+                  //fd.append('email_acreditado',$('#nombre-usuario').data('email'));
+                  //fd.append('pantalla',this.closest('form').id);
                     $.ajax({
                        type: 'post',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id,
+                       url: mipath()+'api/infractores/'+formdd.dataset.id+'/'+formi.dataset.id,
                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                        contentType: false,
                        processData: false,
                        cache:       false,
                        data : fd,
                        success: function(data){
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
+                             if (formi.dataset.id=='' && data.id!='') {
+                                 formi.dataset.id=data.id;
                              }
                              $("#l_"+id)[0].innerHTML=nombre;
                              crearBotonDescarga(data.filesystem['filesystem_'+archivo],quediv);
@@ -228,238 +234,22 @@ $("input[name='tipopersona']:checked").val()
                     });
      });
 
-     if ($('form[id="f_simulacros"]')[0]!=undefined && $('form[id="f_simulacros"]')[0].id=='f_simulacros') {
-        var formsi = $('form[id="f_simulacros"]')[0];
-        $("#guardarsimulacro").click(function(e){
-                  e.preventDefault();
-                  if (formsi.checkValidity() === false) {
-                    formsi.classList.add('was-validated');
-                    return;
-                  }
-                  var fd = new FormData();
-                  //fd.append(this.id,this.files[0]);
-                  fd.append('rfc',$('#rfc')[0].value);
-                  fd.append('pantalla',this.closest('form').id);
-                  fd.append('fecha',$('#si_fecha')[0].value);
-                  fd.append('id_tipodesimulacro',$('#id_tipodesimulacro')[0].value);
-                  fd.append('hipotesis',$('#hipotesis')[0].value);
-                  if ($('#s_id_file_0040')[0].files[0]!=undefined) {
-                     fd.append('id_file_0040',$('#s_id_file_0040')[0].files[0]);
-                  }
-                  fd.append('email_acreditado',$('#nombre-usuario').data('email'));
-
-
-                    $.ajax({
-                       type: 'post',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id+'?simulacros',
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       contentType: false,
-                       processData: false,
-                       cache:       false,
-                       data : fd,
-                       success: function(data){
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
-                             }
-                             armagridhorizontal($('form[id="f_simulacros"]')[0],jsonf,data[0]);
-                             crearMensaje(false,"Atención", ' Se agregó un simulacro');
-                             $('#l_s_id_file_0040')[0].innerHTML='Selecciona un archivo PDF';
-                             validasimulacros();
-                             formsi.reset();
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error: ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-     }
-
-     if ($('form[id="f_comitei"]')[0]!=undefined && $('form[id="f_comitei"]')[0].id=='f_comitei') {
-        var formco = $('form[id="f_comitei"]')[0];
-        $("#ci_curp").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
-        $("#guardarpuesto").click(function(e){
-                  e.preventDefault();
-                  if (formco.checkValidity() === false) {
-                    formco.classList.add('was-validated');
-                    return;
-                  }
-                  if ($('#s_id_file_0041')[0].files.length==0) {
-                     crearMensaje(false,"Atención", ' Falta anexar el documento que avala la constancia de capacitación');
-                     $('#s_id_file_0041')[0].focus();
-                  }
-                  var fd = new FormData();
-                  //fd.append(this.id,this.files[0]);
-                  fd.append('rfc',$('#rfc')[0].value);
-                  fd.append('pantalla',this.closest('form').id);
-                  fd.append('nombres',$('#ci_nombres')[0].value);
-                  fd.append('id_figuras',$('#id_figuras')[0].value);
-                  fd.append('ape_pat',$('#ci_ape_pat')[0].value);
-                  fd.append('ape_mat',$('#ci_ape_mat')[0].value);
-                  fd.append('cargo',$('#ci_cargo')[0].value);
-                  fd.append('curp',$('#ci_curp')[0].value);
-                  fd.append('id_file_0041',$('#s_id_file_0041')[0].files[0]);
-                  fd.append('email_acreditado',$('#nombre-usuario').data('email'));
-
-
-                    $.ajax({
-                       type: 'post',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id+'?comites',
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       contentType: false,
-                       processData: false,
-                       cache:       false,
-                       data : fd,
-                       success: function(data){
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
-                             }
-                             armagridhorizontal($('form[id="f_comitei"]')[0],jsonp,data[0]);
-                             crearMensaje(false,"Atención", ' Se agregó un puesto en el comite interno');
-                             valor=$('#id_figuras')[0].value;
-                             marcapuesto(valor);
-                             if ($("#id_figuras option[value='"+valor+"']")[0].dataset.unapersona==1) {
-                                $("#id_figuras option[value='"+valor+"']").remove();
-                             }
-                             $('#l_s_id_file_0041')[0].innerHTML='Selecciona un archivo PDF';
-                             formco.reset();
-                            
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-     }
-
-
-     if ($('form[id="f_punto"]')[0]!=undefined && $('form[id="f_punto"]')[0].id=='f_punto') {
-        var formpr = $('form[id="f_punto"]')[0];
-        $('form[id="f_punto"] :input').on('change', function(e) {
-             cambia_dato(e);
-        });
-
-        $("#guardarpunto").click(function(e){
-                  e.preventDefault();
-                  if (formpr.checkValidity() === false) {
-                    formpr.classList.add('was-validated');
-                    return;
-                  }
-                  var Data1 = {
-                        pr_ubicacion : $('#wl_pr_ubicacion')[0].value,
-                        pr_tipo : $("input[name='wl_pr_tipo']:checked").val(),
-                        pr_otro : $('#wl_pr_otro')[0].value,
-                        pr_m2_superficie : $('#wl_pr_m2_superficie')[0].value,
-                        pr_capacidad : $('#wl_pr_capacidad')[0].value,
-                        lat_pr : $('#lat_pr')[0].value,
-                        long_pr : $('#long_pr')[0].value,
-                        rfc : $('#rfc')[0].value,
-                        pantalla : formpr.id,
-                        email_acreditado : $('#nombre-usuario').data('email')
-                    };
-
-
-                    $.ajax({
-                       type: 'put',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id+'?puntosdereunion',
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       data: Data1,
-                       success: function(data){
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
-                             }
-                             armagridhorizontal($('form[id="f_punto"]')[0],jsonpunto,data[0]);
-                             crearMensaje(false,"Atención", ' Se agregó un punto de reunión');
-                             validapuntos();
-                             formpr.reset();
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-     }
-
-     if ($('form[id="f_construccion"]')[0]!=undefined && $('form[id="f_construccion"]')[0].id=='f_construccion') {
-        var formc = $('form[id="f_construccion"]')[0];
-        $('form[id="f_construccion"] :input').on('blur', function(e) {
-             cambia_dato(e);
-        });
-
-        $("#guardarconstruccion").click(function(e){
-                  e.preventDefault();
-                  if (formc.checkValidity() === false) {
-                    formc.classList.add('was-validated');
-                    return;
-                  }
-                  var Data1 = {
-                        id_zonageotecnica : $('#wl_id_zonageotecnica')[0].value,
-                        id_tipodeconstruccion : $('#wl_id_tipodeconstruccion')[0].value,
-                        id_tipodecimentacion : $('#wl_id_tipodecimentacion')[0].value,
-                        id_tipodeestructura : $('#wl_id_tipodeestructura')[0].value,
-                        /* id_tipodeloza : $('#wl_id_tipodeloza')[0].value, */
-                        cambioestructura : $("input[name='wl_cambioestructura']:checked").val(),
-                        fechadelcambio : $('#wl_fechadelcambio')[0].value,
-                        rfc : $('#rfc')[0].value,
-                        pantalla : formc.id,
-                        email_acreditado : $('#nombre-usuario').data('email'),
-                        ce_maco : $('#ce_maco')[0].value,
-                        ce_anocons : $('#ce_anocons')[0].value,
-                        ce_niveles_totales : $('#ce_niveles_totales')[0].value,
-                        ce_in_hidrosanitarias : $('#ce_in_hidrosanitarias')[0].value,
-                        ce_in_electricas : $('#ce_in_electricas')[0].value,
-                        ce_in_especiales : $('#ce_in_especiales')[0].value,
-                        ce_elevadores : $('#ce_elevadores')[0].value,
-                        ce_crsp : $("input[name='ce_crsp']:checked").val(),
-                        ce_matt : $("input[name='ce_matt']:checked").val()
-                    };
-
-                    $.ajax({
-                       type: 'put',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id,
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       data: Data1,
-                       success: function(data){
-                             $('#v-pills-construccion')[0].classList.remove('active');
-                             $('#v-pills-construccion')[0].classList.remove('show')
-                             $('#v-pills-construccion-tab')[0].classList.remove('active');
-                             $('#v-pills-construccion-tab').children()[0].classList.remove('d-none'); 
-                             $('#v-pills-punto')[0].classList.add('active');
-                             $('#v-pills-punto')[0].classList.add('show')
-                             $('#v-pills-punto-tab')[0].classList.add('active')
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
-                             }
-                             crearMensaje(false,"Atención", ' Se actualizó información de construcción y estructura');
-                             $("#f_punto :input:not([readonly='readonly']):not([disabled='disabled'])").first().focus()
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-     }
-
      if ($('form[id="f_motivo"]')[0]!=undefined && $('form[id="f_motivo"]')[0].id=='f_motivo') {
         var formi = $('form[id="f_motivo"]')[0];
         $('form[id="f_motivo"] :input').on('change', function(e) {
              cambia_dato(e);
         });
+     }
+
+     if ($('form[id="f_infractores"]')[0]!=undefined && $('form[id="f_infractores"]')[0].id=='f_infractores') {
+        var formb = $('form[id="f_infractores"]')[0];
+        $('form[id="f_infractores"] :input').on('change', function(e) {
+             cambia_dato_infra(e);
+        });
+
+        $("#nombre_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#primer_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#segundo_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
      }
 
      if ($('form[id="f_boleta"]')[0]!=undefined && $('form[id="f_boleta"]')[0].id=='f_boleta') {
@@ -477,6 +267,7 @@ $("input[name='tipopersona']:checked").val()
         $("#segundo_apellido_2").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
  
         if (window.location.href.split('/').length==6) {    /*  muestra una boleta */
+           if (window.location.href.split('/')[5]!='') {
                   var Data1 = {
                     };
 
@@ -503,31 +294,67 @@ $("input[name='tipopersona']:checked").val()
                                  }
                        }
                   });
+           }
         }
 
 
+        $("div[name='agregarinfractor']").click(function(e){
+            var formi = $('form[id="f_infractores"]')[0]; 
+            formi.dataset.id="" ;
+            formi.reset();
+            $('#nombre_i').focus();
+            $('#c_infractor').addClass("active")
+            $('#c_infractor').addClass("show")
+            $('#c_infractores').removeClass("active")
+            $('#c_infractores').removeClass("show")
+        });
+
+        $("#mostrarinfractores").click(function(e){
+            $('#infractores').trigger("click"); 
+        });
+
         $("#infractores").click(function(e){
              e.preventDefault();
+             var formdd = $('form[id="f_boleta"]')[0];
+             if ('id' in formdd.dataset) {
+                         var id=formdd.dataset.id;
+             } else { var id=''; }
+
+             if (id=='') {
+                 crearMensaje(true,"Atención", 'Primero tiene que registrar una boleta');
+                 return;
+             }
              var Data1 = {
                  };
                   $.ajax({
                             type: 'get',
-                            url: mipath()+'api/infractores/0/'+window.location.href.split('/')[5],
+                            url: mipath()+'api/infractores/'+id,
                             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                             data: Data1,
                             success: function(data){
-                            if (data.length>0) {
+                            if (data.length>1) {
                                    var dis = {
                                                  id       : { header    : 'ID',  'class' : 'd-none'}
-                                               , nombres : { header : 'Nombre infractor', 'class' : 'font-weight-bold' }
-                                               , edad :  { header : 'edad', 'class' : 'font-weight-bold' }
-                                               , desestatus :  { header : 'Estatus Expediente', 'class' : 'font-weight-bold' }
-                                               , desentidad :  { header : 'Estatus Expediente', 'class' : 'font-weight-bold' }
-                                               , ver : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'bole_ed' }
+                                               , nombre_completo : { header : 'Nombre infractor', 'class' : 'font-weight-bold' }
+                                               , edad :  { header : 'Edad', 'class' : 'font-weight-bold' }
+                                               , sexon :  { header : 'Sexo', 'class' : 'font-weight-bold' }
+                                               , desentidad :  { header : 'Lugar de nacimiento', 'class' : 'font-weight-bold' }
+                                               , ver : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'infra_ed' }
                                              }
                                   armadatagrid(data,dis,'dg_infractores',true);
+                                  var formi = $('form[id="f_infractores"]')[0];
+                                  formi.dataset.id="" ;
+                                  formi.reset();
                             } else {
-                                  crearMensaje(true,"Atención", ' No se encontraron infractores');
+                                  $('#c_infractor').addClass("active")
+                                  $('#c_infractor').addClass("show")
+                                  $('#c_infractores').removeClass("active")
+                                  $('#c_infractores').removeClass("show")
+                                  if (data.length==1) {
+                                     var formi = $('form[id="f_infractores"]')[0];
+                                     formi.dataset.id=data[0].id;
+                                     muestradatos($('form[id="f_infractores"]')[0],data[0]);
+                                  }
                                   return;
                             }
                          },
@@ -1638,6 +1465,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
           thead.appendChild(trx);
           if (!trp) {
              var dg=$('#'+quedg); 
+             dg.empty();
              dg[0].appendChild(thead);
              dg[0].appendChild(tbody);
           } else {
@@ -1669,10 +1497,12 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
            var tr='';
            var td='';
            var campos='';
+           var rx=0;
            for (var x in regs) {  /* arma los renglones detalle del datagrid */
+               rx+=1;
                console.log(regs[x]);
                tr=document.createElement('tr');
-               tr.setAttribute('id','_'+regs[x].id+'_'+quedg);
+               tr.setAttribute('id','_'+regs[x].id+'_'+quedg+'_'+rx);
                tr.setAttribute('data-id',regs[x].id);
                dg[0].appendChild(tr)
                campos=regs[x];
@@ -1830,6 +1660,35 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
 
      window.bole_ed = function (ren){  /* edita un inmueble */
           location.href = "crearexpediente/"+ren.dataset.id;
+     }
+
+     window.infra_ed = function (ren){  /* edita un inmueble */
+             var Data1 = {
+                 };
+                  $.ajax({
+                            type: 'get',
+                            url: mipath()+'api/infractores/0/'+ren.dataset.id,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data: Data1,
+                            success: function(data){
+                                     var formi = $('form[id="f_infractores"]')[0];
+                                     formi.dataset.id=data[0].id;
+                                     muestradatos($('form[id="f_infractores"]')[0],data[0]);
+                                     $('#nombre_i').focus();
+                                     $('#c_infractor').addClass("active")
+                                     $('#c_infractor').addClass("show")
+                                     $('#c_infractores').removeClass("active")
+                                     $('#c_infractores').removeClass("show")
+                            },
+                            error: function( jqXhr, textStatus, errorThrown ){
+                                  var errores=jqXhr.responseJSON.errors;
+                                  for (var x in errores) {
+                                        crearMensaje(true,"Error ", errores[x]);
+                                        break;
+                                  }
+                            }
+                  });
+
      }
 
      window.inmu_ver = function (ren){  /* consulta un inmueble */
@@ -2034,10 +1893,6 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                   }
                   var Data1 = {};
                         Data1[quedato] = e.currentTarget.value;
-                        //Data1['rfc'] = $('#rfc')[0].value;
-                        //Data1['pantalla'] = e.currentTarget.closest('form').id;
-                        //Data1['email_acreditado'] = $('#nombre-usuario').data('email');
-
                     $.ajax({
                        type: 'put',
                        url:  mipath()+'api/boletas/'+id,
@@ -2046,6 +1901,49 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                        success: function(data){
                              if (formdd.dataset.id=='' && data.id!='') {
                                  formdd.dataset.id=data.id;
+                             }
+                       },
+                       error: function( jqXhr, textStatus, errorThrown ){
+                          quedato1.value=quedato1.defaultValue;
+                          var errores=jqXhr.responseJSON.errors;
+                          for (var x in errores) {
+                                     crearMensaje(true,"Error ", errores[x]);
+                                     quedato1.focus();
+                                     break;
+                          }
+                       }
+                    });
+   }
+
+   window.cambia_dato_infra = function (e) {
+                  var formdd = $('form[id="f_boleta"]')[0];
+                  if ('id' in formdd.dataset) {
+                         var id=formdd.dataset.id;
+                  } 
+                  if (id=="") { 
+                    crearMensaje(true,"Error ", "El primer dato que debe de registrar es el número de boleta");
+                    return;
+                  }
+                 
+                  var formi = $('form[id="f_infractores"]')[0];
+                  if ('id' in formi.dataset) {
+                         var id_i=formi.dataset.id;
+                  } else { var id_i=''; }
+                  quedato=e.currentTarget.id.replace('wl_','');
+                  quedato1=e.currentTarget;
+                  if (e.currentTarget.type=='radio') {
+                     quedato=e.currentTarget.name.replace('wl_','');
+                  }
+                  var Data1 = {};
+                        Data1[quedato] = e.currentTarget.value;
+                    $.ajax({
+                       type: 'put',
+                       url:  mipath()+'api/infractores/'+id+'/'+id_i,
+                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                       data: Data1,
+                       success: function(data){
+                             if (formi.dataset.id=='' && data.id!='') {
+                                 formi.dataset.id=data.id;
                              }
                        },
                        error: function( jqXhr, textStatus, errorThrown ){

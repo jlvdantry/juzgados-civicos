@@ -115,11 +115,3 @@ $(document).ready(function() {
         }
     });
 
-
-function ComboAno(){
-   var n = (new Date()).getFullYear()
-   var select = document.getElementById("ce_anocons");
-   select.options.add(new Option('Sin datos',0));
-   for(var i = n; i>=1900; i--)select.options.add(new Option(i,i));
-};
-window.onload = ComboAno;

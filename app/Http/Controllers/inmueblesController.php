@@ -77,50 +77,38 @@ class inmueblesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$boleta)
     {
 
-      Log::debug('InmueblesControler store request='.print_r($request->rfc,true));
-      $filtro= [ 'rfc' => $request->get('rfc'), 'email_acreditado' => $request->get('email_acreditado') ];
-      $datose = Establecimientos::where($filtro);
-      if ($datose->count()==0) {
-                return response()->json([ 'errors' => ['rfc' => 'No existe un establecimiento con el rfc "'.$request->get('rfc').'" para el acreditado con el email '.$request->get('email_acreditado')]],428);
-      }
-
-      if (!$request->has('alias')) {
-                return response()->json([ 'errors' => ['alias' => 'Debe de teclear el alias del inmueble para identificarlo ']],428);
-      }
-      if ($request->has('alias')=="") {
-                return response()->json([ 'errors' => ['alias' => 'Debe de teclear el alias del inmueble para identificarlo ']],429);
-      }
-
-      $inmu=Inmuebles::where(     ['alias' => $request->alias],
-                                  ['rfc'   => $request->rfc],
-                                  ['email_acreditado' => $request->email_acreditado]
-                          )->get();
-      if ($inmu->count()>0) {
-            return response()->json([ 'errors' => ['alias' => 'Ya existe un inmueble con el alias <b>'.$request->alias]],429);
+      if ($boleta=='' || $boleta==0) {
+                return response()->json([ 'errors' => ['boleta_remision' => 'Debe de teclear primer el numero de boleta ']],428);
       }
 
 
 
-      $dato = new Inmuebles(
+      $inmu=Boletas::where(['boleta_remision' => $boleta])->get();
+      if ($inmu->count()==0) {
+            return response()->json([ 'errors' => ['boleta_remision' => 'El número de boleta <b>'.$boleta.' no existe']],429);
+      }
+
+      if (!$request->has('nombre_i')) {
+                return response()->json([ 'errors' => ['nombre_i' => 'El primer dato que debe teclear es el nombre']],428);
+      }
+      $dato = new Infractores(
          [
-        'rfc' => $request->get('rfc'),
-        'email_acreditado' => $request->get('email_acreditado'),
+        'nombre_i' => $request->get('nombre_i'),
       ]
-         );
+
+
         try {
             $dato->save();
-            //Log::debug('InmueblesControler dato='.print_r($dato,true));
-            return $this->update($request,$dato['id']);  /* despues de queda de alta el inmueble dentro del rfc lo actualiza */
+            return response()->json($dato);  /* despues de queda de alta el inmueble dentro del rfc lo actualiza */
         } catch (\Exception $e) {
             Log::debug('InmueblesControler storage='.$e->getMessage());
             return response()->json($e->getMessage(),400);
         };
 
     }
-
     /**
      * Display the specified resource.
      *

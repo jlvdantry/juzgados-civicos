@@ -96,7 +96,7 @@ class boletasController extends Controller
     public function show($id)
     {
                $filtro = [];
-               array_push($filtro,['id','=',$id]);
+               array_push($filtro,['bole.id','=',$id]);
                $datos = Boletas::getConcatalogosConLimite(\Auth::user(),$filtro);
                if (count($datos)>0) {
                        return response()->json($datos,200);
@@ -158,7 +158,7 @@ class boletasController extends Controller
             return response()->json([ 'errors' => ['id' => 'La identificación de la boleta no existe']],429);
       }
       if ($inmu[0]->estatus==1) {
-            return response()->json([ 'errors' => ['id' => 'No se puede modificar el inmueble que tiene estatus de <b>capturado']],430);
+            return response()->json([ 'errors' => ['id' => 'No se puede modificar la boleta que tiene estatus de <b>capturado']],430);
       }
 
       if ($request->has('estatus')) {
