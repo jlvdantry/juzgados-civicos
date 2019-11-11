@@ -323,6 +323,7 @@
                   </div>
 
               <form id="f_infractores" data-id=''>
+      <div class="datopersonales">
         <div class="Policias-remitentes mt-3">Datos personales</div>
         <div class="row  mb-1">
           <div class="col-md-4" id="nom">
@@ -469,8 +470,9 @@
             </div>
           </div>
         </div>
+      </div> <!-- fin datos personales -->
 
-
+      <div id="infraccionysancion">
         <div class="Policias-remitentes mt-3">Infracción y sanción</div>
         <div class="row  mb-2">
                   <div class="col-md-6 mb-3">
@@ -552,15 +554,16 @@
                     </div>
                   </div>
         </div>
+      </div> <!-- fin de infraccionysancion -->
+
                   <div class=" col-md-12 mb-3  mr-0 pr-0 d-flex justify-content-end align-items-end">
                     <div name='agregarinfractor'>
                         <label class="Crear-expediente mb-0 py-2" name="button" >Agregar infractor</label>
                         <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
                   </div>
-
               </form>
-            </div> <!-- Finaliza tab-Panel Información inmueble-->
+            </div> <!-- Finaliza tab-Panel c_infractor -->
 
           </div> <!-- Cierra tabContent -->
         </div> <!-- Cerrar columna derecha -->
