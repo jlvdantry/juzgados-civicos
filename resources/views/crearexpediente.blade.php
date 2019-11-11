@@ -4,7 +4,7 @@
   <main>
     <section class="container ">
       <div class="row d-flex flex-nowrap seccion" >
-           <div class="col-lg-10 Nuevo-expediente"><span id="des_expediente"></span> <span id="des_inmueble">Nuevo expediente</span></div>
+           <div class="col-lg-10 Nuevo-expediente"></span> <span id="des_expediente">Nuevo expediente</span></div>
            <div class="col-lg-2 Campos-obligatorios d-flex justify-content-end">*Campos obligatorios</div>
       </div>
 
@@ -43,12 +43,14 @@
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
+{{--
                   <div class="row col-md-4 mb-3  d-flex justify-content-end align-items-end">
                     <div id='crearexpediente'>
                         <label class="Crear-expediente mb-0 py-2" name="button" id="AgregarOtraBoleta">Agregar otra boleta</label>
                         <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
                   </div>
+--}}
         </div>
         <div class="Policias-remitentes mb-3">Policias remitentes</div>
         <div class="Policia-remitente">Policia remitente 01</div>
@@ -196,7 +198,7 @@
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label-custom" for="diahechos">*Fecha en que ocurrieron los hechos</label>
-                    <input type="date" name="diahechos" id="diahechos" class="form-control form-control-custom street-names" maxlength="12" value="" placeholder="dd/mm/aaaa" required>
+                    <input type="date" name="diahechos" id="diahechos" class="form-control form-control-custom street-names" maxlength="12" value="{{ date('Y-m-d') }}" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
@@ -204,7 +206,7 @@
 
                   <div class="col-md-6 mb-3">
                     <label class="form-label-custom" for="horahechos">*Hora en que ocurrieron los hechos</label>
-                    <input type="text" name="horahechos" id="horahechos" class="form-control form-control-custom street-names" maxlength="5" value="" placeholder="00:00" required>
+                    <input type="text" name="horahechos" id="horahechos" class="form-control form-control-custom" maxlength="5" value="" placeholder="00:00" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
@@ -302,7 +304,7 @@
                 <table id="dg_infractores" class="tabla seccion mt-0">
                 </table>
                   <div class="row col-md-12 mb-3  d-flex justify-content-end align-items-end">
-                    <div id='agregarinfractor'>
+                    <div name='agregarinfractor'>
                         <label class="Crear-expediente mb-0 py-2" name="button" >Agregar infractor</label>
                         <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
@@ -454,16 +456,101 @@
 
                 </div>
 
-        <div class="row  mb-2">
-          <div class="col-md-6" id="nom">
+        <div class="row  mb-5">
+          <div class="row col-md-6 ml-0" id="nom">
             <legend class="form-label-custom mb-1" for="id_file_0001" >Fotografía:</legend>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="id_file_0001" maxlength="30" placeholder="Selecciona un archivo JPG o PNG" >
+            <div class=" d-flex flex-nowrap">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="id_file_0001"  id="id_file_0001" maxlength="30" placeholder="Selecciona un archivo JPG o PNG" >
                 <label class="custom-file-label" for="l_id_file_0001">
                               <p class="texto" id="l_id_file_0001">Selecciona un archivo PDF</p>
                 </label>
+              </div>
             </div>
           </div>
+        </div>
+
+
+        <div class="Policias-remitentes mt-3">Infracción y sanción</div>
+        <div class="row  mb-2">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="idinfraccion">Infraccion:</label>
+                    <select class="form-control form-control-custom" id="idinfraccion" name="idinfraccion" required>
+                      <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['infracciones'] as $infraccion)
+                      <option 
+                             data-infraccion="{{ $infraccion['infraccion'] }}" 
+                             data-descripcion="{{ $infraccion['descripcion'] }}" 
+                             data-conciliacion="{{ $infraccion['conciliacion'] }}" 
+                             data-aplicarsi="{{ $infraccion['aplicari'] }}" 
+                             data-tipo_sancion="{{ $infraccion['tipo_sancion'] }}" 
+                           value="{{ $infraccion['id'] }}">{{ 'Articulo '.$infraccion->articulo.' Fraccion '.$infraccion->fraccion }}</option>
+                      @endforeach
+                    </select>
+                    <div class="invalid-feedback">
+                      Selecciona una opción
+                    </div>
+                  </div>
+        </div>
+        <div class="row d-none" id="textos" >
+             <div class="col-md-12  mb-0">
+                 <label class="Crear-expediente mb-0 py-2" name="button" id="l_infraccion" ></label>
+             </div>
+             <div class="col-md-12  mb-2">
+                 <label class="II-Poseer-animales mb-0 py-2" name="button" id="l_descripcion" ></label>
+             </div>
+             <div class="col-md-12 mb-0">
+                 <label class="Crear-expediente mb-0 py-2" name="button"  >Conciliación</label>
+             </div>
+             <div class="col-md-12  mb-2">
+                 <label class="II-Poseer-animales mb-0 py-2" name="button" id='l_conciliacion' >No aplica</label>
+             </div>
+             <div class="col-md-12  mb-0">
+                 <label class="Crear-expediente mb-0 py-2" name="button"  >Aplica si</label>
+             </div>
+             <div class="col-md-12  mb-2">
+                 <label class="II-Poseer-animales mb-0 py-2" name="button" id='l_aplicarsi' >No aplica</label>
+             </div>
+             <div class="col-md-12  mb-2">
+                 <label class="Crear-expediente mb-0 py-2" name="button"  id='l_tipo_sancion'></label>
+             </div>
+             <div class="col-md-12  mb-0">
+                 <label class="Crear-expediente mb-0 py-2" name="button"  id='l_tipo_sancion'>*Tipo de sanción</label>
+             </div>
+             <div class="col-md-12  mb-2">
+               <div class="form-check-inline col-md-12">
+                <input class="form-check-input" type="radio" name="tiposancion" id="uc" value="2" required="">
+                <label class="form-check-label label-custom-check" for="uc">
+                                        Unidad de cuenta 
+                </label>
+               </div>
+               <div class="form-check-inline col-md-12">
+                <input class="form-check-input" type="radio" name="tiposancion" id="hs" value="3"  required="">
+                <label class="form-check-label label-custom-check" for="hs">
+                                        Horas de servicio comunitario
+                </label>
+               </div>
+               <div class="form-check-inline col-md-12">
+                <input class="form-check-input" type="radio" name="tiposancion" id="ha" value="4"  required="">
+                <label class="form-check-label label-custom-check" for="ha">
+                                        Horas de arresto
+                </label>
+               </div>
+             </div>
+                  <div class="col-md-9 mb-3">
+                    <label class="form-label-custom" for="sancionaplicada">Sanción:</label>
+                    <input autofocus type="number" name=""sancionaplicada"" id="sancionaplicada" class="form-control form-control-custom street-names" maxlength="2" value="" placeholder="Escribe la sanción a aplicar de acuerdo al rango del tipo de sanción" autofocus required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label-custom" for="observaciones">Observaciones:</label>
+                    <textarea autofocus name=""sancionaplicada"" id="observaciones" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe una observacion a la sanción aplicada" autofocus required></textarea>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
         </div>
                   <div class=" col-md-12 mb-3  mr-0 pr-0 d-flex justify-content-end align-items-end">
                     <div name='agregarinfractor'>
@@ -474,585 +561,6 @@
 
               </form>
             </div> <!-- Finaliza tab-Panel Información inmueble-->
-
-
-
-
-            <!-- Plan de contingencias-->
-
-            <div class="tab-pane fade" id="v-pills-contingencias" role="tabpanel" aria-labelledby="v-pills-contingencias-tab">
-              <form id="f_contingencias" >
-                <div  class="row mx-1" >
-                <legend class="form-label-custom mb-0">Plan de contingencias* (PDF)</legend>
-                  <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0003" id="id_file_0003" lang="es" accept=".pdf" autofocus >
-                  <label class="custom-file-label" for="seleccionar_archivo05">
-                    <p class="texto" id="l_id_file_0003">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Seleccione un archivo
-                  </div>
-                </div>
-                </div>
-
-
-                <legend class="form-label-custom mt-4 mx-1">Procedimientos contemplados en el documento*</legend>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <div class="formulario-checkbox">
-                      <input type="checkbox" name="pcd" id="pcd_sismo" value="1" required>
-                      <label for="pcd_sismo">Sismo</label>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <div class="formulario-checkbox">
-                      <input type="checkbox" name="pcd" id="pcd_incendio" value="1" required>
-                      <label for="pcd_incendio">Incendio</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <div class="formulario-checkbox">
-                      <input type="checkbox" name="pcd" id="pcd_inundacion" value="1" required>
-                      <label for="pcd_inundacion">Inundación</label>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <div class="formulario-checkbox">
-                      <input type="checkbox" name="pcd" id="pcd_erupcion" value="1" required>
-                      <label for="pcd_erupcion">Caída de cenizas (erupción volcánica)</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <div class="formulario-checkbox">
-                      <input type="checkbox" name="pcd" id="pcd_amenazabomba" value="1" required>
-                      <label for="pcd_amenazabomba">Amenaza de bomba</label>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <div class="formulario-checkbox">
-                      <input type="checkbox" name="pcd" id="pcd_restablecimiento" value="1" required>
-                      <label for="pcd_restablecimiento">Restablecimiento</label>
-                      <div class="invalid-feedback">
-                        Selecciona una opción
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="guardaContigencia" id="guardarcontingencia" data-siguiente="continuidad" data-posicion="contingencias" >Guardar y seguir editando</button>
-                </div>
-              </form>
-            </div>
-
-            <!-- Plan de continuidad de operaciones -->
-
-            <div class="tab-pane fade" id="v-pills-continuidad" role="tabpanel" aria-labelledby="v-pills-continuidad-tab">
-              <form id='f_continuidad'>
-                <div class="row mx-1">
-                <legend class="form-label-custom mb-0">Plan de continuidad de operaciones* (PDF)</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0004" id="id_file_0004" lang="es" accept=".pdf" accept=".pdf"autofocus >
-                  <label class="custom-file-label" for="id_file_0004">
-                    <p class="texto" id="l_id_file_0004">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="guardar_seguir" data-siguiente="documentos" id="guardar_seguir" data-posicion="continuidad" >Guardar y seguir editando</button>
-                </div>
-              </form>
-            </div>
-
-            <!-- Documentos anexos -->
-
-            <div class="tab-pane fade" id="v-pills-documentos" role="tabpanel" aria-labelledby="v-pills-documentos-tab">
-              <form class="subtitulos-formulario" id='f_documentos' >
-                <div class="row mx-1">
-                <legend class="form-label-custom mb-0">Carta de Corresponsabilidad del Tercero Acreditado (Vigencia mínima 2 años)*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0005" id="id_file_0005" lang="es" accept=".pdf" autofocus >
-                  <label class="custom-file-label" for="id_file_0005">
-                    <p class="texto" id="l_id_file_0005">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Carta de Responsabilidad expedida por el obligado*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0006" id="id_file_0006" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0006">
-                    <p class="texto" id="l_id_file_0006">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Copia de Póliza de Seguro*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0007" id="id_file_0007" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0007">
-                    <p class="texto" id="l_id_file_0007">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-
-                <div class="row mx-1">
-                <h2>Dictámenes sobre las condiciones en las que se encuentra el inmueble</h2>
-                <legend class="form-label-custom mb-0">Dictamen de Seguridad Estructural firmado por un D.R.O. debidamente acreditado y con registro ante la Secretaria de Desarrollo Urbano y Vivienda y visto bueno de seguridad y operación*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0009" id="id_file_0009" accept=".pdf" lang="es" autofocus>
-                  <label class="custom-file-label" for="id_file_0009">
-                    <p class="texto" id="l_id_file_0009">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Oficio de no modificación o cambios estructurales, firmado por el administrador o poseedor del inmueble*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0010" id="id_file_0010" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0010">
-                    <p class="texto" id="l_id_file_0010">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Dictamen de instalación de gas LP o natural firmado por una unidad verificadora avalada y con registro en la SENER*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0011" id="id_file_0011" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0011">
-                    <p class="texto" id="l_id_file_0011">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <!-- <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Prueba de presión en equipo hidrantes, firmada por la empresa que realice los trabajos.*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0012" id="id_file_0012" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0012">
-                    <p class="texto" id="l_id_file_0012">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div> -->
-
-
-
-                <div class="row mx-1">
-                <h2>Cartas sobre las condiciones en las que se encuentra la infraestructura del inmueble para la atención de emergencias.</h2>
-                <legend class="form-label-custom mb-0">Carta bajo protesta de decir verdad indicando las características del Equipo de Alerta, Prevención y Combate de Incendios, firmada por el administrador o poseedor del inmueble*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0013" id="id_file_0013" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0013">
-                    <p class="texto" id="l_id_file_0013">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Carta bajo protesta de decir verdad indicando las características del Equipo de Primeros Auxilios firmada por el administrador o poseedor del inmueble*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0014" id="id_file_0014" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0014">
-                    <p class="texto" id="l_id_file_0014">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Carta responsiva del sistema de alertamiento sísmico que reciba la señal oficial del Gobierno de la Ciudad de México, aprobado por la Secretaría conforme a la Norma Técnica correspondiente.*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0015" id="id_file_0015" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0015">
-                    <p class="texto" id="l_id_file_0015">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <h2>Documentos generados por el Comité Interno de Protección Civil</h2>
-                <legend class="form-label-custom mb-0">Acta Constitutiva de la Integración del Comité Interno actualizado*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0037" id="id_file_0037" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0037">
-                    <p class="texto" id="l_id_file_0037">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Organigrama del Comité Interno de Protección Civil*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0016" id="id_file_0016" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0016">
-                    <p class="texto" id="l_id_file_0016">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Calendario de Capacitación*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0017" id="id_file_0017" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0017">
-                    <p class="texto" id="l_id_file_0017">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Bitácoras del Programa de Capacitación*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0018" id="id_file_0018" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0018">
-                    <p class="texto" id="l_id_file_0018">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Cronograma y bitácora de simulacros*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0019" id="id_file_0019" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0019">
-                    <p class="texto" id="l_id_file_0019">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-
-                <div class="row mx-1">
-                <h2>Documentos que avalan el mantenimiento del Inmueble y de la Infraestructura para la atención de las emergencias</h2>
-                <legend class="form-label-custom mb-0">Programa Anual de Mantenimiento a las Instalaciones (Eléctricas, gas L.P, sistemas fjos, etc.)*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0038" id="id_file_0038" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0038">
-                    <p class="texto" id="l_id_file_0038">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                  <legend class="form-label-custom mt-3 mb-0">Organigrama del Comité Interno de Protección Civil*</legend>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="id_file_0020" id="id_file_0020" accept=".pdf" lang="es" autofocus >
-                    <label class="custom-file-label" for="id_file_0020">
-                      <p class="texto" id="l_id_file_0020">Selecciona un archivo PDF</p>
-                    </label>
-                    <div class="invalid-feedback mt-3">
-                      Selecciona un archivo PDF
-                    </div>
-                  </div>
-                  </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Calendario de Capacitación*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0021" id="id_file_0021" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0021">
-                    <p class="texto" id="l_id_file_0021">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Bitácoras del Programa de Capacitación*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0022" id="id_file_0022" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0022">
-                    <p class="texto" id="l_id_file_0022">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Cronograma y bitácora de simulacros*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0023" id="id_file_0023" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0023">
-                    <p class="texto" id="l_id_file_0023">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <h2>Croquis del inmueble completos</h2>
-                <legend class="form-label-custom mb-0">Carta responsiva de extintores*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0039" id="id_file_0039" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0039">
-                    <p class="texto" id="l_id_file_0039">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                  <legend class="form-label-custom mt-3 mb-0">Croquis de la ubicación del inmueble y sus alrededores*</legend>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="id_file_0024" id="id_file_0024" accept=".pdf" lang="es" autofocus >
-                    <label class="custom-file-label" for="id_file_0024">
-                      <p class="texto" id="l_id_file_0024">Selecciona un archivo PDF</p>
-                    </label>
-                    <div class="invalid-feedback mt-3">
-                      Selecciona un archivo PDF
-                    </div>
-                  </div>
-                  </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis general del centro de trabajo*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0025" id="id_file_0025" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0025">
-                    <p class="texto" id="l_id_file_0025">Selecciona un archivo PDF</p>
-
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de distribución de áreas*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0026" id="id_file_0026" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0026">
-                    <p class="texto" id="l_id_file_0026">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de ubicación de equipamiento a Grupos de Atención Especial*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0027" id="id_file_0027" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0027">
-                    <p class="texto" id="l_id_file_0027">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de ubicación de botiquines de Primeros Auxilios*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0028" id="id_file_0028" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0028">
-                    <p class="texto" id="l_id_file_0028">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de distribución de brigadistas*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0029" id="id_file_0029" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0029">
-                    <p class="texto" id="l_id_file_0029">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de ubicación de equipos de alerta, prevención y combate de incendios*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0030" id="id_file_0030" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0030">
-                    <p class="texto" id="l_id_file_0030">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de localización de riesgo eléctrico*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0031" id="id_file_0031" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0031">
-                    <p class="texto" id="l_id_file_0031">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis indicando la trayectoria de la Ruta de Evacuación*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0032" id="id_file_0032" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0032">
-                    <p class="texto" id="l_id_file_0032">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de salidas y escaleras de emergencia*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0033" id="id_file_0033" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0033">
-                    <p class="texto" id="l_id_file_0033">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de ubicación del sistema de alerta sísmica*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0034" id="id_file_0034" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0034">
-                    <p class="texto" id="l_id_file_0034">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de ubicación de las Zonas de Menor Riesgo*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0035" id="id_file_0035" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0035">
-                    <p class="texto" id="l_id_file_0035">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-
-                <div class="row mx-1">
-                <legend class="form-label-custom mt-3 mb-0">Croquis de la ubicación de las Zonas de Riesgo*</legend>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="id_file_0036" id="id_file_0036" accept=".pdf" lang="es" autofocus >
-                  <label class="custom-file-label" for="id_file_0036">
-                    <p class="texto" id="l_id_file_0036">Selecciona un archivo PDF</p>
-                  </label>
-                  <div class="invalid-feedback mt-3">
-                    Selecciona un archivo PDF
-                  </div>
-                </div>
-                </div>
-
-                <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="terminari">Termina registro de inmueble</button>
-                  <button class="btn-01" type="submit" name="guardar_seguir"
-                                id="guardar_seguir" data-posicion="documentos"  data-siguienteseccion="comite_interno"  data-siguiente="coordinacion" >Ir a siguiente sección</button>
-                </div>
-
-              </form>
-            </div> <!-- Cierra tab-pane Documentos anexos -->
-
-
 
           </div> <!-- Cierra tabContent -->
         </div> <!-- Cerrar columna derecha -->

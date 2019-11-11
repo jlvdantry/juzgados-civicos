@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Perfiles_menus::class);
         $this->call(Perfiles_users::class);
         $this->call(entidades::class);
+        $this->call(Sanciones::class);
+        $this->call(Infracciones::class);
+        $this->call(Juzgados::class);
     }
 }

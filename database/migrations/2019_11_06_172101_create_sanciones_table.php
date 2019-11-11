@@ -16,6 +16,13 @@ class CreateSancionesTable extends Migration
         Schema::create('sanciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->string('sancion',3)->comment('Tipo de sancion');
+            $table->integer('uc_desde')->nullable()->comment('Unidad de cuenta desde');
+            $table->integer('uc_hasta')->nullable()->comment('Unidad de cuenta hasta');
+            $table->integer('servicio_desde')->nullable()->comment('Horas de servicio comunitario desde');
+            $table->integer('servicio_hasta')->nullable()->comment('Horas de servicio comunitario hasta');
+            $table->integer('arresto_desde')->nullable()->comment('Horas de arresto desde');
+            $table->integer('arresto_hasta')->nullable()->comment('Horas de arresto hasta');
         });
     }
 

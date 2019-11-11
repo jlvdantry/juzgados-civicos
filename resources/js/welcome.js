@@ -239,6 +239,9 @@ $("input[name='tipopersona']:checked").val()
         $('form[id="f_motivo"] :input').on('change', function(e) {
              cambia_dato(e);
         });
+        $('#motivo').on('click', function(e) {
+             $('#horahechos').focus();
+        });
      }
 
      if ($('form[id="f_infractores"]')[0]!=undefined && $('form[id="f_infractores"]')[0].id=='f_infractores') {
@@ -250,12 +253,28 @@ $("input[name='tipopersona']:checked").val()
         $("#nombre_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#primer_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#segundo_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#idinfraccion").on('change',function(e){
+               $("#textos").removeClass('d-none');
+               $("#l_infraccion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.infraccion;
+               $("#l_descripcion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.descripcion;
+               if (e.currentTarget.options[e.currentTarget.value].dataset.conciliacion!="") {
+                  $("#l_conciliacion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.conciliacion;
+               }
+               if (e.currentTarget.options[e.currentTarget.value].dataset.aplicarsi!="") {
+                  $("#l_aplicarsi")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.aplicarsi;
+               }
+               $("#l_tipo_sancion")[0].innerHTML='Tipo '+e.currentTarget.options[e.currentTarget.value].dataset.tipo_sancion;
+         })
      }
 
      if ($('form[id="f_boleta"]')[0]!=undefined && $('form[id="f_boleta"]')[0].id=='f_boleta') {
         var formb = $('form[id="f_boleta"]')[0];
         $('form[id="f_boleta"] :input').on('change', function(e) {
              cambia_dato(e);
+        });
+
+        $("#boleta_remision").keyup(function(){
+              $("#des_expediente").text('Boleta-'+this.value);
         });
 
         $("#nombre_1").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
@@ -302,11 +321,11 @@ $("input[name='tipopersona']:checked").val()
             var formi = $('form[id="f_infractores"]')[0]; 
             formi.dataset.id="" ;
             formi.reset();
-            $('#nombre_i').focus();
             $('#c_infractor').addClass("active")
             $('#c_infractor').addClass("show")
             $('#c_infractores').removeClass("active")
             $('#c_infractores').removeClass("show")
+            $('#nombre_i').focus();
         });
 
         $("#mostrarinfractores").click(function(e){
@@ -350,6 +369,7 @@ $("input[name='tipopersona']:checked").val()
                                   $('#c_infractor').addClass("show")
                                   $('#c_infractores').removeClass("active")
                                   $('#c_infractores').removeClass("show")
+                                  $('#nombre_i').focus()
                                   if (data.length==1) {
                                      var formi = $('form[id="f_infractores"]')[0];
                                      formi.dataset.id=data[0].id;
@@ -370,25 +390,13 @@ $("input[name='tipopersona']:checked").val()
 
         $("#guardarexpediente").click(function(e){
                   e.preventDefault();
-                  if (formi.checkValidity() === false) {
-                    formi.classList.add('was-validated');
-                    return;
-                  }
                   var Data1 = {
-                        m2_terreno : $('#wl_m2_terreno')[0].value,
-                        m2_construidos : $('#wl_m2_construidos')[0].value,
-                        niveles_ocupados : $('#wl_niveles_ocupados')[0].value,
-                        niveles_inmueble : $('#wl_niveles_inmueble')[0].value,
-                        lat : $('#wl_lat')[0].value,
-                        long : $('#wl_long')[0].value,
-                        rfc : $('#rfc')[0].value,
-                        pantalla : formi.id,
-                        email_acreditado : $('#nombre-usuario').data('email')
+                        estatus : '1'
                     };
 
                     $.ajax({
                        type: 'put',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id,
+                       url: mipath()+'api/boletas/'+formd.dataset.id,
                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                        data: Data1,
                        success: function(data){
@@ -444,206 +452,6 @@ $("input[name='tipopersona']:checked").val()
         });
      }
 
-     if ($('form[id="f_informacion"]')[0]!=undefined && $('form[id="f_informacion"]')[0].id=='f_informacion') {
-        var form = $('form[id="f_informacion"]')[0];
-        var inputs = form.getElementsByTagName('input');
-        console.log('detecto establecimiento');
-
-
-        $('#rfc').on('change', function(e) {
-                    console.log('entro a buscar por rfc');
-                    elemp=window.location.href.split('/').length;
-                    $.ajax({
-                       type: 'get',
-                       url: mipath()+'api/establecimientos/'+$('#rfc')[0].value+(elemp==8 ? '/'+window.location.href.split('/')[7] : ''),
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       success: function(data){
-                             if (('data' in data) && data.data.indexOf('no existe')>=0) {
-                               var rfc=$('#rfc')[0].value;
-                               $('form[id="f_informacion"]')[0].reset();
-                               $('#rfc')[0].value=rfc;
-                               $('#nombres')[0].focus();
-                             } else {
-                                $('#des_establecimiento').text(data.nombres+' ');
-                                if (data.alias!=undefined) {
-                                   $('#des_inmueble').text(data.alias+' ');
-                                } else {  $('#des_inmueble').text(''); }
-                                muestradatos($('form[id="f_informacion"]')[0],data);
-                                cambiapersona($("input[name='tipopersona']:checked").val());
-                                cambiapersona_l($("input[name='tipopersona_']:checked").val());
-                                //console.log('paso pago change 2');
-                                if (!$('#rfc').prop('readonly')) {
-                                   crearMensaje(false,"Atención", ' El RFC ya existe y se muestra los datos del establecimiento');
-                                }
-                                if ('rinmu' in data) {
-                                   if (formd.dataset.id=='' && data.rinmu[0].id!='') {
-                                       formd.dataset.id=data.rinmu[0].id;
-                                   }
-                                   if (data.rinmu[0].alias!=undefined) {
-                                       $('#des_inmueble').text(data.rinmu[0].alias+' ');
-                                   } else {  $('#des_inmueble').text(''); }
-                                   muestradatos($('form[id="f_domicilio"]')[0],data.rinmu[0]);
-                                   muestradatos($('form[id="f_informacion-inmueble"]')[0],data.rinmu[0]);
-                                   muestradatos($('form[id="f_poblacion"]')[0],data.rinmu[0]);
-                                   muestradatos($('form[id="f_construccion"]')[0],data.rinmu[0]);
-                                   //muestradatos($('form[id="f_punto"]')[0],data.rinmu[0]);
-                                   muestradatos($('form[id="f_analisis"]')[0],data.rinmu[0],1);
-                                   muestradatos($('form[id="f_reduccion"]')[0],data.rinmu[0],1);
-                                   muestradatos($('form[id="f_contingencias"]')[0],data.rinmu[0],3);
-                                   muestradatos($('form[id="f_continuidad"]')[0],data.rinmu[0],1);
-                                   muestradatos($('form[id="f_documentos"]')[0],data.rinmu[0],1);
-                                }
-                                if ('simu' in data) {
-                                   for (si in data.simu) {
-                                           armagridhorizontal($('form[id="f_simulacros"]')[0],jsonf,data.simu[si])
-                                   }
-                                   validasimulacros();
-                                }
-                                if ('comi' in data) {
-                                   for (si in data.comi) {
-                                           armagridhorizontal($('form[id="f_comitei"]')[0],jsonp,data.comi[si])
-                                           marcapuestoxdes(data.comi[si].descomites.split("-")[0]);
-                                   }
-                                }
-                                if ('punt' in data) {
-                                   for (si in data.punt) {
-                                           armagridhorizontal($('form[id="f_punto"]')[0],jsonpunto,data.punt[si])
-                                   }
-                                   validapuntos();
-                                }
-
-                             }
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-
-        if (window.location.href.split('/').length==7) {    /*  viene del grid */
-                $('#rfc')[0].value=window.location.href.split('/')[6];
-                $('#rfc').attr('readonly', true);;
-                $('#rfc').trigger("change");
-        }
-
-        if (window.location.href.split('/').length==8) {    /*  viene del grid */
-                $('#rfc')[0].value=window.location.href.split('/')[6];
-                $('#rfc').attr('readonly', true);;
-                $('#rfc').trigger("change");
-        }
-
-
-        $('input[type="radio"][name="tipopersona"]').on('change', function(e) {
-             cambiapersona(e.target.value);
-        });
-
-        $('input[type="radio"][name="tipopersona_"]').on('change', function(e) {
-             console.log('entro a cambiar la persona='+e.target.value);
-             cambiapersona_l(e.target.value);
-        });
-        //$('input[type="radio"][name="tipopersona"]').trigger( "change" );
-        //$('input[type="radio"][name="tipopersona_"]').trigger( "change" );
-
-        $("#creaestablecimiento").click(function(e){
-                  e.preventDefault();
-                  if (form.checkValidity() === false) {
-                    form.classList.add('was-validated');
-                    return;
-                  }
-
-                 var checked = $('input[type="radio"][name="sector"]:checked').length;
-                 if(!checked) {
-                      crearMensaje(true,"Error ", "Al menos debe seleccionar un sector");
-                      $("#sector_publico").focus();
-                      return false;
-                 }
-
-                 var checked = $('input[type="radio"][name="inmueblees"]:checked').length;
-                 if(!checked) {
-                      crearMensaje(true,"Error ", "Debe seleccionar el 'Inmueble es'");
-                      $("#unico").focus();
-                      return false;
-                 }
-
-                 var inputs = form.getElementsByTagName('input');
-                  var Data1 = {
-                        tipopersona :  $("input[name='tipopersona']:checked").val(),
-                        nombres: $('#nombres')[0].value,
-                        ape_pat: $('#ape_pat')[0].value,
-                        ape_mat: $('#ape_mat')[0].value,
-                        rfc: $('#rfc')[0].value,
-                        folioacta: $('#folioacta')[0].value,
-                        numeroescritura: $('#numeroescritura')[0].value,
-                        numeronotario: $('#numeronotario')[0].value,
-                        id_giro: $('#id_giro')[0].value,
-                        tipopersona_ :  $("input[name='tipopersona_']:checked").val(),
-                        nombres_rl: $('#nombres_rl')[0].value,
-                        razon_social_rl: $('#razon_social_rl')[0].value,
-                        ape_pat_rl: $('#ape_pat_rl')[0].value,
-                        ape_mat_rl: $('#ape_mat_rl')[0].value,
-                        email_rl: $('#email_rl')[0].value,
-                        folioacta_rl: $('#folioacta_rl')[0].value,
-                        fechadeotorgamiento : $('#fechadeotorgamiento')[0].value,
-                        nombreexpide : $('#nombreexpide')[0].value,
-                        numeronotario_el : $('#numeronotario_el')[0].value,
-                        id_entidad : $('#id_entidad')[0].value,
-                        nombres_re : $('#nombres_re')[0].value,
-                        ape_pat_re : $('#ape_pat_re')[0].value,
-                        ape_mat_re : $('#ape_mat_re')[0].value,
-                        email_re : $('#email_re')[0].value,
-                        sector : $("input[name='sector']:checked").val(),
-                        inmueblees : $("input[name='inmueblees']:checked").val(),
-                        cartac_vigencia : $('#cartac_vigencia')[0].value,
-                        id_identificacion : $('#id_identificacion')[0].value,
-                        folioIdentificacion : $('#folioIdentificacion')[0].value,
-                        id_nacionalidad : $('#id_nacionalidad')[0].value,
-                        email_acreditado : form.dataset.emailacreditado,
-                        id_tipoestablecimiento : $('#id_tipoestablecimiento')[0].value,
-                    };
-
-                    $.ajax({
-                       type: 'post',
-                       url: mipath()+'api/establecimientos',
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       data: Data1,
-                       success: function(data){
-                             formd.dataset.id='';   // Limpia el id del establecimiento
-                             $('#des_establecimiento').text(Data1.nombres);
-                             //$('#des_inmueble').text("favor de registrar primero el domicilio completo del inmueble");
-                             $('#des_inmueble').text("");
-
-                             $('#menu-informacion')[0].classList.add('collapsed')
-                             $('#menu-informacion')[0].classList.remove('active')
-                             $('#v-pills-informacion')[0].classList.remove('active');
-                             $('#v-pills-informacion')[0].classList.remove('show');
-                             $('#v-pills-informacion-tab')[0].classList.remove('active');
-
-                             $('#menu-inmueble')[0].classList.remove('collapsed')
-                             $('#menu-inmueble')[0].classList.add('active')
-                             $('#c_inmueble')[0].classList.add('show');  /* colapsse */
-                             $('#v-pills-domicilio')[0].classList.add('active');
-                             $('#v-pills-domicilio')[0].classList.add('show')
-                             $('#v-pills-domicilio-tab')[0].classList.add('active')
-                             crearMensaje(false,"Atención ",data.msg);
-                             //location.href = "#v-pills-domicilio";
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-
-
-
-     }
 
      //Editar perfil
      if ($('main')[0].id=='editarperfil') {
@@ -1006,8 +814,6 @@ $("input[name='tipopersona']:checked").val()
              e.preventDefault();
              var Data1 = {
                   nombres: $('#nombres')[0].value,
-                  //rfc :  $('#rfc')[0].value,
-                  //email_acreditado : $('#nombre-usuario').data('email')
                  };
                   $.ajax({
                             type: 'get',

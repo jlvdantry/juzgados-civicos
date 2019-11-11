@@ -134,6 +134,7 @@ class infractoresController extends Controller
 
       Log::debug('Entro en update='.$id);
       $data=[];
+      $dataf=[];
       foreach($request->all() as $key => $val) {
           if (substr($key,0,8)=='id_file_') {
               $comos=$this->upload($request[$key],$id,substr($key,8));
@@ -153,6 +154,7 @@ class infractoresController extends Controller
       if ($dato==0) {
           return response()->json([ 'errors' => ['cambio' => 'Hubo problemas al actualizar los datos del infractor']],430);
       } else {
+          $infra[0]['filesystem']=$dataf;
           return response()->json($infra[0],200);
       }
     }

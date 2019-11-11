@@ -33,6 +33,10 @@ class CreateInfractoresTable extends Migration
             $table->integer('createdby')->nullable()->comment('id del usuario que creo el registro');
             $table->integer('updatedby')->nullable()->comment('id del ultimo usuario que modifico el registro');
             $table->integer('id_file_0001')->nullable()->comment('foto del infractor');
+            $table->integer('idinfraccion')->nullable()->comment('Id de la infracción que cometio el infractor segun el juez');
+            $table->integer('tiposancion')->nullable()->comment('1=sin sanción, 2=Por unidad de cuenta, 3=por servicio comunitario, 4=Arresto');
+            $table->text('observaciones')->nullable()->comment('Observaciones a la sancion aplicada');
+            $table->integer('sancionaplicada')->nullable()->comment('rango desde de la sancion seleccionada');
         });
     }
 

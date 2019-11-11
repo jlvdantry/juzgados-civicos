@@ -16,6 +16,12 @@ class CreateJuzgadosTable extends Migration
         Schema::create('juzgados', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('idalcaldia')->comment('id de alcaldia de acuerdo al catalogo de alcaldias');
+            $table->string('juzgado')->comment('Descripcion del juzgado');
+            $table->string('direccion')->comment('Dirección donde se ubica el juzgado');
+            $table->string('turno')->comment('Turno');
+            $table->string('horario')->comment('horario de atencion');
+         
         });
     }
 

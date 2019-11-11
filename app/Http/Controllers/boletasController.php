@@ -22,8 +22,10 @@ class boletasController extends Controller
       $filtro=array();
 
       if ($request->has('nombres')) {
-        if (strlen($request->rfc)>0) {
-           array_push($filtro,['inmu.rfc','like',"%$request->rfc%"]);
+        if (strlen($request->nombres)>0) {
+           array_push($filtro,['infra.nombre_i','like',"%$request->nombres%"]);
+           array_push($filtro,['infra.primer_apellido_i','like',"%$request->nombres%"]);
+           array_push($filtro,['infra.segundo_apellido_i','like',"%$request->nombres%"]);
         }
       }
 

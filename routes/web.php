@@ -15,6 +15,7 @@ use App\User;
 use App\Perfiles;
 use App\Alcaldias;
 use App\Entidades;
+use App\Infracciones;
 use App\Http\Controllers\userController;
 log::debug('routes/web.php inioio URL='.URL::current().' Request::path()='.\Request::path());
 Route::get('/', function () {
@@ -117,18 +118,22 @@ Route::group(['middleware' => ['auth:web']], function() {
     Route::get('crearexpediente/',  function () {
            $alcaldias = Alcaldias::all();
            $entidades = Entidades::all();
+           $infracciones = Infracciones::all();
            $data = array (
               'alcaldias' => $alcaldias,
-              'entidades' => $entidades
+              'entidades' => $entidades,
+              'infracciones' => $infracciones
            );
            return view('crearexpediente')->with('data', $data);
     });
     Route::get('crearexpediente/{id}',  function () {
            $alcaldias = Alcaldias::all();
            $entidades = Entidades::all();
+           $infracciones = Infracciones::all();
            $data = array (
               'alcaldias' => $alcaldias,
-              'entidades' => $entidades
+              'entidades' => $entidades,
+              'infracciones' => $infracciones
            );
               return view('crearexpediente')->with('data', $data);
     });

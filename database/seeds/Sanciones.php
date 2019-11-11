@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class Giros extends Seeder
+class Sanciones extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class Giros extends Seeder
      */
     public function run()
     {
-         $sql = base_path('database/seeds/Inserta_giros.sql');
+         $sql = base_path('database/seeds/Inserta_sanciones.sql');
          DB::unprepared(file_get_contents($sql));
     }
 }

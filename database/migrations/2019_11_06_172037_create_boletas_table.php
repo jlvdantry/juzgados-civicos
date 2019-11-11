@@ -46,6 +46,9 @@ class CreateBoletasTable extends Migration
             $table->integer('cp_h')->nullable()->comment('Codigo postal donde ocurrieron los hechos')->default(0);
             $table->text('motivo')->nullable()->comment('motivo de la presentación')->default('');
             $table->text('objetos')->nullable()->comment('objetos de la rpesentación')->default('');
+            $table->string('ip_alta',39)->nullable()->comment('motivo de la presentación')->default('');
+            $table->string('ip_cambio',39)->nullable()->comment('objetos de la rpesentación')->default('');
+
         });
     }
 

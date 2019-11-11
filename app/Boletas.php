@@ -58,7 +58,11 @@ protected $guarded = [];
          }
 */
         foreach ($filtro as $k => $v) {
-               $wlfiltro.=" where ".$filtro[$k][0]." ".$filtro[$k][1]." '".$filtro[$k][2]."'";
+               if ($wlfiltro=="") {
+                   $wlfiltro.=" where ".$filtro[$k][0]." ".$filtro[$k][1]." '".$filtro[$k][2]."'";
+               } else {
+                   $wlfiltro.=" or  ".$filtro[$k][0]." ".$filtro[$k][1]." '".$filtro[$k][2]."'";
+               }
         }
 
          $datos = DB::select('select * from (select bole.* '.
@@ -74,7 +78,7 @@ protected $guarded = [];
                                        ' on bole.id=infra.idboleta '.
                                        //' and   inmu.email_acreditado=esta.email_acreditado '.
                                        $fila.$wlfiltro.
-                                       ' ) a '.$fil);
+                                       ' ) a '.$fil.' order by created_at desc limit 100');
          Log::debug('app/Inmuebles.php getConcatalogosConLimite='.print_r($datos,true));
          return $datos;
    }
