@@ -314,16 +314,22 @@
   
             <div class="tab-pane fade" id="c_infractor" >
 
-                  <div class="row col-md-12 mb-3  d-flex justify-content-start align-items-start">
+            <div class="row col-md-12 mb-3  d-flex justify-content-start align-items-start">
+                <div class="mb-3  col-md-12 d-flex justify-content-between">
                     <div id='mostrarinfractores'>
                         <img class="Triangle" type="img" src="{{url('')}}/src/img/triangle.svg" />
                         <img class="Triangle" type="img" src="{{url('')}}/src/img/triangle.svg" />
                         <label class="Infractores-del-expe mb-0 py-2" name="button" >Infractores del expediente</label>
                     </div>
-                  </div>
+                    <div class="col-lg-8 d-flex justify-content-end  align-items-end pr-0 -Datos-Generales-">
+                      <div class="pl-1" id="datosgenerales" name="opciones" data-href="c_datosgenerales" >1 Datos generales</div>
+                      <div class="pl-1" id="infraccionysancion" name="opciones" data-href="c_infraccionesysancion" >| 2 Infracción y sanción </div>
+                    </div>
+                </div>
+            </div>
 
               <form id="f_infractores" data-id=''>
-      <div class="datopersonales">
+      <div id="c_datosgenerales" name="tabi" class="">
         <div class="Policias-remitentes mt-3">Datos personales</div>
         <div class="row  mb-1">
           <div class="col-md-4" id="nom">
@@ -472,7 +478,7 @@
         </div>
       </div> <!-- fin datos personales -->
 
-      <div id="infraccionysancion">
+      <div id="c_infraccionesysancion" name="tabi" class="d-none">
         <div class="Policias-remitentes mt-3">Infracción y sanción</div>
         <div class="row  mb-2">
                   <div class="col-md-6 mb-3">

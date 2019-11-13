@@ -10085,6 +10085,10 @@ a:hover {
   color: #5d5d5d;
 }
 
+.-Datos-Generales- .tst1 {
+  color: #00b140;
+}
+
 .footer {
   display: flex;
   align-items: center;

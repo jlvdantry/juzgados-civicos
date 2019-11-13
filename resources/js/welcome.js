@@ -250,6 +250,13 @@ $("input[name='tipopersona']:checked").val()
              cambia_dato_infra(e);
         });
 
+        $('div[name="opciones"]').on('click', function(e) {
+              $('div[name="tabi"]').addClass('d-none'); 
+              $('div[name="opciones"]').removeClass('tst1'); 
+              $("#"+e.currentTarget.dataset.href).removeClass('d-none'); 
+              $('#'+e.target.id).addClass('tst1');
+        });
+
         $("#nombre_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#primer_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#segundo_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
@@ -1480,6 +1487,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                      var formi = $('form[id="f_infractores"]')[0];
                                      formi.dataset.id=data[0].id;
                                      muestradatos($('form[id="f_infractores"]')[0],data[0]);
+                                     $('#datosgenerales').trigger("click");
                                      $('#nombre_i').focus();
                                      $('#c_infractor').addClass("active")
                                      $('#c_infractor').addClass("show")
