@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Boletas;
+use App\Infractores;
+use App\Infracciones;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Mail\NotificacionRegistro;
@@ -65,10 +67,10 @@ class boletasController extends Controller
                 return response()->json([ 'errors' => ['boleta_remision' => 'Debe de teclear primer el numero de boleta ']],428);
       }
 
-      $inmu=Boletas::where(     ['boleta_remision' => $request->alias]
+      $inmu=Boletas::where(     ['boleta_remision' => $request->boleta_remision]
                           )->get();
       if ($inmu->count()>0) {
-            return response()->json([ 'errors' => ['boleta_remision' => 'Ya existe una boleta con el numero <b>'.$request->boleta_remision]],429);
+            return response()->json([ 'errors' => ['boleta_remision' => 'Ya existe una boleta con el numero <b>'.$request->boleta_remision, 'seccion' => 'policias']],429);
       }
 
 
@@ -165,82 +167,100 @@ class boletasController extends Controller
 
       if ($request->has('estatus')) {
          if ($request->estatus==1) {
-                   //return response()->json($inmu[0],200);
-                   Log::debug('inmueblesController.ph quiere terminar captura='.print_r($inmu[0]['cambioestructura'],true));
-                   if ($inmu[0]['cambioestructura']===true) {
-                      Log::debug('inmueblesController.ph si entro en cambio de estructura=');
-                      //$data['fechadelcambio']=$inmu[0]["fechadelcambio"];
-                      $datetime1 = new DateTime();
-                      $datetime2 = new DateTime($inmu[0]["fechadelcambio"]);
-                      $interval = $datetime1->diff($datetime2);
-                      $elapsed = $interval->format('%y');
-                      if ($elapsed>50) {
-                         Log::debug('inmueblesController.ph tiempo elapsed mayor a 50='.$elapsed );
-                         return response()->json([ 'errors' => ['Fecha del cambio' => 'En la seccion de [Construccion y estructura].  La fecha del cambio no puede ser mayor a 50 años hacia atras']],430);
-                      }
+                   Log::debug('boletasController.ph quiere terminar captura='.print_r($inmu[0],true));
+                   if ($inmu[0]['placa1']=="") {
+                      return response()->json([ 'errors' => ['placa1' => 'Falta teclear la placa del policia uno']],430);
+                   }
+                   if ($inmu[0]['areadeadscripcion_1']=="") {
+                      return response()->json([ 'errors' => ['areadeadscripcion_1' => 'Falta el área de adscripción del policia uno']],430);
+                   }
+                   if ($inmu[0]['nombre_1']=="") {
+                      return response()->json([ 'errors' => ['nombre_1' => 'Falta teclear el nombre del policia uno']],430);
+                   }
+                   if ($inmu[0]['primer_apellido_1']=="") {
+                      return response()->json([ 'errors' => ['primer_apellido_1' => 'Falta teclear el primer apellido del policia uno']],430);
+                   }
+                   if ($inmu[0]['id_mediotransporte_1']=="") {
+                      return response()->json([ 'errors' => ['id_mediotransporte_1' => 'Falta registrar el medio de transporte del policia uno']],430);
+                   }
+                   if ($inmu[0]['numerodepatrulla_1']=="") {
+                      return response()->json([ 'errors' => ['numerodepatrulla_1' => 'Falta registrar el número de patrulla del policia uno']],430);
                    }
 
-                   $xx = new Inmuebles();
-
-                   $pr = new Puntos_de_reunion();
-                   $falta=$pr->getPuntosbyInmueble($id);
-                   if (count($falta)<1) {
-                          return response()->json([ 'errors' => ['Faltan registrar puntos de reunión' => ["descripcion" => "Por lo menos se debe de registrar un punto de reunión"] ]],444);
+                   if ($inmu[0]['placa2']=="") {
+                      return response()->json([ 'errors' => ['placa2' => 'Falta teclear la placa del policia dos']],430);
                    }
-
-                   $falta=$xx->getDocumentosfaltantesbyID($id);
-                   if (count($falta)>0) {
-                          return response()->json([ 'errors' => ['Faltan documentos' => $falta[0]]],444);
+                   if ($inmu[0]['areadeadscripcion_2']=="") {
+                      return response()->json([ 'errors' => ['areadeadscripcion_2' => 'Falta el área de adscripción del policia dos']],430);
                    }
-                   $si = new Simulacros();
-                   $falta=$si->getSimulacrosbyInmueble($id);
-                   if (count($falta)<1) {
-                          return response()->json([ 'errors' => ['Faltan registrar simulacros' => ["descripcion" => "Por lo menos se debe de registrar un simulacro"] ]],444);
+                   if ($inmu[0]['nombre_2']=="") {
+                      return response()->json([ 'errors' => ['nombre_2' => 'Falta teclear el nombre del policia dos']],430);
                    }
-                   $filtro= [ 'rfc' => $inmu[0]->rfc, 'email_acreditado' => $inmu[0]->email_acreditado];
-                   $datose = Establecimientos::where($filtro)->get();
-                   if ($datose->count()==0) {
-                      return response()->json([ 'errors' => ['rfc' => 'No existe un establecimiento con el rfc "'.
-                                                   $request->get('rfc').'" para el acreditado con el email '.$request->get('email_acreditado')]],428);
+                   if ($inmu[0]['primer_apellido_2']=="") {
+                      return response()->json([ 'errors' => ['primer_apellido_2' => 'Falta teclear el primer apellido del policia dos']],430);
                    }
-                   if ($datose[0]->id_tipoestablecimiento==3) {  /* preguna por unidad habitacional */
-                      $falta=$xx->getFigurasfaltantesUHbyID($id);
-                      if (count($falta)>0) {
-                          return response()->json([ 'errors' => ['Faltan puestos por definir en el Comité Interno<p>' => $falta[0]]],445);
-                      }
+                   if ($inmu[0]['id_mediotransporte_2']=="") {
+                      return response()->json([ 'errors' => ['id_mediotransporte_2' => 'Falta registrar el medio de transporte del policia dos']],430);
+                   }
+                   if ($inmu[0]['numerodepatrulla_2']=="") {
+                      return response()->json([ 'errors' => ['numerodepatrulla_2' => 'Falta registrar el número de patrulla del policia dos']],430);
+                   }
+                   if ($inmu[0]['diahechos']=="") {
+                      return response()->json([ 'errors' => ['diahechos' => 'Falta registrar la fecha en que sucedieron los hechos', 'seccion' => 'b_motivo' ]],430);
                    } else {
-                      $falta=$xx->getFigurasfaltantesbyID($id);
-                      if (count($falta)>0) {
-                          return response()->json([ 'errors' => ['Faltan puestos por definir en el Comité Interno<p>' => $falta[0]]],445);
+                      $datetime1 = new DateTime();
+                      $datetime2 = new DateTime($inmu[0]["diahechos"]);
+                      $interval = $datetime1->diff($datetime2);
+                      $elapsed = $interval->format('%Rd');
+                      Log::debug('boletasController.ph tiempo elapsed mayor a 50='.$elapsed.' "diahecho"='.$inmu[0]["diahechos"]);
+                      if ($datetime2 > $datetime1) {
+                         return response()->json([ 'errors' => ['diahechos' => 'La fecha de hecho debe ser del dia de hoy']],430);
                       }
                    }
-                   Mail::to($datose[0]->email_acreditado)->send(new NotificacionRegistro($inmu[0]));
+                   if ($inmu[0]['horahechos']=="") {
+                      return response()->json([ 'errors' => ['horahechos' => 'Falta registrar la hora en que sucedieron los hechos', 'seccion' => 'b_motivo' ]],430);
+                   } 
+                   if ($inmu[0]['id_alcaldia_h']=="") {
+                      return response()->json([ 'errors' => ['id_alcaldia_h' => 'Falta seleccionar la alcaldia donde fueron los hechos', 'seccion' => 'b_motivo' ]],430);
+                   } 
+                   if ($inmu[0]['motivo']=="") {
+                      return response()->json([ 'errors' => ['motivo' => 'Falta detallar el motivo por el que se realiza la presentación', 'seccion' => 'b_motivo' ]],430);
+                   } 
+                   $filtro=[];
+                   array_push($filtro,['bole.idboleta','=',$id]);
+                   $inf = new Infractores();
+                   $infras=$inf->getConcatalogos(\Auth::user(),$filtro);
+                   if (count($infras)==0) {
+                          return response()->json([ 'errors' => ['infractores' => 'Al menos debe de registrar un infractor', 'seccion' => 'infractores' ]],444);
+                   }
+
+                   foreach ($infras as $infra) {
+                      Log::debug('boletasController.ph infra='.print_r($infra,true));
+                      if ($infra->idinfraccion=="") {
+                         return response()->json([ 'errors' => ['infractores' => 'Falta registrar la infraccion al infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                      }
+                      if ($infra->tiposancion=="") {
+                         return response()->json([ 'errors' => ['infractores' => 'Falta seleccionar el tipo de sancion para el infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                      }
+                      if ($infra->sancionaplicada=="" || $infra->sancionaplicada==0) {
+                         return response()->json([ 'errors' => ['infractores' => 'Falta teclear la sancion del infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                      }
+                      $filtro=[];
+                      array_push($filtro,['infra.id','=',$infra->idinfraccion]);
+                      $ff = new Infracciones();
+                      $ffda=$ff->getConcatalogos($filtro);
+                      if (count($ffda)==0) {
+                          return response()->json([ 'errors' => ['infractores' => 'Erros sistema no encuentra la infracción del infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                      }
+                      if ($infra->tiposancion==2) {
+                          if ($ffda[0]->uc_desde<$infra->sancionaplicada || $infra->sancionaplicada>$ffda[0]->uc_hasta) {
+                             return response()->json([ 'errors' => ['infractores' => 'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                          }
+                      }
+                   }
+
          }
 
-      }
-
-      if ($request->has('comites')) {
-          Log::debug('Alta de un comite'.$id);
-          $dato = new Comites ( [
-          'id_inmueble'=>$id,
-          'nombres'=>$request->nombres,
-          'id_figuras'=>$request->id_figuras,
-          'ape_pat'=>$request->ape_pat,
-          'ape_mat'=>$request->ape_mat,
-          'curp'=>$request->curp,
-          'ape_mat'=>$request->ape_mat,
-          'curp'=>$request->curp,
-          'cargo'=>$request->cargo,
-          $comos=$this->upload($request['id_file_0041'],$id,41),
-          'id_file_0041'=>$comos['id']
-          ]);
-          try {
-            $dato->save();
-            Log::debug('InmueblesControler despues de grabar un comite');
-            return response()->json(array($dato->getComitesbyID(),'id'=>$id),200);
-          } catch (\Exception $e) {
-            return response()->json($e->getMessage(),400);
-          };
       }
 
       Log::debug('BoletasControler '.print_r($request->all(),true));

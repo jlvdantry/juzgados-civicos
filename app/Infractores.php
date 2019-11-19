@@ -41,6 +41,7 @@ public static function getConcatalogos($user,$filtro=[]) {
                                        ',coalesce(date_part(\'year\',age(nacimiento)),\'0\') edad'.
                                        ',coalesce(sexo,\'\') sexon'.
                                        ',(select id_filesystem from files f where f.id=bole.id_file_0001) as filesystem_0001 '.
+                                       ',(select estatus from boletas bo where bo.id=bole.idboleta) estatus '.
                                        ' from infractores bole'.
                                        $fila.$wlfiltro.
                                        ' ) a '.$fil);

@@ -4,186 +4,6 @@ $(document).ready(function() {
       });
 
      console.log('entro');
-     $("button[name='terminari']").click(function(e){
-          console.log('entro en terminari');
-                  e.preventDefault();
-                  quef="domicilio";
-                  if (formd.checkValidity() === false) {
-                    apaga_pills();
-                    prende_pills(quef);
-                    crearMensaje(true,"Atención", ' Hay errores en la sección Inmueble-Domicilio completo');
-                    formd.classList.add('was-validated');
-                    return;
-                  } else { $('#v-pills-'+quef+'-tab').children()[0].classList.remove('d-none'); }
-
-                  quef="informacion-inmueble";
-                  if (formi.checkValidity() === false) {
-                    apaga_pills();
-                    prende_pills(quef);
-                    crearMensaje(true,"Atención", ' Hay errores en la sección Inmueble-Información');
-                    formi.classList.add('was-validated');
-                    return;
-                  } else { $('#v-pills-'+quef+'-tab').children()[0].classList.remove('d-none'); }
-
-                  quef="poblacion";
-                  if (formp.checkValidity() === false) {
-                    apaga_pills();
-                    prende_pills(quef);
-                    crearMensaje(true,"Atención", ' Hay errores en la sección Inmueble-Población');
-                    formp.classList.add('was-validated');
-                    return;
-                  } else { $('#v-pills-'+quef+'-tab').children()[0].classList.remove('d-none'); }
-
-                  quef="construccion";
-                  if (formc.checkValidity() === false) {
-                    apaga_pills();
-                    prende_pills("construccion");
-                    crearMensaje(true,"Atención", ' Hay errores en la sección Inmueble-Construcción y estructura');
-                    formc.classList.add('was-validated');
-                    return;
-                  } else { $('#v-pills-'+quef+'-tab').children()[0].classList.remove('d-none'); }
-
-                  if (validaarchivos('f_analisis') === false) {
-                  } else { $('#v-pills-analisis-tab').children()[0].classList.remove('d-none'); };
-
-                  if (validaarchivos('f_reduccion') === false) {
-                  } else { $('#v-pills-reduccion-tab').children()[0].classList.remove('d-none'); };
-
-                  var checkedpcd = $('input[type="checkbox"][name="pcd"]:checked').length;
-                  if (validaarchivos('f_contingencias')=== false || !checkedpcd) {
-                    apaga_pills();
-                    prende_pills("contingencias");
-                    crearMensaje(true,"Atención", ' Hay errores en la sección Acciones Planeadas-Plan de contingencias');
-                    $('form[id="f_contingencias"]')[0].classList.add('was-validated');
-                    return;
-                  } else { $('#v-pills-contingencias-tab').children()[0].classList.remove('d-none'); };
-                
-                  if (validaarchivos('f_continuidad') === false) {
-                  } else { $('#v-pills-continuidad-tab').children()[0].classList.remove('d-none'); };
-                  if (validaarchivos('f_documentos') === false) {
-                  } else { $('#v-pills-documentos-tab').children()[0].classList.remove('d-none'); };
-
-
-                  var Data1 = {
-                        estatus : 1,
-                        rfc : $('#rfc')[0].value,
-                        email_acreditado : $('#nombre-usuario').data('email'),
-                        pantalla : formpr.id
-                    };
-
-                    $.ajax({
-                       type: 'put',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id,
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       data: Data1,
-                       success: function(data){
-                             console.log('exito terminari');
-                             location.href = base_url+"/registro-inmueble-exitoso/"+formd.dataset.id;
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          console.log('error terminari');
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                              if (x.substr(0,6)=="Faltan") {
-                                     crearMensaje(true,"Error: ", x+' '+errores[x].descripcion,3000);
-                                     if ('id' in errores[x]) {
-                                        quepills=$('#id_file_'+('0000' + errores[x].id).slice(-4))[0].closest('form').closest('div').id.replace('v-pills-','');
-                                        apaga_pills();
-                                        prende_pills(quepills);
-                                        $('#id_file_'+('0000' + errores[x].id).slice(-4)).focus();
-                                     }
-                                     if ('descripcion' in errores[x]) {
-                                        if (errores[x].descripcion.indexOf('simulacro')!=-1) {
-                                           apaga_pills();
-                                           prende_pills('simulacros');
-                                       } 
-                                     }
-                                     if ('descripcion' in errores[x]) {
-                                        if (errores[x].descripcion.indexOf('punto de reuni')!=-1) {
-                                           apaga_pills();
-                                           prende_pills('punto');
-                                       }
-                                     }
-
-                              } else {
-                                     crearMensaje(true,"Error: ", errores[x],3000);
-                                     break;
-                             }
-                          }
-                       }
-                    });
-     });
-
-     if ($('form[id="f_contingencias"]')[0]!=undefined && $('form[id="f_contingencias"]')[0].id=='f_contingencias') {
-        var f_contingencias = $('form[id="f_contingencias"]')[0];
-        $("#guardarcontingencia").click(function(e){
-                  e.preventDefault();
-
-                  var checkedpcd = $('input[type="checkbox"][name="pcd"]:checked').length;
-                  if (!checkedpcd) {
-                     crearMensaje(false,"Atención", ' Al menos debe seleccionar un procedimiento contemplado en el documento');
-                     return;
-                  }
-$("input[name='tipopersona']:checked").val()
-                  var Data1 = {
-                        pcd_sismo : $('#pcd_sismo:checked').val(),
-                        pcd_incendio : $('#pcd_incendio:checked').val(),
-                        pcd_inundacion : $('#pcd_inundacion:checked').val(),
-                        pcd_erupcion : $('#pcd_erupcion:checked').val(),
-                        pcd_amenazabomba : $('#pcd_amenazabomba:checked').val(),
-                        pcd_restablecimiento : $('#pcd_restablecimiento:checked').val(),
-                        rfc : $('#rfc')[0].value,
-                        email_acreditado : $('#nombre-usuario').data('email'),
-                        pantalla : formc.id
-                    };
-
-                    $.ajax({
-                       type: 'put',
-                       url: mipath()+'api/inmuebles/'+formd.dataset.id,
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       data: Data1,
-                       success: function(data){
-                             $('#v-pills-contingencias')[0].classList.remove('active');
-                             $('#v-pills-contingencias')[0].classList.remove('show')
-                             $('#v-pills-contingencias-tab')[0].classList.remove('active');
-                             $('#v-pills-contingencias-tab').children()[0].classList.remove('d-none'); 
-                             $('#v-pills-continuidad')[0].classList.add('active');
-                             $('#v-pills-continuidad')[0].classList.add('show')
-                             $('#v-pills-continuidad-tab')[0].classList.add('active')
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
-                             }
-                             crearMensaje(false,"Atención", ' Se actualizó información del construccion y estructura');
-                       },
-                       error: function( jqXhr, textStatus, errorThrown ){
-                          var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     break;
-                          }
-                       }
-                    });
-        });
-     }
-
-     $("button[id^='guardar_']").click(function(e){
-                            e.preventDefault();
-                            console.log('entro en boton');
-                            $('#v-pills-'+this.dataset.posicion)[0].classList.remove('active');
-                            $('#v-pills-'+this.dataset.posicion)[0].classList.remove('show')
-                            $('#v-pills-'+this.dataset.posicion+'-tab')[0].classList.remove('active');
-                            $('#v-pills-'+this.dataset.siguiente)[0].classList.add('active');
-                            $('#v-pills-'+this.dataset.siguiente)[0].classList.add('show')
-                            $('#v-pills-'+this.dataset.siguiente+'-tab')[0].classList.add('active')
-                            if (validaarchivos(e.currentTarget.closest('form').id)) {
-                               $('#v-pills-'+this.dataset.posicion+'-tab').children()[0].classList.remove('d-none');
-                            }
-                            if ('siguienteseccion' in this.dataset) {
-                                $('#menu-'+this.dataset.siguienteseccion)[0].classList.remove('collapsed')
-                                $('#menu-'+this.dataset.siguienteseccion)[0].classList.add('active')
-                                $('#c_'+this.dataset.siguienteseccion)[0].classList.add('show');  /* colapsse */
-                            }
-      });
 
      $("input[type=file][id^='s_id_'").change(function(e){
                   $("#l_"+this.id)[0].innerHTML=this.files[0].name;
@@ -239,7 +59,7 @@ $("input[name='tipopersona']:checked").val()
         $('form[id="f_motivo"] :input').on('change', function(e) {
              cambia_dato(e);
         });
-        $('#motivo').on('click', function(e) {
+        $('#b_motivo').on('click', function(e) {
              $('#horahechos').focus();
         });
      }
@@ -257,9 +77,15 @@ $("input[name='tipopersona']:checked").val()
               $('#'+e.target.id).addClass('tst1');
         });
 
-        $("#nombre_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
-        $("#primer_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
-        $("#segundo_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#nombre_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); 
+                                $("#nombredelinfractor")[0].innerHTML=e.currentTarget.value+' '+$("#primer_apellido_i")[0].value+' '+$("#segundo_apellido_i")[0].value;
+                                         })
+        $("#primer_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); 
+                                $("#nombredelinfractor")[0].innerHTML=$("#nombre_i")[0].value+' '+e.currentTarget.value+' '+$("#segundo_apellido_i")[0].value;
+                                         })
+        $("#segundo_apellido_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); 
+                                $("#nombredelinfractor")[0].innerHTML=$("#nombre_i")[0].value+' '+$("#primer_apellido_i")[0].value+' '+e.currentTarget.value;
+                                         })
         $("#idinfraccion").on('change',function(e){
                $("#textos").removeClass('d-none');
                $("#l_infraccion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.infraccion;
@@ -271,6 +97,29 @@ $("input[name='tipopersona']:checked").val()
                   $("#l_aplicarsi")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.aplicarsi;
                }
                $("#l_tipo_sancion")[0].innerHTML='Tipo '+e.currentTarget.options[e.currentTarget.value].dataset.tipo_sancion;
+
+               if (e.currentTarget.options[e.currentTarget.value].dataset.uc_desde!="") {
+                  $("#l_uc")[0].innerHTML=" Unidad de cuenta desde "+e.currentTarget.options[e.currentTarget.value].dataset.uc_desde;
+               }
+               if (e.currentTarget.options[e.currentTarget.value].dataset.uc_hasta!="") {
+                  $("#l_uc")[0].innerHTML+=" hasta "+e.currentTarget.options[e.currentTarget.value].dataset.uc_hasta;
+               }
+
+               if (e.currentTarget.options[e.currentTarget.value].dataset.servicio_desde!="") {
+                  $("#l_hs")[0].innerHTML=" Horas de servicio desde "+e.currentTarget.options[e.currentTarget.value].dataset.servicio_desde;
+               }
+               if (e.currentTarget.options[e.currentTarget.value].dataset.servicio_hasta!="") {
+                  $("#l_hs")[0].innerHTML+=" hasta "+e.currentTarget.options[e.currentTarget.value].dataset.servicio_hasta;
+               }
+
+               if (e.currentTarget.options[e.currentTarget.value].dataset.arresto_desde!="") {
+                  $("#l_ha")[0].innerHTML=" Horas de arresto desde "+e.currentTarget.options[e.currentTarget.value].dataset.arresto_desde;
+               }
+               if (e.currentTarget.options[e.currentTarget.value].dataset.arresto_hasta!="") {
+                  $("#l_ha")[0].innerHTML+=" hasta "+e.currentTarget.options[e.currentTarget.value].dataset.arresto_hasta;
+               }
+               $('#sancionaplicada')[0].value=0;
+               $('input:radio[name=tiposancion]').each(function () { $(this).prop('checked', false); });
          })
      }
 
@@ -305,6 +154,7 @@ $("input[name='tipopersona']:checked").val()
                             success: function(data){
                             if (data.length>0) {
                                 formb.dataset.id=data[0].id;
+                                $('#des_expediente')[0].innerHTML='Boleta-'+data[0].boleta_remision;
                                 muestradatos($('form[id="f_boleta"]')[0],data[0]);
                                 muestradatos($('form[id="f_motivo"]')[0],data[0]);
                             } else {
@@ -328,10 +178,12 @@ $("input[name='tipopersona']:checked").val()
             var formi = $('form[id="f_infractores"]')[0]; 
             formi.dataset.id="" ;
             formi.reset();
-            $('#c_infractor').addClass("active")
-            $('#c_infractor').addClass("show")
-            $('#c_infractores').removeClass("active")
-            $('#c_infractores').removeClass("show")
+            $('#nombredelinfractor')[0].innerHTML='Nuevo infractor';
+            $('#c_infractor').addClass("active");
+            $('#c_infractor').addClass("show");
+            $('#c_infractores').removeClass("active");
+            $('#c_infractores').removeClass("show");
+            $('#datosgenerales').trigger("click");
             $('#nombre_i').focus();
         });
 
@@ -380,7 +232,10 @@ $("input[name='tipopersona']:checked").val()
                                   if (data.length==1) {
                                      var formi = $('form[id="f_infractores"]')[0];
                                      formi.dataset.id=data[0].id;
+                                     $('#datosgenerales').addClass('tst1');
                                      muestradatos($('form[id="f_infractores"]')[0],data[0]);
+                                     $('#nombredelinfractor')[0].innerHTML=$('#nombre_i')[0].value+' '+$('#primer_apellido_i')[0].value
+                                                                                                  +' '+$('#segundo_apellido_i')[0].value;
                                   }
                                   return;
                             }
@@ -395,27 +250,20 @@ $("input[name='tipopersona']:checked").val()
                   });
         });
 
-        $("#guardarexpediente").click(function(e){
+        $("button[name='guardarexpediente']").click(function(e){
                   e.preventDefault();
+                  var formdd = $('form[id="f_boleta"]')[0];
                   var Data1 = {
                         estatus : '1'
                     };
-
                     $.ajax({
                        type: 'put',
-                       url: mipath()+'api/boletas/'+formd.dataset.id,
+                       url: mipath()+'api/boletas/'+formdd.dataset.id,
                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                        data: Data1,
                        success: function(data){
-                             $('#v-pills-informacion-inmueble')[0].classList.remove('active');
-                             $('#v-pills-informacion-inmueble')[0].classList.remove('show')
-                             $('#v-pills-informacion-inmueble-tab')[0].classList.remove('active');
-                             $('#v-pills-informacion-inmueble-tab').children()[0].classList.remove('d-none'); 
-                             $('#v-pills-poblacion')[0].classList.add('active');
-                             $('#v-pills-poblacion')[0].classList.add('show')
-                             $('#v-pills-poblacion-tab')[0].classList.add('active')
-                             if (formd.dataset.id=='' && data.id!='') {
-                                 formd.dataset.id=data.id;
+                             if (formdd.dataset.id=='' && data.id!='') {
+                                 formdd.dataset.id=data.id;
                              }
                              crearMensaje(false,"Atención:", ' Se actualizó información del inmueble');
                              $("#f_poblacion :input:not([readonly='readonly']):not([disabled='disabled'])").first().focus();
@@ -423,42 +271,18 @@ $("input[name='tipopersona']:checked").val()
                        error: function( jqXhr, textStatus, errorThrown ){
                           var errores=jqXhr.responseJSON.errors;
                           for (var x in errores) {
-                                     crearMensaje(true,"Error: ", errores[x]);
+                                     if ('seccion' in errores) {
+                                        $('#'+errores.seccion).trigger('click');
+                                     }
+                                     crearMensaje(true,"Error ", errores[x]).then(function() {
+                                         $('#'+x)[0].focus();
+                                     });
                                      break;
                           }
                        }
                     });
         });
      }
-
-     if ($('form[id="f_domicilio"]')[0]!=undefined && $('form[id="f_domicilio"]')[0].id=='f_domicilio') {
-        $("#wl_alias").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
-        var formd = $('form[id="f_domicilio"]')[0];
-
-        $("#wl_alias").keyup(function(){
-              $("#des_inmueble").text('-'+this.value);
-        });
-        $('form[id="f_domicilio"] :input').on('change', function(e) {
-             cambia_dato(e);
-        });
-
-        $("#grabainmueble").click(function(e){
-                  e.preventDefault();
-                  if (formd.checkValidity() === false) {
-                    formd.classList.add('was-validated');
-                    return;
-                  } 
-                             $('#v-pills-domicilio')[0].classList.remove('active');
-                             $('#v-pills-domicilio')[0].classList.remove('show')
-                             $('#v-pills-domicilio-tab')[0].classList.remove('active');
-                             $('#v-pills-domicilio-tab').children()[0].classList.remove('d-none');
-                             $('#v-pills-informacion-inmueble')[0].classList.add('active');
-                             $('#v-pills-informacion-inmueble')[0].classList.add('show')
-                             $('#v-pills-informacion-inmueble-tab')[0].classList.add('active')
-
-        });
-     }
-
 
      //Editar perfil
      if ($('main')[0].id=='editarperfil') {
@@ -1227,14 +1051,17 @@ $("input[name='tipopersona']:checked").val()
 });
 
 window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
-  $('#titleMsgModal').html(titulo);
-  $('#bodyMsgModal').html(mensaje);
-  $('#msgModal').modal('show');
-  if (tiempo!=0) {
+  return new Promise(function (resolve, reject) {
+      $('#titleMsgModal').html(titulo);
+      $('#bodyMsgModal').html(mensaje);
+      $('#msgModal').modal('show');
+      if (tiempo!=0) {
         setTimeout(function(){
                 $('#msgModal').modal('hide');
+                resolve();
         }, tiempo);
-  }
+     }
+   })
 }
 
 
@@ -1362,12 +1189,22 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
 /* muestra los datos 
  * el tercer parametro indica si para validar utiliza el checkvalidity */
      window.muestradatos = function (forma,datos,cv=0){
+                                var lee=false;
+                                if (datos.estatus==1) {
+                                   lee=true;
+                                }
                                 var inputs=forma.getElementsByTagName('input');
                                 var textarea=forma.getElementsByTagName('textarea');
                                 var selects=forma.getElementsByTagName('select');
+                                var ai=$('div[name="agregarinfractor"]');
+                                for (var x in ai) {
+                                    ai[x].hidden=lee;
+                                }
+                                var ai=$('button[name="guardarexpediente"]');
+                                for (var x in ai) {
+                                    ai[x].hidden=lee;
+                                }
                                 for (var x in inputs) {
-                                    //console.log('id='+inputs[x].id+' type='+inputs[x].type);
-
                                     if (inputs[x].type=='text' || inputs[x].type=='number' || inputs[x].type=='date' || inputs[x].type=='email' ) {
 
                                         inputs[x].value=datos[inputs[x].id.replace('wl_','')];
@@ -1387,7 +1224,9 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                            var quediv=$($(inputs[x])[0].closest('div'));
                                            crearBotonDescarga(datos['filesystem_'+inputs[x].id.split('_')[2]],quediv);
                                        }
+                                       inputs[x].disabled=lee;
                                     }
+                                    inputs[x].readOnly=lee;
                                 }
                                 for (var x in selects) {
                                     if (typeof(selects[x])=='object') {
@@ -1398,12 +1237,14 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                           selects[x].value=datos[selects[x].id.replace('wl_','')];
                                        }
                                     }
+                                    selects[x].disabled=lee;
                                 }
 
                                 for (var x in textarea) {
                                     if (typeof(textarea[x])=='object') {
                                      textarea[x].value=datos[textarea[x].id.replace('wl_','')];
                                     }
+                                    textarea[x].readOnly=lee;
                                 }
 
 /*
@@ -1488,6 +1329,8 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                      formi.dataset.id=data[0].id;
                                      muestradatos($('form[id="f_infractores"]')[0],data[0]);
                                      $('#datosgenerales').trigger("click");
+                                     $('#nombredelinfractor')[0].innerHTML=$('#nombre_i')[0].value+' '+$('#primer_apellido_i')[0].value
+                                                                                                  +' '+$('#segundo_apellido_i')[0].value;
                                      $('#nombre_i').focus();
                                      $('#c_infractor').addClass("active")
                                      $('#c_infractor').addClass("show")
@@ -1696,6 +1539,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
    }
 
    window.cambia_dato = function (e) {
+                  e.preventDefault();
                   var formdd = $('form[id="f_boleta"]')[0];
                   if ('id' in formdd.dataset) {
                          var id=formdd.dataset.id;
@@ -1722,14 +1566,18 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                           var errores=jqXhr.responseJSON.errors;
                           for (var x in errores) {
                                      crearMensaje(true,"Error ", errores[x]);
+                                     if ('seccion' in errores) {
+                                        $('#'+errores[x].seccion).trigger('click');
+                                     }
                                      quedato1.focus();
-                                     break;
+                                     return false;
                           }
                        }
                     });
    }
 
    window.cambia_dato_infra = function (e) {
+                  e.preventDefault();
                   var formdd = $('form[id="f_boleta"]')[0];
                   if ('id' in formdd.dataset) {
                          var id=formdd.dataset.id;
@@ -1766,7 +1614,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                           for (var x in errores) {
                                      crearMensaje(true,"Error ", errores[x]);
                                      quedato1.focus();
-                                     break;
+                                     return false;
                           }
                        }
                     });

@@ -15,7 +15,7 @@
           </a>
           <a class="btn-registro" id="infractores" data-toggle="tab" href="#c_infractores" role="button">INFRACTOR(ES)
           </a>
-          <a class="btn-registro" id="motivo" data-toggle="tab" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN
+          <a class="btn-registro" id="b_motivo" data-toggle="tab" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN
           </a>
 
 
@@ -185,7 +185,7 @@
                 </div>
 
                 <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="button" id="guardarexpediente">Crear expediente</button>
+                  <button class="btn-01" type="submit" name="guardarexpediente" >Crear expediente</button>
                 </div>
               </form>
             </div> <!-- Finaliza tabPane información general -->
@@ -258,7 +258,7 @@
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="id_alcaldia_h">Alcaldía:</label>
+                    <label class="form-label-custom" for="id_alcaldia_h">*Alcaldía:</label>
                     <select class="form-control form-control-custom" id="id_alcaldia_h" name="id_alcaldia_h" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
                       @foreach ($data['alcaldias'] as $alcaldia)
@@ -292,7 +292,7 @@
                 </div>
 
                 <div class="contenedor-boton justify-content-end seccion">
-                  <button class="btn-01" type="submit" name="button" id="grabamotivo" >Guardar y seguir editando</button>
+                  <button class="btn-01" type="submit" name="guardarexpediente" id="grabamotivo" >Crear expediente</button>
                 </div>
               </form>
             </div> <!-- Finaliza tab-Panel Domicilio -->
@@ -303,29 +303,25 @@
               <div class="overflow-auto">
                 <table id="dg_infractores" class="tabla seccion mt-0">
                 </table>
-                  <div class="row col-md-12 mb-3  d-flex justify-content-end align-items-end">
+                  <button class="row col-md-12 mb-3  d-flex justify-content-end align-items-end">
                     <div name='agregarinfractor'>
                         <label class="Crear-expediente mb-0 py-2" name="button" >Agregar infractor</label>
                         <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
-                  </div>
+                  </button>
               </div>
             </div>
   
             <div class="tab-pane fade" id="c_infractor" >
 
-            <div class="row col-md-12 mb-3  d-flex justify-content-start align-items-start">
-                <div class="mb-3  col-md-12 d-flex justify-content-between">
-                    <div id='mostrarinfractores'>
-                        <img class="Triangle" type="img" src="{{url('')}}/src/img/triangle.svg" />
-                        <img class="Triangle" type="img" src="{{url('')}}/src/img/triangle.svg" />
-                        <label class="Infractores-del-expe mb-0 py-2" name="button" >Infractores del expediente</label>
+            <div class="flex-nowrap row col-md-12 mb-3  d-flex justify-content-between pr-0 mr-0">
+                    <div class="row col-lg-5 d-flex justify-content-start pr-0 -Datos-Generales-">
+                         <div id=nombredelinfractor>Nuevo infractor</div>
                     </div>
-                    <div class="col-lg-8 d-flex justify-content-end  align-items-end pr-0 -Datos-Generales-">
+                    <div class="col-lg-7 d-flex justify-content-end   pr-0 -Datos-Generales-">
                       <div class="pl-1" id="datosgenerales" name="opciones" data-href="c_datosgenerales" >1 Datos generales</div>
                       <div class="pl-1" id="infraccionysancion" name="opciones" data-href="c_infraccionesysancion" >| 2 Infracción y sanción </div>
                     </div>
-                </div>
             </div>
 
               <form id="f_infractores" data-id=''>
@@ -482,17 +478,23 @@
         <div class="Policias-remitentes mt-3">Infracción y sanción</div>
         <div class="row  mb-2">
                   <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="idinfraccion">Infraccion:</label>
+                    <label class="form-label-custom" for="idinfraccion">Infracción:</label>
                     <select class="form-control form-control-custom" id="idinfraccion" name="idinfraccion" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
                       @foreach ($data['infracciones'] as $infraccion)
                       <option 
-                             data-infraccion="{{ $infraccion['infraccion'] }}" 
-                             data-descripcion="{{ $infraccion['descripcion'] }}" 
-                             data-conciliacion="{{ $infraccion['conciliacion'] }}" 
-                             data-aplicarsi="{{ $infraccion['aplicari'] }}" 
-                             data-tipo_sancion="{{ $infraccion['tipo_sancion'] }}" 
-                           value="{{ $infraccion['id'] }}">{{ 'Articulo '.$infraccion->articulo.' Fraccion '.$infraccion->fraccion }}</option>
+                             data-infraccion="{{ $infraccion->infraccion }}" 
+                             data-descripcion="{{ $infraccion->descripcion }}" 
+                             data-conciliacion="{{ $infraccion->conciliacion }}" 
+                             data-aplicarsi="{{ $infraccion->aplicarsi }}" 
+                             data-tipo_sancion="{{ $infraccion->tipo_sancion }}" 
+                             data-uc_desde="{{ $infraccion->uc_desde }}" 
+                             data-uc_hasta="{{ $infraccion->uc_hasta }}" 
+                             data-servicio_desde="{{ $infraccion->servicio_desde }}" 
+                             data-servicio_hasta="{{ $infraccion->servicio_hasta }}" 
+                             data-arresto_desde="{{ $infraccion->arresto_desde }}" 
+                             data-arresto_hasta="{{ $infraccion->arresto_hasta }}" 
+                           value="{{ $infraccion->id }}">{{ 'Articulo '.$infraccion->articulo.' Fraccion '.$infraccion->fraccion }}</option>
                       @endforeach
                     </select>
                     <div class="invalid-feedback">
@@ -502,45 +504,45 @@
         </div>
         <div class="row d-none" id="textos" >
              <div class="col-md-12  mb-0">
-                 <label class="Crear-expediente mb-0 py-2" name="button" id="l_infraccion" ></label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button" id="l_infraccion" ></label>
              </div>
              <div class="col-md-12  mb-2">
                  <label class="II-Poseer-animales mb-0 py-2" name="button" id="l_descripcion" ></label>
              </div>
              <div class="col-md-12 mb-0">
-                 <label class="Crear-expediente mb-0 py-2" name="button"  >Conciliación</label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  >Conciliación</label>
              </div>
              <div class="col-md-12  mb-2">
                  <label class="II-Poseer-animales mb-0 py-2" name="button" id='l_conciliacion' >No aplica</label>
              </div>
              <div class="col-md-12  mb-0">
-                 <label class="Crear-expediente mb-0 py-2" name="button"  >Aplica si</label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  >Aplica si</label>
              </div>
              <div class="col-md-12  mb-2">
                  <label class="II-Poseer-animales mb-0 py-2" name="button" id='l_aplicarsi' >No aplica</label>
              </div>
              <div class="col-md-12  mb-2">
-                 <label class="Crear-expediente mb-0 py-2" name="button"  id='l_tipo_sancion'></label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  id='l_tipo_sancion'></label>
              </div>
              <div class="col-md-12  mb-0">
-                 <label class="Crear-expediente mb-0 py-2" name="button"  id='l_tipo_sancion'>*Tipo de sanción</label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  id='l_tipo_sancion'>*Tipo de sanción</label>
              </div>
              <div class="col-md-12  mb-2">
                <div class="form-check-inline col-md-12">
                 <input class="form-check-input" type="radio" name="tiposancion" id="uc" value="2" required="">
-                <label class="form-check-label label-custom-check" for="uc">
+                <label class="form-check-label label-custom-check" for="uc" id="l_uc">
                                         Unidad de cuenta 
                 </label>
                </div>
                <div class="form-check-inline col-md-12">
                 <input class="form-check-input" type="radio" name="tiposancion" id="hs" value="3"  required="">
-                <label class="form-check-label label-custom-check" for="hs">
+                <label class="form-check-label label-custom-check" for="hs" id="l_hs">
                                         Horas de servicio comunitario
                 </label>
                </div>
                <div class="form-check-inline col-md-12">
                 <input class="form-check-input" type="radio" name="tiposancion" id="ha" value="4"  required="">
-                <label class="form-check-label label-custom-check" for="ha">
+                <label class="form-check-label label-custom-check" for="ha" id="l_ha">
                                         Horas de arresto
                 </label>
                </div>
@@ -562,12 +564,23 @@
         </div>
       </div> <!-- fin de infraccionysancion -->
 
-                  <div class=" col-md-12 mb-3  mr-0 pr-0 d-flex justify-content-end align-items-end">
-                    <div name='agregarinfractor'>
+                  <div class="row col-md-12 mb-3  mr-0 pr-0 d-flex justify-content-between align-items-center">
+                    <div id='mostrarinfractores' class="col-md-4">
+                        <img class="Triangle" type="img" src="{{url('')}}/src/img/triangle.svg" />
+                        <img class="Triangle" type="img" src="{{url('')}}/src/img/triangle.svg" />
+                        <label class="Infractores-del-expe mb-0 py-2" name="button" >Infractores del expediente</label>
+                    </div>
+
+                    <div name='agregarinfractor' class="col-md-4">
                         <label class="Crear-expediente mb-0 py-2" name="button" >Agregar infractor</label>
                         <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
                   </div>
+
+                  <div class="contenedor-boton justify-content-end seccion">
+                        <button class="btn-01" type="submit" name="guardarexpediente" >Crear expediente</button>
+                  </div>
+
               </form>
             </div> <!-- Finaliza tab-Panel c_infractor -->
 

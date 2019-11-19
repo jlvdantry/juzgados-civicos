@@ -118,7 +118,7 @@ Route::group(['middleware' => ['auth:web']], function() {
     Route::get('crearexpediente/',  function () {
            $alcaldias = Alcaldias::all();
            $entidades = Entidades::all();
-           $infracciones = Infracciones::all();
+           $infracciones = Infracciones::getConcatalogos();
            $data = array (
               'alcaldias' => $alcaldias,
               'entidades' => $entidades,
@@ -129,7 +129,7 @@ Route::group(['middleware' => ['auth:web']], function() {
     Route::get('crearexpediente/{id}',  function () {
            $alcaldias = Alcaldias::all();
            $entidades = Entidades::all();
-           $infracciones = Infracciones::all();
+           $infracciones = Infracciones::getConcatalogos();
            $data = array (
               'alcaldias' => $alcaldias,
               'entidades' => $entidades,
