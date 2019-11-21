@@ -13,6 +13,8 @@ use App\Mail\UserRechazado;
 use Mail;
 use DateTime;
 use App\Alcaldias;
+use App\Juzgados;
+use App\Perfiles;
 
 class userController extends Controller
 {
@@ -45,8 +47,10 @@ class userController extends Controller
     return response()->json($datos);
   }
 
-  public function detalleterceracreditado($id)
+  public function detalleusuario($id)
   {
+      $juzgados = Juzgados::all();
+      $perfiles = Perfiles::all();
       $datos = User::select('*',DB::Raw(
                 'case when activo=0 then \'Pendiente\''.
                 ' when activo=1 then \'Aceptado\''.
@@ -54,18 +58,14 @@ class userController extends Controller
                 ' when activo=3 then \'Eliminado\''.
                 ' else \'Desconocido\' end desactivo '.
                ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
-                ',case when tipopersona=\'F\' then \'Fisica\''.
-                ' when tipopersona=\'M\' then \'Moral\''.
-                ' else \'Desconocido\' end destipopersona '.
-               ',case '.
-                ' when id_nivel=1 then \'Capacitación de brigadas de PC\''.
-                ' when id_nivel=2 then \'Elaboración de programas internos para establecimientos o inmuebles de mediano riesgo\''.
-                ' when id_nivel=3 then \'Elaboración de programas internos de PC para establecimientos o inmuebles de alto riesgo\''.
-                ' when id_nivel=4 then \'Estudios de riesgo de vulnerabilidad\''.
-                ' else \'Desconocido\' end desnivel '.
                 ',(select descripcion from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '
                 ))->where('id','=',$id)->get();
-    return  view('secretaria.detalle-terceros-acreditados-secretaria')->with('user',$datos[0]);
+           $data = array (
+              'juzgados' => $juzgados,
+              'user' => $datos[0],
+              'perfiles' => $perfiles
+           );
+        return  view('detalle-usuario')->with('data',$data);
   }
 
   public function detalleterceracreditadotercero($id)
@@ -184,12 +184,6 @@ class userController extends Controller
                                                ' when activo=3 then \'Eliminado\''.
                                                ' else \'Desconocido\' end desactivo '.
                                   ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
-                                     ',case '.
-                                           ' when id_nivel=1 then \'Capacitación de brigadas de PC\''.
-                                           ' when id_nivel=2 then \'Elaboración de programas internos para establecimientos o inmuebles de mediano riesgo\''.
-                                           ' when id_nivel=3 then \'Elaboración de programas internos de PC para establecimientos o inmuebles de alto riesgo\''.
-                                           ' when id_nivel=4 then \'Estudios de riesgo de vulnerabilidad\''.
-                                           ' else \'Desconocido\' end desnivel '.
                                      ',(select descripcion from perfiles pe where pe.id in '.
                                           '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '.
                                      ',(select id from perfiles pe where pe.id in '.

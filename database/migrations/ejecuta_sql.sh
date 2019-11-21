@@ -15,10 +15,11 @@ export PGPASSWORD=$DB_PASSWORD
 ##DB_USERNAME=postgres
 DB_HOST=localhost
 cat > $0.sql << fin
-select * from migrations
+select * from users where email='jlvdantry@hotmail.com';
+--delete from users where email='jlvdantry@hotmail.com';
 fin
-##psql -h $DB_HOST -d $DB_DATABASE -U $DB_USERNAME  < $0.sql
-psql -U $DB_USERNAME  < $0.sql     ## para crear la bse de datos
+psql -h $DB_HOST -d $DB_DATABASE -U $DB_USERNAME  < $0.sql
+##psql -U $DB_USERNAME  < $0.sql     ## para crear la bse de datos
 ##pg_dump -s -t users -h $DB_HOST -U $DB_USERNAME $DB_DATABASE > database/migrations/users.dmp
 ##pg_dump -s -t inmuebles -h $DB_HOST -U $DB_USERNAME $DB_DATABASE >> database/migrations/inmuebles.dmp
 ##pg_dump -s -t users -h $DB_HOST -U $DB_USERNAME $DB_DATABASE >> database/migrations/users.dmp

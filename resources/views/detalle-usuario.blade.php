@@ -3,24 +3,24 @@
 @section('content')
 
 
-  <main id="autorizacion_pone" data-id="{{ $user->id }}">
+  <main id="autorizacion_pone" data-id="{{ $data['user']->id }}">
     <section class="container">
       <div class="row d-flex justify-content-between align-items-center mt-3">
         <div class="col-lg-6">
-          <h1 class="my-0 text-center text-lg-left">{{ $user->nombres.' '.$user->ape_pat.' '. $user->ape_mat }} </h1>
+          <h1 class="my-0 text-center text-lg-left">{{ $data['user']->nombres.' '.$data['user']->ape_pat.' '. $data['user']->ape_mat }} </h1>
         </div>
         <div class="col-lg-6">
           <form class="d-flex justify-content-end" action="index.html" method="post">
             <input class="form-check-input d-none" type="radio" id="estatusa" name="estatusa" value=""  >
             <div class="form-check-inline">
               <button type="button"  data-toggle="modal" data-target="#confirmacionModal"> 
-              <input class="form-check-input" type="radio" id="eliminado" name="estatus" value="3" {{ $user->activo==3 ? 'checked' : '' }} >
+              <input class="form-check-input" type="radio" id="eliminado" name="estatus" value="3" {{ $data['user']->activo==3 ? 'checked' : '' }} >
               <label class="form-check-label label-custom-check" for="eliminado"> Eliminado </label>
             </button>
             </div>
             <div class="form-check-inline">
               <button type="button"  data-toggle="modal" data-target="#confirmacionModal">
-              <input class="form-check-input" type="radio" id="aceptado" name="estatus" value="1" {{ $user->activo==1 ? 'checked' : '' }} >
+              <input class="form-check-input" type="radio" id="aceptado" name="estatus" value="1" {{ $data['user']->activo==1 ? 'checked' : '' }} >
               <label class="form-check-label label-custom-check" for="aceptado"> Aceptado </label>
             </button>
             </div>
@@ -28,14 +28,14 @@
 
             <div class="form-check-inline">
             <button type="button"  data-toggle="modal" data-target="#confirmacionModalr">
-              <input class="form-check-input" type="radio" id="rechazado" name="estatus" value="2" {{ $user->activo==2 ? 'checked' : '' }}>
+              <input class="form-check-input" type="radio" id="rechazado" name="estatus" value="2" {{ $data['user']->activo==2 ? 'checked' : '' }}>
               <label class="form-check-label label-custom-check" for="rechazado">Rechazado</label>
               </button>
             </div>
 
             <div class="form-check-inline">
             <button type="button"  data-toggle="modal" data-target="#confirmacionModal">
-              <input class="form-check-input" type="radio" id="pendiente" name="estatus" value="0" {{ $user->activo==0 ? 'checked' : '' }}>
+              <input class="form-check-input" type="radio" id="pendiente" name="estatus" value="0" {{ $data['user']->activo==0 ? 'checked' : '' }}>
               <label class="form-check-label label-custom-check" for="pendiente">Pendiente</label>
               </button>
             </div>
@@ -45,7 +45,7 @@
     <div class="modal-content">
       <div class="modal-body pb-0">
         <h1 class="modal-title" id="modalLabel">Información importante</h1>
-        <p>¿Estás seguro que deseas modificar el estatus del tercero acreditado?</p>
+        <p>¿Estás seguro que deseas modificar el estatus del usuario?</p>
       </div>
       <div class="contenedor-boton p-3 justify-content-end pt-0">
         <button type="button" class="btn-03" data-quemodal="confirmacionModal" id="cancelarcambio">Cerrar</button>
@@ -84,9 +84,10 @@
         </div>
       </div>
       </section>
+{{--
 @if($user->desperfil=='Tercero Acreditado')
     <section id="tercer-acreditado-container" class="container">
-      <h2 class="mb-0">Perfil {{ $user->desperfil }} </h2>
+      <h2 class="mb-0">Perfil {{ $user->desperfil }} </h2> 
       <div class="row">
         <div class="col-lg-4">
           <h3 class="label-formulario">Tipo de persona</h3>
@@ -179,21 +180,48 @@
       </div>
     </section>
 @else
+--}}
     <section id="tercer-acreditado-container" class="container">
-      <h1 class="mb-0">Perfil {{ $user->desperfil }}</h1>
-      <h2 class="mb-0">Datos de contacto</h2>
+      {{-- <h1 class="mb-0">Perfil {{ $user->desperfil }}</h1> --}}
+      <h2 class="mb-0">Datos del usuario</h2>
       <div class="row">
         <div class="col-lg-4">
           <h3 class="label-formulario">Correo electrónico</h3>
-          <p>{{$user->email}}</p>
+          <p>{{$data['user']->email}}</p>
         </div>
-        <div class="col-lg-4">
-          <h3 class="label-formulario">Alcaldía</h3>
-          <p>{{$user->getAlcaldia()}}</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 mb-3">
+            <label class="form-label-custom" for="idjuzgado">Juzgado*</label>
+            <select class="form-control form-control-custom" id="idjuzgado" name="idjuzgado" required>
+              <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['juzgados'] as $juzgado)
+                      <option value="{{ $juzgado->id }}">{{ $juzgado->juzgado." ".$juzgado->direccion }}</option>
+                      @endforeach
+            </select>
+            <div class="invalid-feedback">
+              Selecciona una opción
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 mb-3">
+            <label class="form-label-custom" for="idperfil">Perfil*</label>
+            <select class="form-control form-control-custom" id="idperfil" name="idperfil" required>
+              <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['perfiles'] as $perfil)
+                         <option value="{{ $perfil->id }}">{{ $perfil->descripcion }}</option>
+                      @endforeach
+            </select>
+            <div class="invalid-feedback">
+              Selecciona una opción
+            </div>
         </div>
       </div>
     </section>
-@endif
+{{-- @endif --}}
 
   </main>
 @endsection

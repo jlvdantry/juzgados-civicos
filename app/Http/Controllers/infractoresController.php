@@ -89,9 +89,12 @@ class infractoresController extends Controller
       if ($inmu->count()==0) {
             return response()->json([ 'errors' => ['boleta_remision' => 'El número de boleta <b>'.$boleta.' no existe']],429);
       }
+      if ($inmu[0]->estatus==1) {
+            return response()->json([ 'errors' => ['id' => 'No puede dar de alta un infractor de una boleta que tiene estatus de <b>capturado']],430);
+      }
 
       if (!$request->has('nombre_i')) {
-                return response()->json([ 'errors' => ['nombre_i' => 'El primer dato que debe teclear es el nombre']],428);
+                return response()->json([ 'errors' => ['nombre_i' => 'El primer dato que debe teclear es el nombre','seccion' => 'datosgenerales']],428);
       }
       $dato = new Infractores(
          [

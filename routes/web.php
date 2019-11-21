@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use App\User;
 use App\Perfiles;
 use App\Alcaldias;
+use App\Juzgados;
 use App\Entidades;
 use App\Infracciones;
 use App\Http\Controllers\userController;
@@ -37,7 +38,8 @@ Route::get('/restaura/{si}', function () {
 
 
 Route::get('/correo_registro', function () {
-  $user = App\User::find(4);
+  //$user = App\User::find(18);
+  $user = App\User::getconCatalogosbyID(20);
   return new App\Mail\UserRegistrado($user);
   });
 
@@ -55,8 +57,8 @@ Route::get('/perfil_tercer_acreditado', function () {
 });
 
 Route::get('/notienecuenta', function () {
-    $alcaldias = Alcaldias::all();
-    return view('notienecuenta')->with('alcaldias', $alcaldias);
+    $juzgados = Juzgados::all();
+    return view('notienecuenta')->with('juzgados', $juzgados);
 });
 
 Route::get('/404error', function () {
@@ -72,9 +74,9 @@ Route::get('/cambio-contra', function () {
 
 Route::group(['middleware' => ['auth:web']], function() {
     log::debug('routes/web.php Entro a middleware web '.URL::current());
-    Route::get('/terceros-acreditados-registrados', function () {
+    Route::get('/usuarios-registrados', function () {
         $perfiles = Perfiles::all();
-        return view('secretaria.terceros-acreditados-secretaria')->with('perfiles', $perfiles);
+        return view('usuarios-registrados')->with('perfiles', $perfiles);
     });
     Route::get('/registro-exitoso', function () {
          return view('registro-exitoso');
@@ -89,7 +91,7 @@ Route::group(['middleware' => ['auth:web']], function() {
         return view('expedientes');
     });
     Route::get('/detalle-tercer-acreditado-tercero/{id}', 'userController@detalleterceracreditadotercero');
-    Route::get('/detalle-tercer-acreditado/{id}', 'userController@detalleterceracreditado');
+    Route::get('/detalle-usuario/{id}', 'userController@detalleusuario');
 
     Route::get('/informacion-actualizada', function () {
          return view('perfil-actualizado');

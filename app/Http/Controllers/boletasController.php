@@ -169,7 +169,7 @@ class boletasController extends Controller
          if ($request->estatus==1) {
                    Log::debug('boletasController.ph quiere terminar captura='.print_r($inmu[0],true));
                    if ($inmu[0]['placa1']=="") {
-                      return response()->json([ 'errors' => ['placa1' => 'Falta teclear la placa del policia uno']],430);
+                      return response()->json([ 'errors' => ['placa1' => 'Falta teclear la placa del policia uno', 'seccion' => 'policias']],430);
                    }
                    if ($inmu[0]['areadeadscripcion_1']=="") {
                       return response()->json([ 'errors' => ['areadeadscripcion_1' => 'Falta el área de adscripción del policia uno']],430);
@@ -237,13 +237,13 @@ class boletasController extends Controller
                    foreach ($infras as $infra) {
                       Log::debug('boletasController.ph infra='.print_r($infra,true));
                       if ($infra->idinfraccion=="") {
-                         return response()->json([ 'errors' => ['infractores' => 'Falta registrar la infraccion al infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                         return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar la infraccion al infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
                       }
                       if ($infra->tiposancion=="") {
                          return response()->json([ 'errors' => ['infractores' => 'Falta seleccionar el tipo de sancion para el infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
                       }
                       if ($infra->sancionaplicada=="" || $infra->sancionaplicada==0) {
-                         return response()->json([ 'errors' => ['infractores' => 'Falta teclear la sancion del infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                         return response()->json([ 'errors' => ['sancionaplicada' => 'Falta teclear la sancion del infractor '.$infra->nombre_i, 'seccion' => 'infraccionysancion' ]],444);
                       }
                       $filtro=[];
                       array_push($filtro,['infra.id','=',$infra->idinfraccion]);
@@ -253,8 +253,8 @@ class boletasController extends Controller
                           return response()->json([ 'errors' => ['infractores' => 'Erros sistema no encuentra la infracción del infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
                       }
                       if ($infra->tiposancion==2) {
-                          if ($ffda[0]->uc_desde<$infra->sancionaplicada || $infra->sancionaplicada>$ffda[0]->uc_hasta) {
-                             return response()->json([ 'errors' => ['infractores' => 'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                          if ($infra->sancionaplicada<$ffda[0]->uc_desde || $infra->sancionaplicada>$ffda[0]->uc_hasta) {
+                             return response()->json([ 'errors' => ['sancionaplicada' => 'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i, 'seccion' => 'infraccionysancion' ]],444);
                           }
                       }
                    }

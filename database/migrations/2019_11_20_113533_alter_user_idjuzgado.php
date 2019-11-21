@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AgregarfcRlEstablecimientos extends Migration
+class AlterUserIdjuzgado extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,7 @@ class AgregarfcRlEstablecimientos extends Migration
      */
     public function up()
     {
-        Schema::table('establecimientos', function (Blueprint $table) {
-            $table->string('tipopersona_',1)->nullable()->comment('Tipo de persona F=fisica M=moral del representante legal');
-        });
-
-        //
+         DB::statement('ALTER TABLE users alter idjuzgado  type numeric(10) USING idjuzgado::numeric(10,0); ');
     }
 
     /**
@@ -27,6 +23,8 @@ class AgregarfcRlEstablecimientos extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

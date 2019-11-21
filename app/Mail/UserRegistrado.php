@@ -17,7 +17,7 @@ class UserRegistrado extends Mailable
      *
      * @return void
      */
-    public function __construct( User $user)
+    public function __construct( $user)
     {
         $this->user=$user;
         //
@@ -30,6 +30,6 @@ class UserRegistrado extends Mailable
      */
     public function build()
     {
-        return $this->subject('Confirmación de registro de acceso a la Plataforma Digital como Tercero Acreditado')->view('correos.user_correo');
+        return $this->subject('Confirmación de registro de acceso al sistema de "Nueva Cultura Cívica de la Ciudad de México"')->view('correos.user_correo');
     }
 }

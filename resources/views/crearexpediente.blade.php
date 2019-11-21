@@ -502,7 +502,7 @@
                     </div>
                   </div>
         </div>
-        <div class="row d-none" id="textos" >
+        <div class="row " id="textos" >
              <div class="col-md-12  mb-0">
                  <label class="Crear-expediente pb-0 mb-0 " name="button" id="l_infraccion" ></label>
              </div>
@@ -547,7 +547,7 @@
                 </label>
                </div>
              </div>
-                  <div class="col-md-9 mb-3">
+                  <div class="col-md-3 mb-3">
                     <label class="form-label-custom" for="sancionaplicada">Sanción:</label>
                     <input autofocus type="number" name=""sancionaplicada"" id="sancionaplicada" class="form-control form-control-custom street-names" maxlength="2" value="" placeholder="Escribe la sanción a aplicar de acuerdo al rango del tipo de sanción" autofocus required>
                     <div class="invalid-feedback">

@@ -30,8 +30,13 @@
             <div class="contenedor-boton justify-content-end seccion">
               <button class="btn-01" type="submit" name="button" id="login">Ingresar</button>
             </div>
-            <div class="enlaces-ingreso d-flex justify-content-end">
+            <div class="d-flex justify-content-between">
+             <div class="enlaces-ingreso d-flex justify-content-end">
+              <a href="./notienecuenta" >¿No tienes cuenta?</a>
+             </div>
+             <div class="enlaces-ingreso d-flex justify-content-end">
               <a href="#" id="olvidocontra" >¿Olvidaste tu contrase&#241;a?</a>
+             </div>
             </div>
           </form>
          </div>

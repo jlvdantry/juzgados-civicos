@@ -2,15 +2,15 @@
 @extends('layouts.layout')
 @section('content')
 
-  <main id="3acreditado">
+  <main id="usuarios">
     <section class="container">
       <h1 class="mb-0">Usuarios registrados</h1>
 
       <form class="seccion" action="index.html" method="post">
         <div class="row d-flex align-items-center">
           <div class="col-md-3 mb-3">
-            <label class="form-label-custom" for="nombre_solicitante">Nombre o razón social</label>
-            <input autofocus type="text" class="form-control form-control-custom" name="nombre_solicitante" value="" placeholder="Nombre o razón social tercero acreditado" id="nombres" >
+            <label class="form-label-custom" for="nombre_solicitante">Nombre</label>
+            <input autofocus type="text" class="form-control form-control-custom" name="nombre_solicitante" value="" placeholder="Nombre" id="nombres" >
           </div>
           <div class="col-md-3 mb-3">
             <label class="form-label-custom" for="email">Correo electrónico</label>
@@ -51,21 +51,7 @@
       </form>
 
       <div class="overflow-auto">
-        <table class="tabla">
-          <thead>
-            <tr>
-              <th>Folio</th>
-              <th>Nombre</th>
-              <th>Perfil</th>
-              <th>Correo electronico</th>
-              <!--<th>RFC</th> -->
-              <th>Estatus</th>
-              <th>Ver perfil</th>
-            </tr>
-          </thead>
-          <tbody id='dg_autorizacion'>
-          </tbody>
-
+        <table id="dg_usuarios" class="tabla seccion mt-0">
         </table>
       </div>
 

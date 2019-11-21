@@ -16,7 +16,14 @@ class Infracciones extends Model
                $wlfiltro.=" where ".$filtro[$k][0]." ".$filtro[$k][1]." '".$filtro[$k][2]."'";
          }
          $datos = DB::select('select * from (select infra.* '.
-                                       ',sanciones.* '.
+                                       ',sanciones.uc_desde '.
+                                       ',sanciones.uc_hasta '.
+                                       ',sanciones.servicio_desde '.
+                                       ',sanciones.servicio_hasta '.
+                                       ',sanciones.arresto_desde '.
+                                       ',sanciones.arresto_hasta '.
+                                       ',sanciones.id idsancion '.
+                                       ',sanciones.sancion '.
                                        ' from infracciones infra'.
                                        ' left join sanciones on  infra.tipo_sancion=sanciones.sancion '.
                                        $wlfiltro.

@@ -87,37 +87,7 @@ $(document).ready(function() {
                                 $("#nombredelinfractor")[0].innerHTML=$("#nombre_i")[0].value+' '+$("#primer_apellido_i")[0].value+' '+e.currentTarget.value;
                                          })
         $("#idinfraccion").on('change',function(e){
-               $("#textos").removeClass('d-none');
-               $("#l_infraccion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.infraccion;
-               $("#l_descripcion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.descripcion;
-               if (e.currentTarget.options[e.currentTarget.value].dataset.conciliacion!="") {
-                  $("#l_conciliacion")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.conciliacion;
-               }
-               if (e.currentTarget.options[e.currentTarget.value].dataset.aplicarsi!="") {
-                  $("#l_aplicarsi")[0].innerHTML=e.currentTarget.options[e.currentTarget.value].dataset.aplicarsi;
-               }
-               $("#l_tipo_sancion")[0].innerHTML='Tipo '+e.currentTarget.options[e.currentTarget.value].dataset.tipo_sancion;
-
-               if (e.currentTarget.options[e.currentTarget.value].dataset.uc_desde!="") {
-                  $("#l_uc")[0].innerHTML=" Unidad de cuenta desde "+e.currentTarget.options[e.currentTarget.value].dataset.uc_desde;
-               }
-               if (e.currentTarget.options[e.currentTarget.value].dataset.uc_hasta!="") {
-                  $("#l_uc")[0].innerHTML+=" hasta "+e.currentTarget.options[e.currentTarget.value].dataset.uc_hasta;
-               }
-
-               if (e.currentTarget.options[e.currentTarget.value].dataset.servicio_desde!="") {
-                  $("#l_hs")[0].innerHTML=" Horas de servicio desde "+e.currentTarget.options[e.currentTarget.value].dataset.servicio_desde;
-               }
-               if (e.currentTarget.options[e.currentTarget.value].dataset.servicio_hasta!="") {
-                  $("#l_hs")[0].innerHTML+=" hasta "+e.currentTarget.options[e.currentTarget.value].dataset.servicio_hasta;
-               }
-
-               if (e.currentTarget.options[e.currentTarget.value].dataset.arresto_desde!="") {
-                  $("#l_ha")[0].innerHTML=" Horas de arresto desde "+e.currentTarget.options[e.currentTarget.value].dataset.arresto_desde;
-               }
-               if (e.currentTarget.options[e.currentTarget.value].dataset.arresto_hasta!="") {
-                  $("#l_ha")[0].innerHTML+=" hasta "+e.currentTarget.options[e.currentTarget.value].dataset.arresto_hasta;
-               }
+               muestra_textos(e.currentTarget.options,this.options.selectedIndex)
                $('#sancionaplicada')[0].value=0;
                $('input:radio[name=tiposancion]').each(function () { $(this).prop('checked', false); });
          })
@@ -265,7 +235,7 @@ $(document).ready(function() {
                              if (formdd.dataset.id=='' && data.id!='') {
                                  formdd.dataset.id=data.id;
                              }
-                             crearMensaje(false,"Atención:", ' Se actualizó información del inmueble');
+                             crearMensaje(false,"Atención:", ' Se creo un expediente',0);
                              $("#f_poblacion :input:not([readonly='readonly']):not([disabled='disabled'])").first().focus();
                        },
                        error: function( jqXhr, textStatus, errorThrown ){
@@ -376,6 +346,10 @@ $(document).ready(function() {
         $("#nombres").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#ape_pat").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#ape_mat").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#alc-nombres").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#alc-ape_pat").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#alc-ape_mat").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
+        $("#alc-nombres").focus();
         $("#creacuenta").click(function(e){
 //                console.log('Va a crear cuenta');
                   e.preventDefault();
@@ -590,7 +564,7 @@ $(document).ready(function() {
 
      }
 
-     if ($('main')[0].id=='3acreditado') {
+     if ($('main')[0].id=='usuarios') {
         $("#nombres").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); })
         $("#buscar").click(function(e){
              e.preventDefault();
@@ -620,7 +594,7 @@ $(document).ready(function() {
                                                , desactivo : { header : 'Estatus','class' : 'font-weight-bold' }
                                                , ver : { header : 'Ver', 'boton' : true ,'classb' : 'btn-ver', 'funcion' : 'ver3' }
                                              }
-                                  armadatagrid(data,dis);
+                                  armadatagrid(data,dis,'dg_usuarios',true);
                             } else {
                                   crearMensaje(true,"Atención", ' No se encontraron registros');
                                   return;
@@ -999,7 +973,7 @@ $(document).ready(function() {
   });
 
   // Registro de alcaldía
-  $('#alcaldia-container').hide();
+  //$('#tercer-acreditado-container').hide();
 
   $("input[name=tipo_cuenta]").change(function () {   
     var tipo_cuenta = $(this).val();
@@ -1026,7 +1000,7 @@ $(document).ready(function() {
       email: $('#alc-email')[0].value,
       ape_pat: $('#alc-ape_pat')[0].value,
       ape_mat: $('#alc-ape_mat')[0].value,
-      id_alcaldia: $('#alc-id_alcaldia')[0].value,
+      idjuzgado: $('#idjuzgado')[0].value,
       password :  $('#alc-password')[0].value,
       password_confirmation :  $('#alc-password_confirma')[0].value
     };
@@ -1037,7 +1011,9 @@ $(document).ready(function() {
       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
       data: Data1,
       success: function(data){
-        location.href = base_url+"/registro-exitoso";
+        crearMensaje(true,"Atención", 'Registro exitoso con el correo <br><b>'+$('#alc-email')[0].value+'</b><br>Le va a llegar un email con instrucciones',0).then(function() {
+            location.href = base_url+"/";
+        });
       },
       error: function( jqXhr, textStatus, errorThrown ){
         var errores=jqXhr.responseJSON.errors;
@@ -1055,6 +1031,9 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
       $('#titleMsgModal').html(titulo);
       $('#bodyMsgModal').html(mensaje);
       $('#msgModal').modal('show');
+      $('button[class="close"]').on('click', function(e) {
+             resolve();
+      });
       if (tiempo!=0) {
         setTimeout(function(){
                 $('#msgModal').modal('hide');
@@ -1235,6 +1214,10 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                                           $($(selects[x])[0].parentNode).find('.filter-option-inner-inner')[0].innerHTML=selects[x][selects[x].selectedIndex].innerHTML;
                                        } else {
                                           selects[x].value=datos[selects[x].id.replace('wl_','')];
+                                          if (selects[x].id=="idinfraccion") {
+                                               console.log('que hacemos aqui');
+                                               muestra_textos(selects[x].options,selects[x].options.selectedIndex);
+                                          }
                                        }
                                     }
                                     selects[x].disabled=lee;
@@ -1269,7 +1252,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
 
      window.ver3 = function (ren){
           console.log(ren);
-          location.href = "./detalle-tercer-acreditado/"+ren.id.split('_')[1]; /* en el id contiene el numero de acreditado */
+          location.href = "./detalle-usuario/"+ren.id.split('_')[1]; /* en el id contiene el numero de acreditado */
      }
 
      window.ver_e = function (ren){
@@ -1611,9 +1594,16 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                        error: function( jqXhr, textStatus, errorThrown ){
                           quedato1.value=quedato1.defaultValue;
                           var errores=jqXhr.responseJSON.errors;
-                          for (var x in errores) {
-                                     crearMensaje(true,"Error ", errores[x]);
-                                     quedato1.focus();
+                          var x=0;
+                          for (x in errores) {
+                                     crearMensaje(true,"Error ", errores[x]).then(function() {
+                                        if ('seccion' in errores) {
+                                           $('#'+errores.seccion).trigger('click');
+                                           $('div[name="opciones"]').removeClass('tst1');
+                                           $('#'+errores.seccion).addClass('tst1');
+                                        }
+                                        $('#'+x).focus();
+                                     });
                                      return false;
                           }
                        }
@@ -1698,6 +1688,45 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                  $('#ape_pat').attr("required",true);
              }
 
+   }
+
+/* muestra los textos de acuerdo al articulo y fraccion
+ *     recibe las copiones y la opcioon seleccionada
+ */
+   window.muestra_textos = function (opciones,opcion) {
+          if (opcion!=-1) {
+               $("#textos").removeClass('d-none');
+               $("#l_infraccion")[0].innerHTML=opciones[opcion].dataset.infraccion;
+               $("#l_descripcion")[0].innerHTML=opciones[opcion].dataset.descripcion;
+               if (opciones[opcion].dataset.conciliacion!="") {
+                  $("#l_conciliacion")[0].innerHTML=opciones[opcion].dataset.conciliacion;
+               }
+               if (opciones[opcion].dataset.aplicarsi!="") {
+                  $("#l_aplicarsi")[0].innerHTML=opcines[opcion].dataset.aplicarsi;
+               }
+               $("#l_tipo_sancion")[0].innerHTML='Tipo '+opciones[opcion].dataset.tipo_sancion;
+
+               if (opciones[opcion].dataset.uc_desde!="") {
+                  $("#l_uc")[0].innerHTML=" Unidad de cuenta desde "+opciones[opcion].dataset.uc_desde;
+               }
+               if (opciones[opcion].dataset.uc_hasta!="") {
+                  $("#l_uc")[0].innerHTML+=" hasta "+opciones[opcion].dataset.uc_hasta;
+               }
+
+               if (opciones[opcion].dataset.servicio_desde!="") {
+                  $("#l_hs")[0].innerHTML=" Horas de servicio desde "+opciones[opcion].dataset.servicio_desde;
+               }
+               if (opciones[opcion].dataset.servicio_hasta!="") {
+                  $("#l_hs")[0].innerHTML+=" hasta "+opciones[opcion].dataset.servicio_hasta;
+               }
+
+               if (opciones[opcion].dataset.arresto_desde!="") {
+                  $("#l_ha")[0].innerHTML=" Horas de arresto desde "+opciones[opcion].dataset.arresto_desde;
+               }
+               if (opciones[opcion].dataset.arresto_hasta!="") {
+                  $("#l_ha")[0].innerHTML+=" hasta "+opciones[opcion].dataset.arresto_hasta;
+               }
+         } 
    }
 
    window.cambiapersona_l = function (tipo) {

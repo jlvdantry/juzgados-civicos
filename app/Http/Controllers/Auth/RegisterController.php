@@ -50,9 +50,12 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+      log::debug('RegisterController.php registered empezo');
       $user->generateToken();
       Mail::to($user->email)->send(new UserRegistrado($user));
+      log::debug('RegisterController.php registered paso envio email'.print_r($user->toArray(),true));
       return response()->json(['data' => $user->toArray()], 200);
+      log::debug('RegisterController.php registered despues de response');
       //return redirect('/registro-exitoso');
     }
 
@@ -120,7 +123,7 @@ class RegisterController extends Controller
             'ape_pat' => $data['ape_pat'],
             'ape_mat' => $data['ape_mat'],
             'email' => $data['email'],
-            'id_alcaldia' => $data['id_alcaldia'],
+            'idjuzgado' => $data['idjuzgado'],
             'password' => Hash::make($data['password'])
         ]);
     }
@@ -153,8 +156,9 @@ class RegisterController extends Controller
             $pe = new Perfiles_users ( [ "idusuario" => $user->id, "idperfil" => "3" ] );
             $pe->save();
         }
-
-        return $request->has('tercero') ? $this->registered($request, $user) ? : redirect($this->redirectPath()) : redirect($this->redirectPath());
+        $this->registered($request, $user);
+        $this->guard()->logout($user);
+        //return $request->has('tercero') ? $this->registered($request, $user) ? : redirect($this->redirectPath()) : redirect($this->redirectPath());
     }
 
 /*

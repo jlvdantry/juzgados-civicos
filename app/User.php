@@ -22,7 +22,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nombres', 'email', 'password','ape_pat','ape_mat','calle','rfc','sgirpc','id_nivel','vigencia','stps','exterior','interior'
-         ,'colonia','id_alcaldia','cp','num_telefono','tipopersona','activo','cb','epmr','erv','rpar'
+         ,'colonia','idjuzgado','cp','num_telefono','tipopersona','activo'
     ];
 
     /**
@@ -115,17 +115,12 @@ class User extends Authenticatable
                                                ' when activo=3 then \'Eliminado\''.
                                                ' else \'Desconocido\' end desactivo '.
                                   ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
-                                  ',case '.
-                                           ' when id_nivel=1 then \'Capacitación de brigadas de PC\''.
-                                           ' when id_nivel=2 then \'Elaboración de programas internos para establecimientos o inmuebles de mediano riesgo\''.
-                                           ' when id_nivel=3 then \'Elaboración de programas internos de PC para establecimientos o inmuebles de alto riesgo\''.
-                                           ' when id_nivel=4 then \'Estudios de riesgo de vulnerabilidad\''.
-                                           ' else \'Desconocido\' end desnivel '.
                                   ',(select descripcion from perfiles pe where pe.id in '.
                                           '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '.
                                   ',(select id from perfiles pe where pe.id in '.
                                          '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) idperfil '.
-                                  ',(select descripcion from alcaldias where id_cat_alcaldia = users.id_alcaldia) desalcaldia'.
+                                  ',(select juzgado from juzgados where id = users.idjuzgado) desjuzgado'.
+                                  ',(select direccion from juzgados where id = users.idjuzgado) dirjuzgado'.
                    ' from users where id=:id',['id' => $id]);
       Log::debug('app/User.php getconCatalogosbyID id='.print_r($datos[0],true));
       return $datos[0];
