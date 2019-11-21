@@ -221,10 +221,12 @@ class boletasController extends Controller
                       return response()->json([ 'errors' => ['horahechos' => 'Falta registrar la hora en que sucedieron los hechos', 'seccion' => 'b_motivo' ]],430);
                    } 
                    if ($inmu[0]['id_alcaldia_h']=="") {
-                      return response()->json([ 'errors' => ['id_alcaldia_h' => 'Falta seleccionar la alcaldia donde fueron los hechos', 'seccion' => 'b_motivo' ]],430);
+                      return response()->json([ 'errors' => ['id_alcaldia_h' => 'Falta seleccionar la alcaldia donde fueron los hechos'
+                                                           , 'seccion' => 'b_motivo' ]],430);
                    } 
                    if ($inmu[0]['motivo']=="") {
-                      return response()->json([ 'errors' => ['motivo' => 'Falta detallar el motivo por el que se realiza la presentación', 'seccion' => 'b_motivo' ]],430);
+                      return response()->json([ 'errors' => ['motivo' => 'Falta detallar el motivo por el que se realiza la presentación'
+                                                           , 'seccion' => 'b_motivo' ]],430);
                    } 
                    $filtro=[];
                    array_push($filtro,['bole.idboleta','=',$id]);
@@ -236,31 +238,71 @@ class boletasController extends Controller
 
                    foreach ($infras as $infra) {
                       Log::debug('boletasController.ph infra='.print_r($infra,true));
+                      if ($infra->primer_apellido_i=="") {
+                         return response()->json([ 'errors' => ['primer_apellido_i' => 'Falta registrar el primer apellido del infractor <br><b>'.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
+                      }
+                      if ($infra->sexo=="") {
+                         return response()->json([ 'errors' => ['sexo' => 'Falta seleccionar el sexo del infractor <br><b>'.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
+                      }
+                      if ($infra->curp!="") {
+                          if (!$this->validate_curp($infra->curp)) {
+                             return response()->json([ 'errors' => ['curp' => 'El curp del infractor '.$infra->nombre_i.' esta erroneo'
+                                                            , 'seccion' => 'infractores' ]],444);
+                          }
+                      }
+                      if ($infra->nacimiento!="") {
+                         $edad=$this->edad($infra->nacimiento);
+                         if ($edad<13) {
+                            return response()->json([ 'errors' => ['nacimiento' => 'La edad del infractor es menor a 13 años '.$infra->nombre_i." ".$edad
+                                                            , 'seccion' => 'infractores' ]],444);
+                         }
+                      } 
                       if ($infra->idinfraccion=="") {
-                         return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar la infraccion al infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                         return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar la infraccion al infractor '.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
                       }
                       if ($infra->tiposancion=="") {
-                         return response()->json([ 'errors' => ['infractores' => 'Falta seleccionar el tipo de sancion para el infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                         return response()->json([ 'errors' => ['infractores' => 'Falta seleccionar el tipo de sancion para el infractor '.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
                       }
-                      if ($infra->sancionaplicada=="" || $infra->sancionaplicada==0) {
-                         return response()->json([ 'errors' => ['sancionaplicada' => 'Falta teclear la sancion del infractor '.$infra->nombre_i, 'seccion' => 'infraccionysancion' ]],444);
+                      if ($infra->sancionaplicada==="" ) {
+                         return response()->json([ 'errors' => ['sancionaplicada' => 'Falta teclear la sancion del infractor <br><b>'.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
                       }
                       $filtro=[];
                       array_push($filtro,['infra.id','=',$infra->idinfraccion]);
                       $ff = new Infracciones();
                       $ffda=$ff->getConcatalogos($filtro);
                       if (count($ffda)==0) {
-                          return response()->json([ 'errors' => ['infractores' => 'Erros sistema no encuentra la infracción del infractor '.$infra->nombre_i, 'seccion' => 'infractores' ]],444);
+                          return response()->json([ 'errors' => ['infractores' => 'Erros sistema no encuentra la infracción del infractor '.$infra->nombre_i
+                                                             , 'seccion' => 'infractores' ]],444);
                       }
                       if ($infra->tiposancion==2) {
                           if ($infra->sancionaplicada<$ffda[0]->uc_desde || $infra->sancionaplicada>$ffda[0]->uc_hasta) {
-                             return response()->json([ 'errors' => ['sancionaplicada' => 'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i, 'seccion' => 'infraccionysancion' ]],444);
+                             return response()->json([ 'errors' => ['sancionaplicada' => 
+                                                       'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i
+                                                     , 'seccion' => 'infraccionysancion' ]],444);
                           }
                       }
+                      if ($infra->tiposancion==3) {
+                          if ($infra->sancionaplicada<$ffda[0]->servicio_desde || $infra->sancionaplicada>$ffda[0]->servicio_hasta) {
+                             return response()->json([ 'errors' => ['sancionaplicada' =>
+                                                       'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i
+                                                     , 'seccion' => 'infraccionysancion' ]],444);
+                          }
+                      }
+                      if ($infra->tiposancion==4) {
+                          if ($infra->sancionaplicada<$ffda[0]->arresto_desde || $infra->sancionaplicada>$ffda[0]->arresto_hasta) {
+                             return response()->json([ 'errors' => ['sancionaplicada' =>
+                                                       'La sanción aplicada esta fuera del rango del tipo de infracción del infractor <br><b>'.$infra->nombre_i
+                                                     , 'seccion' => 'infraccionysancion' ]],444);
+                          }
+                      }
+
                    }
-
          }
-
       }
 
       Log::debug('BoletasControler '.print_r($request->all(),true));
@@ -270,20 +312,6 @@ class boletasController extends Controller
       if ($request->has('areadeadscripcion_1')) {
          $data['areadeadscripcion_1']=$request->areadeadscripcion_1;
       }
-/*
-      foreach($request->all() as $key => $val) {
-          if (substr($key,0,8)=='id_file_') {
-              $comos=$this->upload($request[$key],$id,substr($key,8));
-              Log::debug(' inmueblesController.php queregreso='.print_r($comos,true));
-              if (array_key_exists('errors',$comos)) {
-                   Log::debug(' inmueblesController.php si encontro errors='.print_r($comos,true));
-                   return response()->json($comos,431);
-              } 
-              $data[$key]=$comos['id'];
-              $dataf['filesystem_'.substr($key,8)]=$comos['filesystem'];
-          }
-      }
-*/
       $dato = $inmu[0]->update($request->all());
       Log::debug('inmueblesController.php Despues de realizar el update='.print_r($dato,true)." tipo de inmu=".gettype($inmu[0]));
       if ($dato==0) {
@@ -377,4 +405,49 @@ class boletasController extends Controller
       );
       return view('secretaria.establecimientos-secretarias')->with('data', $data);
     }
+
+    function validate_curp($valor) {     
+     if(strlen($valor)==18){         
+        $letras     = substr($valor, 0, 4);
+        $numeros    = substr($valor, 4, 6);         
+        $sexo       = substr($valor, 10, 1);
+        $mxState    = substr($valor, 11, 2); 
+        $letras2    = substr($valor, 13, 3); 
+        $homoclave  = substr($valor, 16, 2);
+        if(ctype_alpha($letras) && ctype_alpha($letras2) && ctype_digit($numeros) && ctype_digit($homoclave) && $this->is_mx_state($mxState) && $this->is_sexo_curp($sexo)){ 
+            return true; 
+        }         
+        return false;
+     }else{
+         return false; 
+     } 
+    }
+    function is_mx_state($state){     
+      $mxStates = [         
+        'AS','BS','CL','CS','DF','GT',         
+        'HG','MC','MS','NL','PL','QR',         
+        'SL','TC','TL','YN','NE','BC',         
+        'CC','CM','CH','DG','GR','JC',         
+        'MN','NT','OC','QT','SP','SR',         
+        'TS','VZ','ZS'     
+      ];     
+      if(in_array(strtoupper($state),$mxStates)){         
+        return true;     
+      }     
+      return false; 
+    }
+    function is_sexo_curp($sexo){     
+      $sexoCurp = ['H','M'];     
+      if(in_array(strtoupper($sexo),$sexoCurp)){         
+       return true;     
+      }     
+      return false; 
+    }
+    function edad($fecha) { 
+       $tiempo = strtotime($fecha); 
+       $ahora = time(); 
+       $edad = ($ahora-$tiempo)/(60*60*24*365.25); 
+       $edad = floor($edad); 
+       return $edad; 
+    } 
 }

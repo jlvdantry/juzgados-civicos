@@ -2,7 +2,7 @@
 @extends('layouts.layout')
 @section('content')
 
-  <main id="ingreso">
+  <main id="ingreso" class="backlogin" >
     <div class="container mt-lg-5 mt-md-3">
       <div class="row d-flex justify-content-around align-items-center">
         <div class="col-lg-12 d-flex justify-content-center">
@@ -10,7 +10,7 @@
           {{-- <h3>Si aún no has creado tu cuenta da <a href="./notienecuenta">clic aquí</a></h3> --}}
         </div>
 
-        <div class="col-lg-12 d-flex justify-content-center backlogin  pt-lg-5 pb-lg-5">
+        <div class="col-lg-12 d-flex justify-content-center pt-lg-5 pb-lg-5">
           <div class="col-lg-4 LoginRectangle">
           <form class="needs-validation seccion" novalidate>
 

@@ -10089,6 +10089,11 @@ a:hover {
   color: #00b140;
 }
 
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: pink;
+}
+
 .footer {
   display: flex;
   align-items: center;
@@ -10554,7 +10559,7 @@ button {
 
 .form-control-custom {
   border: solid 0.0625rem #898d8d;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: #898d8d;
   border-radius: 0.5rem;
   height: 28px;

@@ -77,6 +77,7 @@ $(document).ready(function() {
               $('#'+e.target.id).addClass('tst1');
         });
 
+        $("#curp").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); });
         $("#nombre_i").keyup(function(e){ e.currentTarget.value=e.currentTarget.value.toLocaleUpperCase(); 
                                 $("#nombredelinfractor")[0].innerHTML=e.currentTarget.value+' '+$("#primer_apellido_i")[0].value+' '+$("#segundo_apellido_i")[0].value;
                                          })

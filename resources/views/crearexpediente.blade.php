@@ -3,7 +3,7 @@
 
   <main>
     <section class="container ">
-      <div class="row d-flex flex-nowrap seccion" >
+      <div class="row d-flex flex-wrap seccion" >
            <div class="col-lg-10 Nuevo-expediente"></span> <span id="des_expediente">Nuevo expediente</span></div>
            <div class="col-lg-2 Campos-obligatorios d-flex justify-content-end">*Campos obligatorios</div>
       </div>
@@ -57,14 +57,14 @@
 
                 <div class="row">
                   <div class="col-md-6 mb-1">
-                    <label class="form-label-custom" for="placa1">*Número de empleado (placa de policia)</label>
+                    <label class="form-label-custom" for="placa1">*Número de empleado (placa de policia):</label>
                     <input type="number" name="placa1" id="placa1" class="form-control form-control-custom" value="" placeholder="Escribe el número de placa" maxlength="15" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
-                    <label class="form-label-custom" for="areadeadscripcion_1">*Área de adscripción</label>
+                    <label class="form-label-custom" for="areadeadscripcion_1">*Área de adscripción:</label>
                     <input type="text" name="areadeadscripcion_1" id="areadeadscripcion_1" class="form-control form-control-custom" value="" placeholder="Escribe el área de adscripción" maxlength="30" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -74,21 +74,21 @@
 
         <div class="row  mb-1">
           <div class="col-md-4" id="nom">
-            <label class="form-label-custom" for="nombres" id=""nombre_1"">Nombre(s)*</label>
+            <label class="form-label-custom" for="nombres" id=""nombre_1"">*Nombre(s):</label>
             <input type="text" class="form-control form-control-custom street-names" id="nombre_1" maxlength="30" placeholder="Escribe el nombre(s)" required>
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
             </div>
           </div>
           <div class="col-md-4" id="apa">
-            <label class="form-label-custom" for="primer_apellido_1">*Primer apellido</label>
+            <label class="form-label-custom" for="primer_apellido_1">*Primer apellido:</label>
             <input type="text" class="form-control form-control-custom names" id="primer_apellido_1" maxlength="30" placeholder="Escribe el primer apellido" required>
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
             </div>
           </div>
           <div class="col-md-4" id="ama">
-            <label class="form-label-custom" for="segundo_apellido_1">Segundo Apellido</label>
+            <label class="form-label-custom" for="segundo_apellido_1">Segundo Apellido:</label>
             <input type="text" class="form-control form-control-custom names" id="segundo_apellido_1" maxlength="30" placeholder="Escribe el segundo apellido">
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
@@ -98,7 +98,7 @@
 
                 <div class="row mb-4">
                   <div class="col-md-4">
-                    <label class="form-label-custom" for="id_mediotransporte_1">*Medio de transporte</label>
+                    <label class="form-label-custom" for="id_mediotransporte_1">*Medio de transporte:</label>
                     <select class="form-control form-control-custom" id="id_mediotransporte_1" name="id_mediotransporte_1" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
                       <option value="1">Patrulla</option>
@@ -110,7 +110,7 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label class="form-label-custom" for="numerodepatrulla_1">*Número de patrulla</label>
+                    <label class="form-label-custom" for="numerodepatrulla_1">*Número de patrulla:</label>
                     <input type="text" name="numerodepatrulla_1" id="numerodepatrulla_1" class="form-control form-control-custom numbers" value="" placeholder="Escribe el número de patrulla" maxlength="10" required>
                     <div class="invalid-feedback">
                       Maximo tres digitos
@@ -122,14 +122,14 @@
 
                 <div class="row  mb-1">
                   <div class="col-md-6">
-                    <label class="form-label-custom" for="placa2">*Numero de empleado (placa de policia)</label>
+                    <label class="form-label-custom" for="placa2">*Numero de empleado (placa de policia):</label>
                     <input type="number" name="placa2" id="placa2" class="form-control form-control-custom" value="" placeholder="Escribe el número de placa" maxlength="15" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label-custom" for="areadeadscripcion_2">*Área de adscripción</label>
+                    <label class="form-label-custom" for="areadeadscripcion_2">*Área de adscripción:</label>
                     <input type="text" name="areadeadscripcion_2" id="areadeadscripcion_2" class="form-control form-control-custom" value="" placeholder="Escribe el área de adscripción" maxlength="30" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -139,21 +139,21 @@
 
         <div class="row  mb-1">
           <div class="col-md-4" id="nom">
-            <label class="form-label-custom" for="nombre_2" >Nombre(s)*</label>
+            <label class="form-label-custom" for="nombre_2" >*Nombre(s):</label>
             <input type="text" class="form-control form-control-custom street-names" id="nombre_2" maxlength="30" placeholder="Escribe el nombre(s)" required>
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
             </div>
           </div>
           <div class="col-md-4" id="apa">
-            <label class="form-label-custom" for="primer_apellido_2">*Primer apellido</label>
+            <label class="form-label-custom" for="primer_apellido_2">*Primer apellido:</label>
             <input type="text" class="form-control form-control-custom names" id="primer_apellido_2" maxlength="30" placeholder="Escribe el primer apellido" required>
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
             </div>
           </div>
           <div class="col-md-4" id="ama">
-            <label class="form-label-custom" for="segundo_apellido_2">Segundo Apellido</label>
+            <label class="form-label-custom" for="segundo_apellido_2">Segundo Apellido:</label>
             <input type="text" class="form-control form-control-custom names" id="segundo_apellido_2" maxlength="30" placeholder="Escribe el segundo apellido">
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
@@ -163,7 +163,7 @@
 
                 <div class="row  mb-1">
                   <div class="col-md-4">
-                    <label class="form-label-custom" for="id_mediotransporte_2">*Medio de transporte</label>
+                    <label class="form-label-custom" for="id_mediotransporte_2">*Medio de transporte:</label>
                     <select class="form-control form-control-custom" id="id_mediotransporte_2" name="id_mediotransporte_2" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
                       <option value="1">Patrulla</option>
@@ -175,7 +175,7 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label class="form-label-custom" for="numerodepatrulla_2">*Número de patrulla</label>
+                    <label class="form-label-custom" for="numerodepatrulla_2">*Número de patrulla:</label>
                     <input type="text" name="numerodepatrulla_2" id="numerodepatrulla_2" class="form-control form-control-custom numbers" value="" placeholder="Escribe el número de patrulla" maxlength="10" required>
                     <div class="invalid-feedback">
                       Maximo tres digitos
@@ -197,7 +197,7 @@
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="diahechos">*Fecha en que ocurrieron los hechos</label>
+                    <label class="form-label-custom" for="diahechos">*Fecha en que ocurrieron los hechos:</label>
                     <input type="date" name="diahechos" id="diahechos" class="form-control form-control-custom street-names" maxlength="12" value="{{ date('Y-m-d') }}" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -205,7 +205,7 @@
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="horahechos">*Hora en que ocurrieron los hechos</label>
+                    <label class="form-label-custom" for="horahechos">*Hora en que ocurrieron los hechos:</label>
                     <input type="text" name="horahechos" id="horahechos" class="form-control form-control-custom" maxlength="5" value="" placeholder="00:00" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -225,14 +225,14 @@
                   </div>
 
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="exterior_h">No. exterior</label>
+                    <label class="form-label-custom" for="exterior_h">No. exterior:</label>
                     <input type="text" name="exterior_h" id="exterior_h" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="interior_h">No. interior</label>
+                    <label class="form-label-custom" for="interior_h">No. interior:</label>
                     <input type="text" name="interior_h" id="interior_h" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00">
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -243,7 +243,7 @@
                 <div class="row">
 
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="cp_h">Código postal*</label>
+                    <label class="form-label-custom" for="cp_h">Código postal:</label>
                     <input type="text" name="cp_h" id="cp_h" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00000" pattern="^[0-9]{4,5}$" required>
                     <div class="invalid-feedback">
                       Ingresa los cuatro o cinco dígitos de tu código postal
@@ -251,7 +251,7 @@
                   </div>
 
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="colonia_h">Colonia</label>
+                    <label class="form-label-custom" for="colonia_h">Colonia:</label>
                     <input type="text" name="colonia_h" id="colonia_h" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la colonia" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -283,7 +283,7 @@
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label class="form-label-custom" for="objetos">Objeto(s) recogido(s) con la(s) probable(s) infracción(es)</label>
+                    <label class="form-label-custom" for="objetos">Objeto(s) recogido(s) con la(s) probable(s) infracción(es):</label>
                     <textarea name="objetos" id="objetos" class="form-control form-control-custom street-names" maxlength="2000" value="" placeholder="Describir los objetos" required></textarea>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -329,7 +329,7 @@
         <div class="Policias-remitentes mt-3">Datos personales</div>
         <div class="row  mb-1">
           <div class="col-md-4" id="nom">
-            <label class="form-label-custom" for="nombre_i" >Nombre(s)*</label>
+            <label class="form-label-custom" for="nombre_i" >*Nombre(s):</label>
             <input type="text" class="form-control form-control-custom street-names" id="nombre_i" maxlength="30" placeholder="Escribe el nombre(s)" required>
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
@@ -337,7 +337,7 @@
           </div>
 
           <div class="col-md-4" id="apa">
-            <label class="form-label-custom" for="primer_apellido_i">*Primer apellido</label>
+            <label class="form-label-custom" for="primer_apellido_i">*Primer apellido:</label>
             <input type="text" class="form-control form-control-custom names" id="primer_apellido_i" maxlength="30" placeholder="Escribe el primer apellido" required>
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
@@ -345,7 +345,7 @@
           </div>
 
           <div class="col-md-4" id="ama">
-            <label class="form-label-custom" for="segundo_apellido_i">Segundo Apellido</label>
+            <label class="form-label-custom" for="segundo_apellido_i">Segundo Apellido:</label>
             <input type="text" class="form-control form-control-custom names" id="segundo_apellido_i" maxlength="30" placeholder="Escribe el segundo apellido">
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
@@ -370,7 +370,9 @@
 
           <div class="col-md-4" id="apa">
             <label class="form-label-custom" for="curp">Curp:</label>
-            <input type="text" class="form-control form-control-custom names" id="curp" maxlength="18" placeholder="AAAA111111BBBBBB22" >
+            <input type="text" class="form-control form-control-custom " id="curp" maxlength="18" placeholder="AAAA111111BBBBBB22" 
+                        pattern="^([A-ZÑ\x26]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])(M|H)([A-ZÑx26]{2})([A-ZÑx26]{3})([0-9A-Z]{1}[0-9]{1}))?$"
+            >
             <div class="invalid-feedback">
               Asegúrate de introducir la información correctamente
             </div>
@@ -392,7 +394,7 @@
         </div>
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label class="form-label-custom" for="nacimiento">Fecha de nacimiento</label>
+                    <label class="form-label-custom" for="nacimiento">Fecha de nacimiento:</label>
                     <input type="date" name="nacimiento" id="nacimiento" class="form-control form-control-custom street-names" maxlength="12" value="" placeholder="dd/mm/aaaa" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -412,14 +414,14 @@
                   </div>
 
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="exterior_i">No. exterior</label>
+                    <label class="form-label-custom" for="exterior_i">No. exterior:</label>
                     <input type="text" name="exterior_i" id="exterior_i" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="interior_i">No. interior</label>
+                    <label class="form-label-custom" for="interior_i">No. interior:</label>
                     <input type="text" name="interior_i" id="interior_i" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00">
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -430,7 +432,7 @@
                 <div class="row">
 
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="cp_i">Código postal*</label>
+                    <label class="form-label-custom" for="cp_i">Código postal:</label>
                     <input type="text" name="cp_i" id="cp_i" class="form-control form-control-custom numbers" maxlength="5" value="" placeholder="00000" pattern="^[0-9]{4,5}$" required>
                     <div class="invalid-feedback">
                       Ingresa los cuatro o cinco dígitos de tu código postal
@@ -438,7 +440,7 @@
                   </div>
 
                   <div class="col-md-4 mb-3">
-                    <label class="form-label-custom" for="colonia_i">Colonia</label>
+                    <label class="form-label-custom" for="colonia_i">Colonia:</label>
                     <input type="text" name="colonia_i" id="colonia_i" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la colonia" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
@@ -510,13 +512,13 @@
                  <label class="II-Poseer-animales mb-0 py-2" name="button" id="l_descripcion" ></label>
              </div>
              <div class="col-md-12 mb-0">
-                 <label class="Crear-expediente pb-0 mb-0 " name="button"  >Conciliación</label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  >Conciliación:</label>
              </div>
              <div class="col-md-12  mb-2">
                  <label class="II-Poseer-animales mb-0 py-2" name="button" id='l_conciliacion' >No aplica</label>
              </div>
              <div class="col-md-12  mb-0">
-                 <label class="Crear-expediente pb-0 mb-0 " name="button"  >Aplica si</label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  >Aplica si:</label>
              </div>
              <div class="col-md-12  mb-2">
                  <label class="II-Poseer-animales mb-0 py-2" name="button" id='l_aplicarsi' >No aplica</label>
@@ -525,7 +527,7 @@
                  <label class="Crear-expediente pb-0 mb-0 " name="button"  id='l_tipo_sancion'></label>
              </div>
              <div class="col-md-12  mb-0">
-                 <label class="Crear-expediente pb-0 mb-0 " name="button"  id='l_tipo_sancion'>*Tipo de sanción</label>
+                 <label class="Crear-expediente pb-0 mb-0 " name="button"  id='l_tipo_sancion'>*Tipo de sanción:</label>
              </div>
              <div class="col-md-12  mb-2">
                <div class="form-check-inline col-md-12">
@@ -548,7 +550,7 @@
                </div>
              </div>
                   <div class="col-md-3 mb-3">
-                    <label class="form-label-custom" for="sancionaplicada">Sanción:</label>
+                    <label class="form-label-custom" for="sancionaplicada">*Sanción:</label>
                     <input autofocus type="number" name=""sancionaplicada"" id="sancionaplicada" class="form-control form-control-custom street-names" maxlength="2" value="" placeholder="Escribe la sanción a aplicar de acuerdo al rango del tipo de sanción" autofocus required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente

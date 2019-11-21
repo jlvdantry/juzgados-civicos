@@ -32,19 +32,19 @@
         </div>
         @endif
       </header>
-        @if (Auth::check())
   <div class="pleca">
     <div class="container">
       <ul class="nav justify-content-end">
+        @if (Auth::check())
         @foreach (Auth::user()->getmenus(Auth::user()->getperfiles()->idperfil) as $menu)
         <li class="nav-item">
         <a {{ $menu->idh!='' ? 'id='.$menu->idh : '' }} class="nav-link" href="{{ url('') }}/{{ $menu->componente }}">{{ $menu->desmenu }} </a>
         </li>
         @endforeach
+        @endif
       </ul>
     </div>
   </div>
-        @endif
 
             @yield('content')
             <!-- Modal messages -->
