@@ -36,6 +36,8 @@ Route::get('/restaura/{si}', function () {
       return view('restaura');
 });
 
+Route::get('pdf', 'PdfController@invoice');
+
 
 Route::get('/correo_registro', function () {
   //$user = App\User::find(18);

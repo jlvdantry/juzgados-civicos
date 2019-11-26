@@ -320,11 +320,65 @@
                     </div>
                     <div class="col-lg-7 d-flex justify-content-end   pr-0 -Datos-Generales-">
                       <div class="pl-1" id="datosgenerales" name="opciones" data-href="c_datosgenerales" >1 Datos generales</div>
-                      <div class="pl-1" id="infraccionysancion" name="opciones" data-href="c_infraccionesysancion" >| 2 Infracción y sanción </div>
+                      <div class="pl-1" id="medico" name="opciones" data-href="c_medico" >| 2 Médico</div>
+                      <div class="pl-1" id="infraccionysancion" name="opciones" data-href="c_infraccionesysancion" >| 3 Infracción y sanción </div>
                     </div>
             </div>
 
               <form id="f_infractores" data-id=''>
+      <div id="c_medico" name="tabi" class="">
+             <div class="row col-md-12  mb-3">
+               <div class="form-check-inline col-md-12">
+                <input class="form-check-input" type="checkbox" name="aplicacertificado" id="aplicacertificado" value="1" >
+                <label class="form-check-label label-custom-check" for="aplicacertificado" id="l_aplicacertificado">
+                                        No aplica
+                </label>
+               </div>
+             </div>
+
+        <div class="row  col-md-12 mb-3">
+          <div class="col-md-8 pl-0" id="nom">
+            <label class="form-label-custom" for="nombremedico" >*Médico:</label>
+            <input type="text" class="form-control form-control-custom street-names" id="nombremedico" maxlength="30" placeholder="Escribe el nombre del médico" >
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+          <div class="col-md-4" id="nom">
+            <label class="form-label-custom" for="tirilla" >*Número de tirilla:</label>
+            <input type="text" class="form-control form-control-custom street-names" id="tirilla" maxlength="30" placeholder="Escribe el número de tirilla" >
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+        </div>
+                  <div class="row col-md-12 mb-3">
+                    <label class="form-label-custom" for="resultado">*Resultado:</label>
+                    <textarea autofocus name="sancionaplicada" id="resultado" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe el resultado" autofocus required></textarea>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="row col-md-12 mb-3">
+                    <label class="form-label-custom" for="prescripcion">*Preescripción médica:</label>
+                    <textarea autofocus name="sancionaplicada" id="prescripcion" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe la preescripción médica" autofocus required></textarea>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+             <div class="row col-md-12  mb-3">
+               <div class="form-check-inline col-md-12">
+                <input class="form-check-input" type="checkbox" name="procesosupendido" id="procesosupendido" value="1" >
+                <label class="form-check-label label-custom-check" for="procesosupendido" id="l_estatus">
+                                        El procesa queda suspendido
+                </label>
+               </div>
+             </div>
+
+
+
+      </div>
+
       <div id="c_datosgenerales" name="tabi" class="">
         <div class="Policias-remitentes mt-3">Datos personales</div>
         <div class="row  mb-1">

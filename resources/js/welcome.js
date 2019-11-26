@@ -200,7 +200,7 @@ $(document).ready(function() {
                                   $('#c_infractores').removeClass("active")
                                   $('#c_infractores').removeClass("show")
                                   $('#nombre_i').focus()
-                                  $('#datosgenerales').addClass('tst1');
+                                  $('#datosgenerales').trigger('click');
                                   if (data.length==1) {
                                      var formi = $('form[id="f_infractores"]')[0];
                                      formi.dataset.id=data[0].id;
@@ -1598,8 +1598,12 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                   if (e.currentTarget.type=='radio') {
                      quedato=e.currentTarget.name.replace('wl_','');
                   }
+                  valor=e.currentTarget.value;
+                  if (e.currentTarget.type=="checkbox") {
+                     valor=e.currentTarget.checked;
+                  }
                   var Data1 = {};
-                        Data1[quedato] = e.currentTarget.value;
+                        Data1[quedato] = valor;
                     $.ajax({
                        type: 'put',
                        url:  mipath()+'api/infractores/'+id+'/'+id_i,

@@ -1,0 +1,46 @@
+.tabla{
+  width: 100%;
+
+thead{
+  background-color: #d8d8d8;
+
+  width: 100%;
+  text-align: center;
+
+
+  th{
+    color: #454545;
+    font-size: .9rem;
+    padding: .625rem;
+  }
+}
+
+tr{
+  text-align: center;
+  border-bottom: solid .0625rem #c1c7d0;
+
+
+td{
+  line-height: 1.2rem;
+  color: #5d5d5d;
+  padding: 1rem;
+  }
+}
+
+}
+
+.red{
+  color: #e02020!important;
+  font-weight: bold;
+}
+
+.green{
+  @extend .red;
+  color:  #00b140!important;
+}
+
+.orange{
+  @extend .red;
+  color: #fa6400!important;
+}
+

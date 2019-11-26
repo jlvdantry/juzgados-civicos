@@ -15,11 +15,13 @@ export PGPASSWORD=$DB_PASSWORD
 ##DB_USERNAME=postgres
 DB_HOST=localhost
 cat > $0.sql << fin
-select * from users where email='jlvdantry@hotmail.com';
-select * from perfiles_users where idusuario=20;
-select * from perfiles;
-
+--select * from users where email='jlvdantry@hotmail.com';
+--select * from perfiles_users where idusuario=20;
+--select * from perfiles;
 --delete from users where email='jlvdantry@hotmail.com';
+update boletas set estatus=0 where boleta_remision='324';
+select * from boletas where boleta_remision='324';
+select * from infractores where idboleta=(select id from boletas where boleta_remision='324');
 fin
 psql -h $DB_HOST -d $DB_DATABASE -U $DB_USERNAME  < $0.sql
 ##psql -U $DB_USERNAME  < $0.sql     ## para crear la bse de datos

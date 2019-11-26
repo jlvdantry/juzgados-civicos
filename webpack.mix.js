@@ -22,6 +22,7 @@ mix.js('resources/js/app.js', 'public/dist')
     .sass('resources/sass/app.scss', 'public/dist')
     .copy('resources/img/*', 'public/src/img')
     .copy('resources/fonts/*', 'public/src/fonts')
+    .copy('resources/sass/pdf.css*', 'public/dist')
     .sourceMaps()
 
     .options({

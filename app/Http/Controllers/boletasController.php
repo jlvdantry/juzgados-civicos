@@ -259,6 +259,29 @@ class boletasController extends Controller
                                                             , 'seccion' => 'infractores' ]],444);
                          }
                       } 
+                      if ($infra->aplicacertificado==false) {
+                         if ($infra->nombremedico=="") {
+                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar el nombre del médico que examino al infractor  <br><b>'
+                                                                  .$infra->nombre_i , 'seccion' => 'infractores' ]],444);
+                         }
+                         if ($infra->tirilla=="") {
+                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar el número de tirilla del infractor  <br><b>'
+                                                                .$infra->nombre_i , 'seccion' => 'infractores' ]],444);
+                         }
+                         if ($infra->resultado=="") {
+                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar el resultado del examen médico del infractor  <br><b>'
+                                                               .$infra->nombre_i , 'seccion' => 'infractores' ]],444);
+                         }
+                         if ($infra->prescripcion=="") {
+                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta escribir la preescripción médica del infractor  <br><b>'.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
+                         }
+                      }
+                      if ($infra->procesosupendido==true) {
+                            return response()->json([ 'errors' => ['idinfraccion' => 'El proceso esta supendido del infractor <br><b>'.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
+                      }
+                 
                       if ($infra->idinfraccion=="") {
                          return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar la infraccion al infractor '.$infra->nombre_i
                                                             , 'seccion' => 'infractores' ]],444);
