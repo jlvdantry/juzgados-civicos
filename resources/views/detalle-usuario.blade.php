@@ -197,7 +197,7 @@
             <select class="form-control form-control-custom" id="idjuzgado" name="idjuzgado" required>
               <option disabled value="" selected hidden>Selecciona una</option>
                       @foreach ($data['juzgados'] as $juzgado)
-                      <option value="{{ $juzgado->id }}">{{ $juzgado->juzgado." ".$juzgado->direccion }}</option>
+                      <option value="{{ $juzgado->id }}" {{ $juzgado->id==$data['user']->idjuzgado ? "selected" : "" }}>{{ $juzgado->juzgado." ".$juzgado->direccion }}</option>
                       @endforeach
             </select>
             <div class="invalid-feedback">
@@ -210,9 +210,9 @@
         <div class="col-md-8 mb-3">
             <label class="form-label-custom" for="idperfil">Perfil*</label>
             <select class="form-control form-control-custom" id="idperfil" name="idperfil" required>
-              <option disabled value="" selected hidden>Selecciona una</option>
+              <option value="" selected >Selecciona una</option>
                       @foreach ($data['perfiles'] as $perfil)
-                         <option value="{{ $perfil->id }}">{{ $perfil->descripcion }}</option>
+                         <option value="{{ $perfil->id }}" {{ $perfil->id==$data['user']->idperfil ? "selected" : "" }} >{{ $perfil->descripcion }}</option>
                       @endforeach
             </select>
             <div class="invalid-feedback">

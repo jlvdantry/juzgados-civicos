@@ -147,14 +147,14 @@ class RegisterController extends Controller
         if ($request->has('tercero')) {
             event(new Registered($user = $this->create($request->all())));
             $this->guard()->login($user);
-            $pe = new Perfiles_users ( [ "idusuario" => $user->id, "idperfil" => "2" ] ); // da de alta el perfil de 3er acreditado
-            $pe->save();
+            //$pe = new Perfiles_users ( [ "idusuario" => $user->id, "idperfil" => "2" ] ); // da de alta el perfil de 3er acreditado
+            //$pe->save();
         }
         if ($request->has('alcaldia')) {
             event(new Registered($user = $this->create_alcaldia($request->all())));
             $this->guard()->login($user);
-            $pe = new Perfiles_users ( [ "idusuario" => $user->id, "idperfil" => "3" ] );
-            $pe->save();
+            //$pe = new Perfiles_users ( [ "idusuario" => $user->id, "idperfil" => "3" ] );
+            //$pe->save();
         }
         $this->registered($request, $user);
         $this->guard()->logout($user);

@@ -3,7 +3,7 @@
   <div class="pleca">
     <div class="container">
       <div class="boton-regresar">
-         <a href="../establecimientos-registrados"><img src="../src/img/flecha-before.svg" alt=""> Regresar</a>
+         <a href="../expedientes"><img src="../src/img/flecha-before.svg" alt=""> Regresar</a>
       </div>
     </div>
   </div>
@@ -219,10 +219,10 @@
         </div>
         <div class="row">
           <div class="col-md-4 mb-3">
-            <label class="form-label-custom" for="id_alcaldia">Alcaldía*</label>
-            <select class="form-control form-control-custom" id="id_alcaldia" name="id_alcaldia" required disabled>
-              @foreach ($alcaldias as $alcaldia)
-              <option value="{{ $alcaldia['id_cat_alcaldia'] }}" >{{ $alcaldia->descripcion}} </option>
+            <label class="form-label-custom" for="idjuzgado">Juzgado*</label>
+            <select class="form-control form-control-custom" id="idjuzgado" name="idjuzgado" required disabled>
+              @foreach ($juzgados as $juzgado)
+              <option value="{{ $juzgado['id'] }}" {{ $juzgado->id==$user->idjuzgado ? "selected" : "" }} >{{ $juzgado->juzgado." ".$juzgado->direccion }} </option>
               @endforeach
           </select>
 

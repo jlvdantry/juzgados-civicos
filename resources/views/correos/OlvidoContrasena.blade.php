@@ -35,7 +35,7 @@
   <table class="container" style="margin: 0 auto; background: #fff;">
     <tbody>
       <tr>
-        <td><img style="padding: 2rem; max-width: 100%;" src="{{ url('src/img/logo-encabezado.svg') }}" alt=""></td>
+        <td><img style="padding: 2rem; max-width: 100%;" src="{{ url('src/img/logo-juzgados-civicos.svg') }}" alt=""></td>
       </tr>
 
 
@@ -48,11 +48,14 @@
         <td><h1 style="padding: 0 2rem; margin:0; color: #00b140; text-align: center; margin-top: 0; font-size: 2rem;">Ha solicitado un cambio de contraseña</h1></td>
       </tr>
 
+
           <tr><td>
-            <p style="padding: 2rem 2rem 0; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Razón social: <span style="font-weight: normal;">{{$user->nombres}}</span> </p>
-            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">RFC: <span style="font-weight: normal;">{{$user->rfc}}</span> </p>
-            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">No. registro autorizado SGIRPC: <span style="font-weight: normal;">{{$user->sgirpc}}</span> </p>
-            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Vigencia: <span style="font-weight: normal;">{{$user->vigencia}}</span></p>
+            <p style="padding: 2rem 2rem 0; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Nombre: <span style="font-weight: normal;">{{$user->nombres}}</span> </p>
+
+            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Apellido paterno: <span style="font-weight: normal;">{{$user->ape_pat}}</span> </p>
+            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Apellido materno: <span style="font-weight: normal;">{{$user->ape_mat}}</span> </p>
+            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Juzgado: <span style="font-weight: normal;">{{$user->desjuzgado}}</span></p>
+            <p style="padding: 0 2rem; font-size: .9rem; color: #5d5d5d; text-align: left; font-weight: bold;">Juzgado dirección: <span style="font-weight: normal;">{{$user->dirjuzgado}}</span></p>
           </td>
         </tr>
 
@@ -91,7 +94,7 @@
                     <tr>
                       <td><img src="{{ url('src/img/gobierno-y-adip.svg') }}" alt=""></td>
                       <td class="mostrar" style="color: #fff; margin-left: 1rem;">
-                        <p style="font-size: .7rem; line-height: .75rem; color: #fff; margin-bottom: 0;">Plataforma Digital para Ingreso del Programa Interno de Protección Civil</p>
+                        <p style="font-size: .7rem; line-height: .75rem; color: #fff; margin-bottom: 0;">Nueva Cultura Cívica de la Ciudad de México</p>
                         <p style="font-size: .7rem; line-height: .75rem; color: #fff; margin-top:0; font-weight:bold;">Diseñado y operado por la Agencia Digital de Innovación Pública</p>
                       </td>
                     </tr>
@@ -112,7 +115,7 @@
 
                     <tr>
                       <td class="mostrar" style="color: #fff;">
-                        <p style="font-size: .7rem; line-height: .75rem; color: #fff; margin-bottom: 0;">Plataforma Digital para Ingreso del Programa Interno de Protección Civil</p>
+                        <p style="font-size: .7rem; line-height: .75rem; color: #fff; margin-bottom: 0;">Nueva Cultura Cívica de la Ciudad de México</p>
                         <p style="font-size: .7rem; line-height: .75rem; color: #fff; margin-top:0; font-weight:bold;">Diseñado y operado por la Agencia Digital de Innovación Pública</p>
                       </td>
                     </tr>

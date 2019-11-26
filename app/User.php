@@ -50,6 +50,14 @@ class User extends Authenticatable
         $this->save();
         return $this->api_token;
     }
+    public function cambiaperfil($id,$perfil)
+    {
+            $deletedRows = Perfiles_users::where("idusuario",$id)->delete();
+            $pe = new Perfiles_users ( [ "idusuario" => $id, "idperfil" => $perfil ] );
+            $pe->save();
+            return true;
+    }
+
     public function getperfiles()
     {
          Log::debug('app/User.php id el usuarios='.$this->id);

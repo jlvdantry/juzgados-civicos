@@ -36,12 +36,6 @@ class userController extends Controller
                                                               ' when tipopersona=\'M\' then \'Moral\''.
                                                               ' else \'Desconocido\' end destipopersona '.
                                      ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
-                                     ',case '.
-                                                              ' when id_nivel=1 then \'Capacitación de brigadas de PC\''.
-                                                              ' when id_nivel=2 then \'Elaboración de programas internos para establecimientos o inmuebles de mediano riesgo\''.
-                                                              ' when id_nivel=3 then \'Elaboración de programas internos de PC para establecimientos o inmuebles de alto riesgo\''.
-                                                              ' when id_nivel=4 then \'Estudios de riesgo de vulnerabilidad\''.
-                                                              ' else \'Desconocido\' end desnivel '.
                                      ',(select descripcion from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '
                                ))->where('id','=',$id)->get();
     return response()->json($datos);
@@ -58,7 +52,8 @@ class userController extends Controller
                 ' when activo=3 then \'Eliminado\''.
                 ' else \'Desconocido\' end desactivo '.
                ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
-                ',(select descripcion from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '
+                ',(select descripcion from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '.
+                ',(select id from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) idperfil '
                 ))->where('id','=',$id)->get();
            $data = array (
               'juzgados' => $juzgados,
@@ -210,16 +205,19 @@ class userController extends Controller
             }
             if (array_key_exists('activo',$request->all())) {
                 $data['activo']=$request->activo;
-                $dato = User::where('id','=',$id)->get();
+                $data['idjuzgado']=$request->idjuzgado;
+                $cp = new User;
+                $cp->cambiaperfil($id,$request->idperfil); 
+                $dato = User::getconCatalogosbyID($id);
                 $datox = User::where('id','=',$id)->update($data);
                 if ($datox==0) {
                   return response()->json('No actualizo el usuario',412);
                 } else {
                   if ($request->activo==1) {
-                     Mail::to($dato[0]->email)->send(new UserAceptado($dato[0]));
+                     Mail::to($dato->email)->send(new UserAceptado($dato));
                   }
                   if ($request->activo==2) {
-                      Mail::to($dato[0]->email)->send(new UserRechazado($dato[0], $request->rechazo)); 
+                      Mail::to($dato->email)->send(new UserRechazado($dato, $request->rechazo)); 
                   }
                   return response()->json('El usuario se actualizo',200);
                 }
@@ -408,18 +406,12 @@ class userController extends Controller
 
 //Controlador formulario editar perfil tercer acreditado
     public function editarPerfil($id){
-      $alcaldias=Alcaldias::all();
+      $juzgados=Juzgados::all();
       $users = User::select('*',DB::Raw(
-                                     'case '.
-                                            ' when id_nivel=1 then \'Capacitación de brigadas de PC\''.
-                                            ' when id_nivel=2 then \'Elaboración de programas internos para establecimientos o inmuebles de mediano riesgo\''.
-                                            ' when id_nivel=3 then \'Elaboración de programas internos de PC para establecimientos o inmuebles de alto riesgo\''.
-                                            ' when id_nivel=4 then \'Estudios de riesgo de vulnerabilidad\''.
-                                            ' else \'Desconocido\' end desnivel '.
-                                            ',(select descripcion from perfiles pe '.
+                                            '(select descripcion from perfiles pe '.
                                             'where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '
                                ))->where('id','=',$id)->get();
-      return view('editarperfil', compact ('users','alcaldias'));
+      return view('editarperfil', compact ('users','juzgados'));
     }
 
 }

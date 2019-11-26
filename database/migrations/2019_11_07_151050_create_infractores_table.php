@@ -37,6 +37,11 @@ class CreateInfractoresTable extends Migration
             $table->integer('tiposancion')->nullable()->comment('1=sin sanción, 2=Por unidad de cuenta, 3=por servicio comunitario, 4=Arresto');
             $table->text('observaciones')->nullable()->comment('Observaciones a la sancion aplicada');
             $table->integer('sancionaplicada')->nullable()->comment('rango desde de la sancion seleccionada');
+            $table->boolean('aplicacertificado')->nullable()->comment('Indica si aplica certificado medico true=si');
+            $table->integer('idmedico')->nullable()->comment('Id del medico que realizo el examen medico');
+            $table->string('nombremedico',90)->nullable()->comment('Nombre del medicco');
+            $table->text('resultado')->nullable()->comment('Resultado del examen medico');
+            $table->text('prescripcion')->nullable()->comment('Prescripcion medica');
         });
     }
 

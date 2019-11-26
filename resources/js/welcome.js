@@ -200,6 +200,7 @@ $(document).ready(function() {
                                   $('#c_infractores').removeClass("active")
                                   $('#c_infractores').removeClass("show")
                                   $('#nombre_i').focus()
+                                  $('#datosgenerales').addClass('tst1');
                                   if (data.length==1) {
                                      var formi = $('form[id="f_infractores"]')[0];
                                      formi.dataset.id=data[0].id;
@@ -851,11 +852,28 @@ $(document).ready(function() {
           crearMensaje(true,"¡Atención !", ' Debe de indicar cual es el motivo del rechazo');
           return;
         }
+        if ($("input[name='estatus']:checked").val()==1 ) {
+          if ($("#idjuzgado").val()=="" ) {
+             crearMensaje(true,"¡Atención !", ' Debe de seleccionar el juzgado').then(function() {
+                  location.reload();
+             });
+             return;
+          }
+          if ($("#idperfil").val()=="" || $("#idperfil").val()=="0") {
+             crearMensaje(true,"¡Atención !", ' Debe de seleccionar el perfil del usuario').then(function() {
+                  location.reload();
+             });
+             return;
+          }
+        }
+
         $('#confirmacionModalr').modal('hide');
         $('#confirmacionModal').modal('hide');
         var Data1 = {
           activo: $("input[name='estatus']:checked").val(),
-          rechazo: $("#rechazo")[0].value
+          rechazo: $("#rechazo")[0].value,
+          idperfil: $("#idperfil")[0].value,
+          idjuzgado : $("#idjuzgado")[0].value
         };
         $.ajax({
           type: 'put',

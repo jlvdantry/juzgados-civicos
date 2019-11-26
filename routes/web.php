@@ -27,7 +27,7 @@ Route::get('/', function () {
 })->name('login');
 
 Route::get('mail_OlvidoContrasena', function () {
-    $user = App\User::find(1);
+    $user = App\User::getconCatalogosbyID(20);
     return new App\Mail\OlvidoContrasena($user);
 });
 
@@ -44,7 +44,7 @@ Route::get('/correo_registro', function () {
   });
 
 Route::get('/correo_aceptado', function () {
-  $user = App\User::getconCatalogosbyID(16);
+  $user = App\User::getconCatalogosbyID(20);
   return new App\Mail\UserAceptado($user);
   });
 

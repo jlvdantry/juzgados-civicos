@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@editorjs/editorjs": "^2.15.1",
         "react": "^16.8.6",
         "react-data-grid": "^6.1.0",
         "react-dom": "^16.8.6",
