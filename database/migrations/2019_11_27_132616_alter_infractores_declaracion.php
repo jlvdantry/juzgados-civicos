@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTiposdeconstruccionTabla extends Migration
+class AlterInfractoresDeclaracion extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateTiposdeconstruccionTabla extends Migration
      */
     public function up()
     {
-        Schema::create('tiposdeconstruccion', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-            $table->string('descripcion');
+        Schema::table('infractores', function (Blueprint $table) {
+            $table->text('declaracion')->nullable()->comment('declaración del presunto infractor ');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateTiposdeconstruccionTabla extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tiposdeconstruccion');
+        Schema::table('infractores', function (Blueprint $table) {
+            //
+        });
     }
 }

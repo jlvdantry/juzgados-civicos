@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Boletas;
+use Illuminate\Support\Facades\Log;
 
 class PdfController extends Controller
 {
 
-public function invoice() 
-    {
-        $data = $this->getData();
-        $date = date('Y-m-d');
-        $invoice = "2222";
-        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice'))->render();
+public function hechos($id) 
+    { 
+        $filtro=array();
+        array_push($filtro,[ "infra.id","=",$id ] );
+        $infractor = Boletas::getConcatalogosConLimite(\Auth::user(),$filtro);
+        Log::debug('PdfController.php hechos infractor='.print_r($infractor,true));
+        $view =  \View::make('pdf.hechos', compact('infractor'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('invoice');

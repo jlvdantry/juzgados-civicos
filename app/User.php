@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Perfiles_users;
 use App\Perfiles_menus;
 use App\Alcaldias;
+use App\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
@@ -69,6 +70,57 @@ class User extends Authenticatable
           return $perfiles[0];
         }
     }
+
+    public static function getJuecesJuzgado($id)
+    {
+      Log::debug('app/User.php getJuecesJuzgado id='.$id);
+      $datos = DB::select('select users.*'.
+                ',case when activo=0 then \'Pendiente\''.
+                                               ' when activo=1 then \'Aceptado\''.
+                                               ' when activo=2 then \'Rechazado\''.
+                                               ' when activo=3 then \'Eliminado\''.
+                                               ' else \'Desconocido\' end desactivo '.
+                                  ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
+                                  ',(select descripcion from perfiles pe where pe.id in '.
+                                          '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '.
+                                  ',(select id from perfiles pe where pe.id in '.
+                                         '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) idperfil '.
+                                  ',(select juzgado from juzgados where id = users.idjuzgado) desjuzgado'.
+                                  ',(select direccion from juzgados where id = users.idjuzgado) dirjuzgado'.
+                   ' from users '.
+                   ' left join perfiles_users pu on  idusuario=users.id '.
+                   ' where pu.idperfil=1 and idjuzgado=:id'
+                   ,['id' => $id]);
+      Log::debug('app/User.php getconCatalogosbyID id='.print_r($datos,true));
+      return $datos;
+
+    }
+
+    public static function getSecretariosJuzgado($id)
+    {
+      Log::debug('app/User.php getSecretariosJuzgado id='.$id);
+      $datos = DB::select('select users.*'.
+                ',case when activo=0 then \'Pendiente\''.
+                                               ' when activo=1 then \'Aceptado\''.
+                                               ' when activo=2 then \'Rechazado\''.
+                                               ' when activo=3 then \'Eliminado\''.
+                                               ' else \'Desconocido\' end desactivo '.
+                                  ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
+                                  ',(select descripcion from perfiles pe where pe.id in '.
+                                          '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '.
+                                  ',(select id from perfiles pe where pe.id in '.
+                                         '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) idperfil '.
+                                  ',(select juzgado from juzgados where id = users.idjuzgado) desjuzgado'.
+                                  ',(select direccion from juzgados where id = users.idjuzgado) dirjuzgado'.
+                   ' from users '.
+                   ' left join perfiles_users pu on  idusuario=users.id '.
+                   ' where pu.idperfil=3 and idjuzgado=:id'
+                   ,['id' => $id]);
+      //Log::debug('app/User.php getconCatalogosbyID id='.print_r($datos[0],true));
+      return $datos;
+
+    }
+
 
     public function getmenus($id)
     {

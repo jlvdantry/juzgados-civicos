@@ -28,6 +28,56 @@ td{
 }
 
 }
+.tabladatos{
+  width: 80%;
+}
+.tddatos{
+    line-height: 1.2rem;
+    color: #5d5d5d;
+    padding: 1rem;
+    text-align: left;
+    border: 3px solid green;
+}
+.tddeclaracion {
+    width: 100%;
+    word-wrap: break-word;
+    border: 1px solid black;
+    border-radius: .1em;
+}
+.divide {
+    word-wrap: break-word;
+}
+
+.tablafoto{
+  width: 20%;
+}
+
+.footdej{
+  width: 34%;
+}
+
+h3 {
+  text-align: center;
+}
+h2 {
+  text-align: center;
+  border: .1em solid #33FFF9;
+}
+.cadf{
+  width: 100%;
+  text-align: center;
+}
+
+.motivo {
+   width: 100%;
+   text-align: center;
+   border-bottom: 1px solid black;
+}
+.lcc {
+   width: 100%;
+   text-align: right;
+   font-size: .6rem;
+}
 
 .red{
   color: #e02020!important;
@@ -44,3 +94,41 @@ td{
   color: #fa6400!important;
 }
 
+
+            /** 
+                Set the margins of the page to 0, so the footer and the header
+                can be of the full height and width !
+             **/
+            @page {
+                margin: 0cm 0cm;
+            }
+
+            /** Define now the real margins of every page in the PDF **/
+            body {
+                margin-top: 3cm;
+                margin-left: 2cm;
+                margin-right: 2cm;
+                margin-bottom: 2cm;
+            }
+
+            /** Define the header rules **/
+            header {
+                position: fixed;
+                top: 0cm;
+                left: 0cm;
+                right: 0cm;
+                height: 3cm;
+            }
+
+            /** Define the footer rules **/
+            footer {
+                position: fixed; 
+                bottom: 0cm; 
+                left: 0cm; 
+                right: 0cm;
+                height: 2.5cm;
+            }
+
+.page-break {
+    page-break-after: always;
+}

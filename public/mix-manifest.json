@@ -1,6 +1,6 @@
 {
-    "/dist/app.js": "/dist/app.js?id=9e9248b4bea8cae01d7a",
-    "/dist/app.css": "/dist/app.css?id=3657c853ca22af0bdd18",
+    "/dist/app.js": "/dist/app.js?id=89c25ca7f8b5e48765dd",
+    "/dist/app.css": "/dist/app.css?id=6099f1c78c71a90b3d1b",
     "/src/img/agregar.svg": "/src/img/agregar.svg?id=51a21af304faf3e4fbef",
     "/src/img/agregarexpediente.svg": "/src/img/agregarexpediente.svg?id=428593c00d898728b2c7",
     "/src/img/backlogin.svg": "/src/img/backlogin.svg?id=8000ffe6abf9d424f816",
@@ -36,5 +36,5 @@
     "/src/fonts/Metropolis-Bold.otf": "/src/fonts/Metropolis-Bold.otf?id=52b5797026c8f617f088",
     "/src/fonts/Metropolis-Regular.otf": "/src/fonts/Metropolis-Regular.otf?id=e12f8a7bb6ac52d6daba",
     "/src/fonts/Metropolis-SemiBold.otf": "/src/fonts/Metropolis-SemiBold.otf?id=44d9dc6a265c309ca9a5",
-    "/dist/pdf.css": "/dist/pdf.css?id=cfb6f65e5b7ec965f58d"
+    "/dist/pdf.css": "/dist/pdf.css?id=7bb9bdfbe0f27c221d1e"
 }

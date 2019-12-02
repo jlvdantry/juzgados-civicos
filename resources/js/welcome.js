@@ -631,15 +631,17 @@ $(document).ready(function() {
                             if (data.length>0) {
                                    var dis = { 
                                                  id       : { header    : 'ID',  'class' : 'd-none'}
-                                               , diahechoss : { header : 'Fecha', 'class' : 'font-weight-bold' }
-                                               , horahechoss : { header : 'Hora', 'class' : 'font-weight-bold' }
-                                               , nombres : { header : 'Nombre infractor', 'class' : 'font-weight-bold' }
-                                               , expediente : { header : 'Expediente', 'class' : 'font-weight-bold' }
-                                               , edad :  { header : 'edad', 'class' : 'font-weight-bold' }
-                                               , sexo :  { header : 'sexo', 'class' : 'font-weight-bold' }
+                                               , idinfractor : { header    : 'ID',  'class' : 'd-none'}
+                                               , diahechoss : { header : 'Fecha', 'class' : 'font-weight-normal' }
+                                               , horahechoss : { header : 'Hora', 'class' : 'font-weight-normal' }
+                                               , nombres : { header : 'Nombre infractor', 'class' : 'font-weight-normal' }
+                                               , expediente : { header : 'Expediente', 'class' : 'font-weight-normal' }
+                                               , edad :  { header : 'edad', 'class' : 'font-weight-normal' }
+                                               , sexo :  { header : 'sexo', 'class' : 'font-weight-normal' }
                                                , boleta_remision :  { header : 'boleta', 'class' : 'font-weight-bold' }
-                                               , desestatus :  { header : 'Estatus Expediente', 'class' : 'font-weight-bold' }
-                                               , ver : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'bole_ed' }
+                                               , desestatus :  { header : 'Estatus', 'class' : 'estatusclase(campos[y])' }
+                            /*                   , constancia :  { header : 'Constancia Hechos', 'boton' : true , 'classb' : 'btn-editar', 'funcion' : 'consta' } */
+                                               , ver : { header : 'Editar', 'boton' : true ,'classb' : 'queboton(tr)', 'funcion' : 'bole_ed' }
                                              }
                                   armadatagrid(data,dis,'dg_boletas',true);
                             } else {
@@ -1115,6 +1117,11 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
           }
           return $(tbody);
      };
+
+     window.estatusclase = function (x) {
+         //console.log('x='+x);
+         return x=='Capturando' ? 'font-weight-normal' : 'font-weight-bold text-success' ;
+     }
      /*
          parametro 1=arreglo de registrso a desplegar
          parametro 2=json del armado de columnas
@@ -1146,12 +1153,13 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                campos=regs[x];
                for (var y in dis) {
                     if (campos.hasOwnProperty(y)) {
-                        console.log('va a armar el campo'+y);
+                        //console.log('va a armar el campo'+y);
                         td=document.createElement('td');
                         p=document.createElement('p');
-                        tdCelda = document.createTextNode(campos[y]+' ');
+                        tdCelda = document.createTextNode(campos[y]);
                         if ('class' in dis[y]) {
-                           td.setAttribute("class", dis[y].class);
+                           td.setAttribute("class", dis[y].class.indexOf('(')==-1 ? dis[y].class : eval(dis[y].class) );
+                           p.setAttribute("class", dis[y].class.indexOf('(')==-1 ? dis[y].class : eval(dis[y].class) );
                         }
                         p.appendChild(tdCelda);
                         td.appendChild(p);
@@ -1161,7 +1169,7 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                            bt=document.createElement('button');
                            bt.setAttribute('type', 'button');
                            if ('classb' in dis[y]) {
-                              bt.setAttribute("class", dis[y].classb);
+                              bt.setAttribute("class", dis[y].classb.indexOf('(')==-1 ? dis[y].classb : eval(dis[y].classb) );
                            }
                            bt.setAttribute('onclick', dis[y].funcion+'('+tr.id+')');
                            td.appendChild(bt);
@@ -1169,12 +1177,12 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
                         }
                     } else {
                         if ('boton' in dis[y]) {
-                           console.log('va a armar un boton'+y);
+                           //console.log('va a armar un boton'+y);
                            td=document.createElement('td');
                            bt=document.createElement('button');
                            bt.setAttribute('type', 'button');
                            if ('classb' in dis[y]) {
-                              bt.setAttribute("class", dis[y].classb);
+                              bt.setAttribute("class", dis[y].classb.indexOf('(')==-1 ? dis[y].classb : eval(dis[y].classb));
                            }
                            bt.setAttribute('onclick', dis[y].funcion+'('+tr.id+')');
                            td.appendChild(bt);
@@ -1314,9 +1322,28 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
 
      }
 
-     window.bole_ed = function (ren){  /* edita un inmueble */
-          location.href = "crearexpediente/"+ren.dataset.id;
+     window.queboton = function (ren){  /* edita un inmueble */
+          if (ren.getElementsByTagName('td')[9].getElementsByTagName('p')[0].innerHTML=="Capturando") {
+                return 'btn-editar';
+          } else {
+                return 'btn-ver';
+          }
      }
+
+     window.bole_ed = function (ren){  /* edita un inmueble */
+          if (ren.getElementsByTagName('td')[9].getElementsByTagName('p')[0].innerHTML=="Capturando") {
+             location.href = "crearexpediente/"+ren.dataset.id;
+          } else {
+             window.open("pdf/"+ren.getElementsByTagName('td')[1].getElementsByTagName('p')[0].innerHTML,'_blank');
+          }
+       
+     }
+
+/*
+     window.consta_ed = function (ren){  
+          location.href = "pdf/"+ren.dataset.id;
+     }
+*/
 
      window.infra_ed = function (ren){  /* edita un inmueble */
              var Data1 = {

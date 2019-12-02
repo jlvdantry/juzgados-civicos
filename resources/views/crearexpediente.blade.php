@@ -11,12 +11,10 @@
       <div class="row d-flex justify-content-center seccion">
         <div class="col-lg-4">
 
-          <a class="btn-registro active" id="policias" data-toggle="tab" href="#c_policias" role="button">POLICIAS
-          </a>
-          <a class="btn-registro" id="infractores" data-toggle="tab" href="#c_infractores" role="button">INFRACTOR(ES)
-          </a>
-          <a class="btn-registro" id="b_motivo" data-toggle="tab" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN
-          </a>
+          <a class="btn-registro active" id="policias" data-toggle="tab" href="#c_policias" role="button">POLICIAS </a>
+          <a class="btn-registro" id="infractores" data-toggle="tab" href="#c_infractores" role="button">INFRACTOR(ES) </a>
+          <a class="btn-registro" id="b_motivo" data-toggle="tab" href="#c_motivo" role="button">MOTIVO DE PRESENTACIÓN </a>
+          <a class="btn-registro" id="b_quienfirma" data-toggle="tab" href="#c_quienfirma" role="button">QUIEN FIRMA </a>
 
 
         </div> <!-- Cerrar columna lateral -->
@@ -190,11 +188,46 @@
               </form>
             </div> <!-- Finaliza tabPane información general -->
 
+            <div class="tab-pane fade" id="c_quienfirma" >
+              <form id="f_quienfirma" >
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label-custom" for="idjuez">Juez*</label>
+            <select class="form-control form-control-custom" id="idjuez" name="idjuez" required>
+              <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['jueces'] as $juez)
+                      <option value="{{ $juez->id }}">{{ $juez->nombrecompleto }}</option>
+                      @endforeach
+            </select>
+            <div class="invalid-feedback">
+              Selecciona una opción
+            </div>
+          </div>
+        </div>
 
-            <!-- Pan-Pane Domicilio -->
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label-custom" for="idsecretario">Secretario*</label>
+            <select class="form-control form-control-custom" id="idsecretario" name="idsecretario" required>
+              <option disabled value="" selected hidden>Selecciona una</option>
+                      @foreach ($data['secretarios'] as $secretario)
+                      <option value="{{ $secretario->id }}">{{ $secreatrio->nombrecompleto }}</option>
+                      @endforeach
+            </select>
+            <div class="invalid-feedback">
+              Selecciona una opción
+            </div>
+          </div>
+        </div>
+
+
+              </form>
+            </div>
+
+
             <div class="tab-pane fade" id="c_motivo" >
               <form id="f_motivo" >
-
+            <!-- Pan-Pane Domicilio -->
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label-custom" for="diahechos">*Fecha en que ocurrieron los hechos:</label>
@@ -269,14 +302,32 @@
                       Selecciona una opción
                     </div>
                   </div>
-
                 </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="entrecalle_h">Entre que calle:</label>
+                    <input type="text" name="cp_h" id="entrecalle_h" class="form-control form-control-custom street-names" maxlength="100" value="" placeholder="Escribe entre que calle" pattern="^[0-9]{4,5}$" >
+                    <div class="invalid-feedback">
+                      Ingresa los cuatro o cinco dígitos de tu código postal
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="ycalle_h">Y que calle:</label>
+                    <input type="text" name="colonia_h" id="ycalle_h" class="form-control form-control-custom street-names" maxlength="100" value="" placeholder="Escribe y que calle" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                </div>
+
 
                 <h2 class="mb-0">Motivo</h2>
                 <div class="row">
                   <div class="col-md-12 mb-3">
                     <label class="form-label-custom" for="motivo">*Datos de la probable infracción:</label>
-                    <textarea name="motivo" id="motivo" class="form-control form-control-custom street-names" maxlength="2000" value="" placeholder="Detallar el motivo por el que se realiza la presentación" required></textarea>
+                    <textarea name="motivo" id="motivo" class="form-control form-control-custom street-names" maxlength="130" value="" placeholder="Detallar el motivo por el que se realiza la presentación" required></textarea>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
@@ -408,9 +459,7 @@
         </div>
 
         <div class="row  mb-1">
-
-
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-4 ">
                     <label class="form-label-custom" for="sexo">*Sexo:</label>
                     <select class="form-control form-control-custom" id="sexo" name="sexo" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
@@ -432,7 +481,7 @@
             </div>
           </div>
 
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-4">
                     <label class="form-label-custom" for="identidad">Lugar de nacimiento:</label>
                     <select class="form-control form-control-custom" id="identidad" name="identidad" required>
                       <option disabled value="" selected hidden>Selecciona una</option>
@@ -447,19 +496,33 @@
 
         </div>
                 <div class="row">
-                  <div class="col-md-6 mb-3">
+                  <div class="col-md-4 mb-3">
                     <label class="form-label-custom" for="nacimiento">Fecha de nacimiento:</label>
                     <input type="date" name="nacimiento" id="nacimiento" class="form-control form-control-custom street-names" maxlength="12" value="" placeholder="dd/mm/aaaa" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="ocupacion">Ocupación:</label>
+                    <input type="text" name="ocupacion" id="ocupacion" class="form-control form-control-custom street-names" maxlength="40" value="" placeholder="Escribe la ocupación" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label-custom" for="identificacion">Identificación:</label>
+                    <input type="text" name="identificacion" id="identificacion" class="form-control form-control-custom street-names" maxlength="40" value="" placeholder="Escribe la identificación" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
                 </div>
 
         <div class="Policias-remitentes mt-3">Domicilio</div>
-
                 <div class="row">
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-4">
                     <label class="form-label-custom" for="calle_i">Calle:</label>
                     <input autofocus type="text" name="calle_i" id="calle_i" class="form-control form-control-custom street-names" maxlength="30" value="" placeholder="Escribe la calle" autofocus required>
                     <div class="invalid-feedback">
@@ -467,14 +530,14 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-4">
                     <label class="form-label-custom" for="exterior_i">No. exterior:</label>
                     <input type="text" name="exterior_i" id="exterior_i" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-4">
                     <label class="form-label-custom" for="interior_i">No. interior:</label>
                     <input type="text" name="interior_i" id="interior_i" class="form-control form-control-custom street-names" maxlength="10" value="" placeholder="00">
                     <div class="invalid-feedback">
@@ -528,6 +591,15 @@
             </div>
           </div>
         </div>
+        <div class="Policias-remitentes mt-3">Declaración</div>
+                  <div class="row col-md-12 mb-3">
+                    <label class="form-label-custom" for="declaracion">*Declaración:</label>
+                    <textarea autofocus name="sancionaplicada" id="declaracion" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe la declaración" autofocus ></textarea>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
       </div> <!-- fin datos personales -->
 
       <div id="c_infraccionesysancion" name="tabi" class="d-none">

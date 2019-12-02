@@ -66,16 +66,24 @@ protected $guarded = [];
         }
 
          $datos = DB::select('select * from (select bole.* '.
-                                       //',coalesce((select descripcion    from alcaldias alc where alc.id_cat_alcaldia=bole.id_alcaldia),\'\') desalcaldia '.
+                                       ',coalesce((select descripcion from alcaldias alc where alc.id_cat_alcaldia=bole.id_alcaldia_h),\'\') desalcaldia '.
+                                       ',coalesce((select juzgado from juzgados juz where juz.id=bole.idjuzgado),\'\') desjuzgado '.
                                        ',case when coalesce(bole.estatus,0)=0 then \'Capturando\' else \'Capturado\' end desestatus'.
                                        ',coalesce(to_char(bole.diahechos,\'YYYY-MM-DD\'),\'\') diahechosS'.
                                        ',coalesce(to_char(bole.horahechos,\'HH:mm\'),\'\') horahechosS'.
-                                       ',trim(coalesce(nombre_i,\'\')) || \' \' || trim(coalesce(primer_apellido_i,\'\')) || \' \' || trim(coalesce(segundo_apellido_i,\'\')) nombres'.
+                                       ',trim(coalesce(nombre_i,\'\')) || \' \' || trim(coalesce(primer_apellido_i,\'\')) || \' \' || '.
+                                       '       trim(coalesce(segundo_apellido_i,\'\')) nombres'.
+                                       ',(select trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || '.
+                                       '       trim(coalesce(ape_mat,\'\')) from users usr where usr.id=bole.updatedby) nombrejuez '.
                                        ',coalesce(date_part(\'year\',age(nacimiento)),\'0\') edad'.
                                        ' ,coalesce(infra.sexo,\' \') as sexo '.
+                                       ',coalesce((select descripcion from alcaldias alc where alc.id_cat_alcaldia=infra.id_alcaldia_i),\'\') desalcaldia_i '.
+                                       ', infra.calle_i, infra.exterior_i, infra.interior_i, infra.colonia_i, infra.curp'.
+                                       ', ones.infraccion, ones.articulo, ones.fraccion '.
+                                       ',  infra.id idinfractor, infra.declaracion, infra.tirilla,infra.tiposancion,infra.sancionaplicada '.
                                        ' from boletas bole'.
-                                       ' left join infractores infra '.
-                                       ' on bole.id=infra.idboleta '.
+                                       ' left join infractores infra on bole.id=infra.idboleta '.
+                                       ' left join infracciones  ones on ones.id=infra.idinfraccion '.
                                        //' and   inmu.email_acreditado=esta.email_acreditado '.
                                        $fila.$wlfiltro.
                                        ' ) a '.$fil.' order by created_at desc limit 100');

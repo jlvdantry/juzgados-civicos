@@ -36,11 +36,10 @@ Route::get('/restaura/{si}', function () {
       return view('restaura');
 });
 
-Route::get('pdf', 'PdfController@invoice');
+Route::get('pdf/{id}', 'PdfController@hechos');
 
 
 Route::get('/correo_registro', function () {
-  //$user = App\User::find(18);
   $user = App\User::getconCatalogosbyID(20);
   return new App\Mail\UserRegistrado($user);
   });
@@ -122,11 +121,15 @@ Route::group(['middleware' => ['auth:web']], function() {
     Route::get('crearexpediente/',  function () {
            $alcaldias = Alcaldias::all();
            $entidades = Entidades::all();
+           $jueces = App\User::getJuecesJuzgado(Auth::user()->idjuzgado);
+           $secretarios = App\User::getSecretariosJuzgado(Auth::user()->idjuzgado);
            $infracciones = Infracciones::getConcatalogos();
            $data = array (
               'alcaldias' => $alcaldias,
               'entidades' => $entidades,
-              'infracciones' => $infracciones
+              'infracciones' => $infracciones,
+              'jueces' => $jueces,
+              'secretarios' => $secretarios
            );
            return view('crearexpediente')->with('data', $data);
     });
@@ -134,10 +137,14 @@ Route::group(['middleware' => ['auth:web']], function() {
            $alcaldias = Alcaldias::all();
            $entidades = Entidades::all();
            $infracciones = Infracciones::getConcatalogos();
+           $jueces = App\User::getJuecesJuzgado(Auth::user()->idjuzgado);
+           $secretarios = App\User::getSecretariosJuzgado(Auth::user()->idjuzgado);
            $data = array (
               'alcaldias' => $alcaldias,
               'entidades' => $entidades,
-              'infracciones' => $infracciones
+              'infracciones' => $infracciones,
+              'jueces' => $jueces,
+              'secretarios' => $secretarios
            );
               return view('crearexpediente')->with('data', $data);
     });

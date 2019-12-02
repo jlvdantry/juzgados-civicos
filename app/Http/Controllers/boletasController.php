@@ -73,11 +73,10 @@ class boletasController extends Controller
             return response()->json([ 'errors' => ['boleta_remision' => 'Ya existe una boleta con el numero <b>'.$request->boleta_remision, 'seccion' => 'policias']],429);
       }
 
-
-
       $dato = new Boletas(
          [
         'boleta_remision' => $request->get('boleta_remision'),
+        'createdby' => \Auth::user()->id
       ]
          );
         try {
@@ -252,6 +251,12 @@ class boletasController extends Controller
                                                             , 'seccion' => 'infractores' ]],444);
                           }
                       }
+
+                      if ($infra->declaracion=="") {
+                             return response()->json([ 'errors' => ['declaracion' => 'Falta tecelar la declaración del infractor '.$infra->nombre_i
+                                                            , 'seccion' => 'infractores' ]],444);
+                      }
+
                       if ($infra->nacimiento!="") {
                          $edad=$this->edad($infra->nacimiento);
                          if ($edad<13) {
@@ -325,17 +330,24 @@ class boletasController extends Controller
                       }
 
                    }
+                   if ($inmu[0]['idjuez']=="") {
+                      return response()->json([ 'errors' => ['idjuez' => 'Falta selecccionar que juez va a firmar'
+                                                           , 'seccion' => 'c_quienfirma' ]],430);
+                   }
+                   if ($inmu[0]['idsecretario']=="") {
+                      return response()->json([ 'errors' => ['idjuez' => 'Falta selecccionar que secretario va a firmar'
+                                                           , 'seccion' => 'c_quienfirma' ]],430);
+                   }
+
+
+                   $data['idjuzgado']=\Auth::user()->idjuzgado;
          }
       }
 
       Log::debug('BoletasControler '.print_r($request->all(),true));
-      if ($request->has('placa1')) {
-         $data['placa1']=$request->placa1;
-      }
-      if ($request->has('areadeadscripcion_1')) {
-         $data['areadeadscripcion_1']=$request->areadeadscripcion_1;
-      }
+      $data['updatedby']=\Auth::user()->id;
       $dato = $inmu[0]->update($request->all());
+      $dato = $inmu[0]->update($data);
       Log::debug('inmueblesController.php Despues de realizar el update='.print_r($dato,true)." tipo de inmu=".gettype($inmu[0]));
       if ($dato==0) {
           return response()->json([ 'errors' => ['cambio' => 'Hubo problemas al actualizar el inmueble']],430);
