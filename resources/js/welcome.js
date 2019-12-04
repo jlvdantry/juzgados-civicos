@@ -4,6 +4,11 @@ $(document).ready(function() {
       });
 
      console.log('entro');
+     setTimeout(function(){
+                $('#msgModal').modal('hide');
+                resolve();
+       }, 60000);
+
 
      $("input[type=file][id^='s_id_'").change(function(e){
                   $("#l_"+this.id)[0].innerHTML=this.files[0].name;
@@ -25,9 +30,6 @@ $(document).ready(function() {
                          var idb=formdd.dataset.id;
                   } else { var idb=''; }
 
-                  //fd.append('rfc',$('#rfc')[0].value);
-                  //fd.append('email_acreditado',$('#nombre-usuario').data('email'));
-                  //fd.append('pantalla',this.closest('form').id);
                     $.ajax({
                        type: 'post',
                        url: mipath()+'api/infractores/'+formdd.dataset.id+'/'+formi.dataset.id,
@@ -63,6 +65,14 @@ $(document).ready(function() {
              $('#horahechos').focus();
         });
      }
+
+     if ($('form[id="f_quienfirma"]')[0]!=undefined && $('form[id="f_quienfirma"]')[0].id=='f_quienfirma') {
+        var formi = $('form[id="f_quienfirma"]')[0];
+        $('form[id="f_quienfirma"] :input').on('change', function(e) {
+             cambia_dato(e);
+        });
+     }
+
 
      if ($('form[id="f_infractores"]')[0]!=undefined && $('form[id="f_infractores"]')[0].id=='f_infractores') {
         var formb = $('form[id="f_infractores"]')[0];
@@ -128,6 +138,7 @@ $(document).ready(function() {
                                 $('#des_expediente')[0].innerHTML='Boleta-'+data[0].boleta_remision;
                                 muestradatos($('form[id="f_boleta"]')[0],data[0]);
                                 muestradatos($('form[id="f_motivo"]')[0],data[0]);
+                                muestradatos($('form[id="f_quienfirma"]')[0],data[0]);
                             } else {
                                 crearMensaje(true,"Atención", ' No se encontraron registros');
                                 return;
@@ -635,7 +646,7 @@ $(document).ready(function() {
                                                , diahechoss : { header : 'Fecha', 'class' : 'font-weight-normal' }
                                                , horahechoss : { header : 'Hora', 'class' : 'font-weight-normal' }
                                                , nombres : { header : 'Nombre infractor', 'class' : 'font-weight-normal' }
-                                               , expediente : { header : 'Expediente', 'class' : 'font-weight-normal' }
+                                               , noexpediente : { header : 'Expediente', 'class' : 'font-weight-normal' }
                                                , edad :  { header : 'edad', 'class' : 'font-weight-normal' }
                                                , sexo :  { header : 'sexo', 'class' : 'font-weight-normal' }
                                                , boleta_remision :  { header : 'boleta', 'class' : 'font-weight-bold' }

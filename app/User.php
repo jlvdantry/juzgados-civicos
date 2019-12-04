@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Perfiles_users;
 use App\Perfiles_menus;
 use App\Alcaldias;
+use App\Juzgados;
 use App\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -195,4 +196,8 @@ class User extends Authenticatable
         return $alcaldia ? $alcaldia->descripcion : '';
     }
 
+    public function getJuzgado() {
+        $juzgado = Juzgados::where('id', '=', $this->idjuzgado)->first();
+        return $juzgado ? $juzgado->juzgado : '';
+    }
 }

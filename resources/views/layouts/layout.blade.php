@@ -29,20 +29,27 @@
                   <a class="dropdown-item-custom" href="{{ url('') }}">Cerrar sesión</a>
               </div>
            </div>
-        </div>
+          </div>
         @endif
       </header>
   <div class="pleca">
-    <div class="container">
-      <ul class="nav justify-content-end">
-        @if (Auth::check())
-        @foreach (Auth::user()->getmenus(Auth::user()->getperfiles()->idperfil) as $menu)
-        <li class="nav-item">
-        <a {{ $menu->idh!='' ? 'id='.$menu->idh : '' }} class="nav-link" href="{{ url('') }}/{{ $menu->componente }}">{{ $menu->desmenu }} </a>
-        </li>
-        @endforeach
-        @endif
-      </ul>
+    <div class="container justify-content-between">
+      @if (Auth::check())
+     <div class="pl-0 d-flex col-lg-12">
+        <div class="pl-0 pr-0 col-lg-3 d-flex justify-content-between align-items-center">
+         <div id="fechayhora" class="plecat">{{ date('Y-m-d H:i')." ".Auth::user()->getJuzgado() }}</div>
+        </div>
+        <div class="col-lg-9 d-flex justify-content-end">
+         <ul class="nav justify-content-end">
+          @foreach (Auth::user()->getmenus(Auth::user()->getperfiles()->idperfil) as $menu)
+             <li class="nav-item">
+                <a {{ $menu->idh!='' ? 'id='.$menu->idh : '' }} class="nav-link" href="{{ url('') }}/{{ $menu->componente }}">{{ $menu->desmenu }} </a>
+             </li>
+          @endforeach
+         </ul>
+        </div>
+      @endif
+     </div>
     </div>
   </div>
 

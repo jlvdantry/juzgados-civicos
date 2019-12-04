@@ -20,12 +20,23 @@ cat > $0.sql << fin
 --select * from perfiles_users where idusuario=20;
 --select * from perfiles;
 --delete from users where email='jlvdantry@hotmail.com';
---update boletas set estatus=0 where boleta_remision='SDGBFGNDDFG';
---select * from boletas where boleta_remision='SDGBFGNDDFG';
---select * from infractores where idboleta=(select id from boletas where boleta_remision='SDGBFGNDDFG');
-select * from infracciones
---select users.*,case when activo=0 then 'Pendiente' when activo=1 then 'Aceptado' when activo=2 then 'Rechazado' when activo=3 then 'Eliminado' else 'Desconocido' end desactivo , (trim(coalesce(nombres,'')) || ' ' || trim(coalesce(ape_pat,'')) || ' ' || trim(coalesce(ape_mat,''))) nombrecompleto ,(select descripcion from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil ,(select id from perfiles pe where pe.id in (select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) idperfil ,(select juzgado from juzgados where id = users.idjuzgado) desjuzgado,(select direccion from juzgados where id = users.idjuzgado) dirjuzgado from users  left join perfiles_users pu on  idusuario=users.id  where pu.idperfil=1 
---and idjuzgado=
+update boletas set estatus=0 where boleta_remision='4878748';
+--select idjuzgado,boleta_remision,estatus,expediente,diahechos from boletas where boleta_remision='4878748';
+select * from infractores where idboleta=(select id from boletas where boleta_remision='4878748');
+select * from files where id=32;
+/*
+update boletas set estatus=0,expediente=0 where boleta_remision='SDGBFGNDDFG';
+select * from boletas where boleta_remision='SDGBFGNDDFG';
+select * from infractores where idboleta=(select id from boletas where boleta_remision='SDGBFGNDDFG');
+*/
+--select idjuzgado,boleta_remision,estatus,expediente,diahechos from boletas where idjuzgado=5 and diahechos between '2019/01/01' and '2019/12/31' and estatus=1;
+--select coalesce(max(expediente),0)+1 ultimo from boletas where idjuzgado=5 and diahechos between '2019/01/01' and '2019/12/31' and estatus=1
+--select * from infracciones
+--update boletas set estatus=0,expediente=0 where boleta_remision='456345634563';
+--select * from boletas where boleta_remision='456345634563';
+--select * from infractores where idboleta=(select id from boletas where boleta_remision='456345634563');
+
+
 fin
 psql -h $DB_HOST -d $DB_DATABASE -U $DB_USERNAME  < $0.sql
 ##psql -U $DB_USERNAME  < $0.sql     ## para crear la bse de datos

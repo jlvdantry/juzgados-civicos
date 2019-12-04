@@ -191,8 +191,8 @@
             <div class="tab-pane fade" id="c_quienfirma" >
               <form id="f_quienfirma" >
         <div class="row">
-          <div class="col-md-12 mb-3">
-            <label class="form-label-custom" for="idjuez">Juez*</label>
+          <div class="col-md-8 mb-3">
+            <label class="form-label-custom" for="idjuez">*Juez</label>
             <select class="form-control form-control-custom" id="idjuez" name="idjuez" required>
               <option disabled value="" selected hidden>Selecciona una</option>
                       @foreach ($data['jueces'] as $juez)
@@ -206,12 +206,12 @@
         </div>
 
         <div class="row">
-          <div class="col-md-12 mb-3">
-            <label class="form-label-custom" for="idsecretario">Secretario*</label>
+          <div class="col-md-8 mb-3">
+            <label class="form-label-custom" for="idsecretario">*Secretario</label>
             <select class="form-control form-control-custom" id="idsecretario" name="idsecretario" required>
               <option disabled value="" selected hidden>Selecciona una</option>
                       @foreach ($data['secretarios'] as $secretario)
-                      <option value="{{ $secretario->id }}">{{ $secreatrio->nombrecompleto }}</option>
+                      <option value="{{ $secretario->id }}">{{ $secretario->nombrecompleto }}</option>
                       @endforeach
             </select>
             <div class="invalid-feedback">
@@ -219,6 +219,11 @@
             </div>
           </div>
         </div>
+
+                <div class="contenedor-boton justify-content-end seccion">
+                  <button class="btn-01" type="submit" name="guardarexpediente" >Crear expediente</button>
+                </div>
+
 
 
               </form>
@@ -583,7 +588,7 @@
             <legend class="form-label-custom mb-1" for="id_file_0001" >Fotografía:</legend>
             <div class=" d-flex flex-nowrap">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="id_file_0001"  id="id_file_0001" maxlength="30" placeholder="Selecciona un archivo JPG o PNG" >
+                <input type="file" class="custom-file-input" name="id_file_0001"  id="id_file_0001" accept=".png, .jpg, .jpeg" maxlength="30" placeholder="Selecciona un archivo JPG o PNG" >
                 <label class="custom-file-label" for="l_id_file_0001">
                               <p class="texto" id="l_id_file_0001">Selecciona un archivo PDF</p>
                 </label>

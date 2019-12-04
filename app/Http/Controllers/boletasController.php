@@ -331,15 +331,16 @@ class boletasController extends Controller
 
                    }
                    if ($inmu[0]['idjuez']=="") {
-                      return response()->json([ 'errors' => ['idjuez' => 'Falta selecccionar que juez va a firmar'
-                                                           , 'seccion' => 'c_quienfirma' ]],430);
+                      return response()->json([ 'errors' => ['idjuez' => 'Falta seleccionar que juez va a firmar'
+                                                           , 'seccion' => 'b_quienfirma' ]],430);
                    }
                    if ($inmu[0]['idsecretario']=="") {
-                      return response()->json([ 'errors' => ['idjuez' => 'Falta selecccionar que secretario va a firmar'
-                                                           , 'seccion' => 'c_quienfirma' ]],430);
+                      return response()->json([ 'errors' => ['idjuez' => 'Falta seleccionar que secretario va a firmar'
+                                                           , 'seccion' => 'b_quienfirma' ]],430);
                    }
-
-
+                   if ($inmu[0]['expediente']==0) {
+                       $data['expediente']=Boletas::getSiguienteexpediente($inmu[0]['idjuzgado'],substr($inmu[0]['diahechos'],0,4));
+                   }
                    $data['idjuzgado']=\Auth::user()->idjuzgado;
          }
       }
@@ -352,11 +353,13 @@ class boletasController extends Controller
       if ($dato==0) {
           return response()->json([ 'errors' => ['cambio' => 'Hubo problemas al actualizar el inmueble']],430);
       } else {
-          //$inmu[0]['filesystem']=$dataf;
           return response()->json($inmu[0],200);
       }
 
 
+    }
+
+    public function damefolio($inmu) {
     }
 
     public function upload($archivo,$id,$tipofile)

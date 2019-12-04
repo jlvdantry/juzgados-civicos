@@ -32,11 +32,11 @@ td{
   width: 80%;
 }
 .tddatos{
-    line-height: 1.2rem;
+    /*line-height: 1.2rem;*/
     color: #5d5d5d;
-    padding: 1rem;
     text-align: left;
-    border: 3px solid green;
+    font-size: 1em;
+    /*border: 3px solid green; */
 }
 .tddeclaracion {
     width: 100%;
@@ -54,6 +54,7 @@ td{
 
 .footdej{
   width: 34%;
+  font-size: .8em;
 }
 
 h3 {
@@ -77,6 +78,13 @@ h2 {
    width: 100%;
    text-align: right;
    font-size: .6rem;
+}
+
+.lccr {
+   width: 100%;
+   text-align: right;
+   font-size: .6rem;
+   color: red;
 }
 
 .red{
@@ -131,4 +139,16 @@ h2 {
 
 .page-break {
     page-break-after: always;
+}
+
+.iw {
+    text-align: justify;
+    text-justify: inter-word;
+}
+ 
+
+.tablafoto img {
+    width: 5em; /* alter this to move left or right */
+    height: 7.5em; /* alter this to move up or down */
+    object-fit: cover;
 }
