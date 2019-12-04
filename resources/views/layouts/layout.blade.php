@@ -37,7 +37,7 @@
       @if (Auth::check())
      <div class="pl-0 d-flex col-lg-12">
         <div class="pl-0 pr-0 col-lg-3 d-flex justify-content-between align-items-center">
-         <div id="fechayhora" class="plecat">{{ date('Y-m-d H:i')." ".Auth::user()->getJuzgado() }}</div>
+         <div id="fechayhora" class="plecat">{{ date('Y-m-d H:i')." ".Auth::user()->getAlcaldia()." ".Auth::user()->getJuzgado() }}</div>
         </div>
         <div class="col-lg-9 d-flex justify-content-end">
          <ul class="nav justify-content-end">

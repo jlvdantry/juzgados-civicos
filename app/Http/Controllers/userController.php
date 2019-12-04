@@ -179,8 +179,8 @@ class userController extends Controller
                                                ' when activo=3 then \'Eliminado\''.
                                                ' else \'Desconocido\' end desactivo '.
                                   ', (trim(coalesce(nombres,\'\')) || \' \' || trim(coalesce(ape_pat,\'\')) || \' \' || trim(coalesce(ape_mat,\'\'))) nombrecompleto '.
-                                     ',(select descripcion from perfiles pe where pe.id in '.
-                                          '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) desperfil '.
+                                     ',coalesce((select descripcion from perfiles pe where pe.id in '.
+                                          '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1),\'\') desperfil '.
                                      ',(select id from perfiles pe where pe.id in '.
                                           '(select idperfil from perfiles_users where idusuario=users.id) order by id desc limit 1) idperfil '
                                ))->where($filtro)->get();

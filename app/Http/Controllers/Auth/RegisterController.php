@@ -52,7 +52,7 @@ class RegisterController extends Controller
     {
       log::debug('RegisterController.php registered empezo');
       $user->generateToken();
-      Mail::to($user->email)->send(new UserRegistrado($user));
+      Mail::to($user->email)->send(new UserRegistrado($user->getconCatalogosbyID($user->id)));
       log::debug('RegisterController.php registered paso envio email'.print_r($user->toArray(),true));
       return response()->json(['data' => $user->toArray()], 200);
       log::debug('RegisterController.php registered despues de response');

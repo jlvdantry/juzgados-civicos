@@ -40,7 +40,7 @@ Route::get('pdf/{id}', 'PdfController@hechos');
 
 
 Route::get('/correo_registro', function () {
-  $user = App\User::getconCatalogosbyID(20);
+  $user = App\User::getconCatalogosbyID(8);
   return new App\Mail\UserRegistrado($user);
   });
 

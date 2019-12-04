@@ -31,12 +31,6 @@ Route::group(['middleware' => 'auth:web'], function() {
      Route::put('users/{id}', 'userController@update');
      Route::get('users', 'userController@index');
      Route::get('users/estadistica', 'userController@estadistica');
-     Route::post('establecimientos', 'establecimientosController@store');
-     Route::get('establecimientos/{id}', 'establecimientosController@show');
-     Route::get('establecimientos/{id}/{inm}', 'establecimientosController@show');
-     Route::delete('establecimientos/{id}', 'establecimientosController@destroy');
-     Route::delete('establecimientos/{rfc}/{email}', 'establecimientosController@destroyRfcEmailA');
-     Route::get('establecimientos', 'establecimientosController@index');
      Route::post('boletas', 'inmueblesController@store');
      Route::post('boletas/{id}', 'boletasController@update');
      Route::put('boletas/{id}', 'boletasController@update');
@@ -49,13 +43,7 @@ Route::group(['middleware' => 'auth:web'], function() {
      Route::get('infractores/{boleta}', 'infractoresController@index');
      Route::get('infractores/{boleta}/{id}', 'infractoresController@show');
 
-     Route::get('inmuebles/{rfc}/{email}', 'inmueblesController@showRfcEmailA');
      Route::get('boletas', 'boletasController@index');
-     Route::delete('inmuebles/{id}', 'inmueblesController@destroy');
-     Route::delete('simulacros/{id}', 'simulacrosController@destroy');
-     Route::delete('comites/{id}', 'comitesController@destroy');
      Route::put('boletas/', 'boletasController@store');
-     Route::delete('puntor/{id}', 'puntorController@destroy');
-     Route::get('establecimientos-search/{name}/{rfc}', 'establecimientosController@busquedaEstablecimientoSolicitante');
      //Route::post('/sube_archivos', 'fileController@upload');
 });

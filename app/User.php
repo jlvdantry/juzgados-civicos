@@ -192,8 +192,8 @@ class User extends Authenticatable
     }
 
     public function getAlcaldia() {
-        $alcaldia = Alcaldias::where('id_cat_alcaldia', '=', $this->id_alcaldia)->first();
-        return $alcaldia ? $alcaldia->descripcion : '';
+        $alcaldia = DB::select('select descripcion from alcaldias alc left join juzgados juz on alc.id_cat_alcaldia=juz.idalcaldia where juz.id=:id',['id' => $this->idjuzgado]);
+        return $alcaldia ? $alcaldia[0]->descripcion : 'Sin alcaldia';
     }
 
     public function getJuzgado() {

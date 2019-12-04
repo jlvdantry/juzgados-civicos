@@ -53,7 +53,7 @@ class LoginController extends Controller
             if ($user->activo!=1) {
                   $this->logout($request);
                   \Request::session()->invalidate();
-                  return response()->json([ 'errors' => ['email' => 'El usuario aun no esta autorizado' ]],445);
+                  return response()->json([ 'errors' => ['email' => 'El usuario aún no esta autorizado' ]],445);
             }
             $user->generateToken();
             $user->save();
