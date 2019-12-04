@@ -339,7 +339,8 @@ class boletasController extends Controller
                                                            , 'seccion' => 'b_quienfirma' ]],430);
                    }
                    if ($inmu[0]['expediente']==0) {
-                       $data['expediente']=Boletas::getSiguienteexpediente($inmu[0]['idjuzgado'],substr($inmu[0]['diahechos'],0,4));
+                       Log::debug('boletasController.php expediente en cero='.print_r(\Auth::user()->idjuzgado,true));
+                       $data['expediente']=Boletas::getSiguienteexpediente(\Auth::user()->idjuzgado,substr($inmu[0]['diahechos'],0,4));
                    }
                    $data['idjuzgado']=\Auth::user()->idjuzgado;
          }
@@ -349,7 +350,7 @@ class boletasController extends Controller
       $data['updatedby']=\Auth::user()->id;
       $dato = $inmu[0]->update($request->all());
       $dato = $inmu[0]->update($data);
-      Log::debug('inmueblesController.php Despues de realizar el update='.print_r($dato,true)." tipo de inmu=".gettype($inmu[0]));
+      Log::debug('boletasController.php Despues de realizar el update='.print_r($dato,true)." tipo de inmu=".gettype($inmu[0]));
       if ($dato==0) {
           return response()->json([ 'errors' => ['cambio' => 'Hubo problemas al actualizar el inmueble']],430);
       } else {

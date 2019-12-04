@@ -17,7 +17,7 @@ protected $guarded = [];
    public static function getSiguienteexpediente($idjuzgado,$ano) {
        $folio = DB::select('select coalesce(max(expediente),0)+1 ultimo from boletas where idjuzgado='.$idjuzgado.' and diahechos between \''.$ano.'/01/01\''.
                             ' and \''.$ano.'/12/31\' and estatus=1'); 
-       Log::debug('app/Boletas.php getSiguienteexpediente='.print_r($folio,true));
+       //Log::debug('app/Boletas.php getSiguienteexpediente='.print_r($folio,true));
        return $folio[0]->ultimo;
    }
    public static function getConcatalogosConLimite($user,$filtro=[]) {
@@ -78,7 +78,7 @@ protected $guarded = [];
                                        //' and   inmu.email_acreditado=esta.email_acreditado '.
                                        $fila.$wlfiltro.
                                        ' ) a '.$fil.' order by created_at desc limit 100');
-         Log::debug('app/Inmuebles.php getConcatalogosConLimite='.print_r($datos,true));
+         //Log::debug('app/Inmuebles.php getConcatalogosConLimite='.print_r($datos,true));
          return $datos;
    }
 
