@@ -16,8 +16,6 @@ class AlterBoletasJuez extends Migration
         Schema::table('boletas', function (Blueprint $table) {
             $table->integer('idjuez')->nullable()->comment('id del juez que califica la infracción, de acuerdo al catalogo de usuarios');
             $table->integer('idsecretario')->nullable()->comment('id del secretario , de acuerdo al catalogo de usuarios');
-            $table->string('ip_alta')->nullable()->comment('ip desde donde se dio de alta la boleta');
-            $table->string('ip_cambio')->nullable()->comment('ip desde donde se efectuo el ultimo cambio');
             //
         });
     }
