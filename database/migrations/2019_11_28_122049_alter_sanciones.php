@@ -43,6 +43,7 @@ class AlterSanciones extends Migration
             $table->string('an')->nullable()->comment('Notificacion Reglamento de Ley de Cultura Cívica');
             $table->string('ao')->nullable()->comment('Pago de multa (En su caso) Ley de Cultura Cívica');
             $table->string('ap')->nullable()->comment('Pago de multa (En su caso)  Reglamento de Ley de Cultura Cívica');
+            $table->string('aq')->nullable()->comment('Pago de multa (En su caso)  Reglamento de Ley de Cultura Cívica');
         });
     }
 
@@ -83,6 +84,7 @@ class AlterSanciones extends Migration
             $table->dropcolumn('an');
             $table->dropcolumn('ao');
             $table->dropcolumn('ap');
+            $table->dropcolumn('aq');
         });
     }
 }

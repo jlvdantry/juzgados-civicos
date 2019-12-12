@@ -21,6 +21,7 @@ cat > $0.sql << fin
 --select * from perfiles;
 --delete from users where email='jlvdantry@hotmail.com';
 --update boletas set estatus=0 where boleta_remision='4878748';
+--update boletas set estatus=0 where boleta_remision='33233';
 --select idjuzgado,boleta_remision,estatus,expediente,diahechos from boletas where boleta_remision='4878748';
 --select * from infractores where idboleta=(select id from boletas where boleta_remision='4878748');
 --select * from files where id=32;
@@ -36,12 +37,12 @@ select * from infractores where idboleta=(select id from boletas where boleta_re
 --update boletas set estatus=0,expediente=0 where boleta_remision='456345634563';
 --select * from boletas where boleta_remision='456345634563';
 --select * from infractores where idboleta=(select id from boletas where boleta_remision='456345634563');
-select id,boleta_remision from boletas where
-(select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
-delete from boletas where
-(select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
-
-
+--select id,boleta_remision from boletas where (select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
+--delete from boletas where (select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
+--select * from migrations
+--select * from boletas;
+--update boletas set estatus=0,expediente=0 where boleta_remision='48787';
+select * from infracciones;
 fin
 psql -h $DB_HOST -d $DB_DATABASE -U $DB_USERNAME  < $0.sql
 ##psql -U $DB_USERNAME  < $0.sql     ## para crear la bse de datos

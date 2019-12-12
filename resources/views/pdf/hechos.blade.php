@@ -26,15 +26,14 @@
     <main>
       <div id="details" class="clearfix">
         <div id="invoice">
-          <h3>RAZÓN</h3>
-          <div class="iw" >Con fundamento en los Art. 124 Fracc. I, II de la Ley de Cultura Cívica de la Ciudad de México; Art. 61 Fracc. I
-del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) persona juzgadora <b>{{ $infractor[0]->nombrejuez }}</b> adscrito al juzgado <b>{{ $infractor[0]->desjuzgado }}</b>, de la Dirección Ejecutiva de Justicia Cívica, lo que se asienta para debida constancia legal.
+          <h3>a) RAZÓN</h3>
+          <div class="iw" >Con fundamento en los <i>{{ $infractor[0]->n }}</i>, el (la) persona juzgadora <b>{{ $infractor[0]->nombrejuez }}</b> adscrito al juzgado <b>{{ $infractor[0]->desjuzgado }}</b>, de la Dirección Ejecutiva de Justicia Cívica, lo que se asienta para debida constancia legal.
         </div>
         <br>
         <div>Expediente: <b>{{ $infractor[0]->noexpediente }}</b></div>
         <div>Nombre del probable infractor: <b>{{ $infractor[0]->nombres }}</b></div>
         <br>
-          <h3>ACUERDO INICIAL</h3>
+          <h3>b) ACUERDO INICIAL</h3>
           <div class="iw" >En la Alcaldía <b>{{ $infractor[0]->desalcaldia }}</b>, Ciudad de México, siendo las <b>{{ $infractor[0]->horahechos }}</b>, del <b>{{ $infractor[0]->diahechos }}</b>, la persona juzgadora Lic. <b>{{ $infractor[0]->nombrejuez }}</b> adscrito al juzgado <b>{{ $infractor[0]->desjuzgado }}</b> , de la Dirección Ejecutiva de Justicia Cívica, quien asistido por la persona secretaria. Hace constar que en este acto se presenta(n) el(los) elemento(s) de <b>{{ $infractor[0]->areadeadscripcion_1 }}</b>, de nombre <b>{{ $infractor[0]->nombre_1 .' '.$infractor[0]->primer_apellido_1.' '.$infractor[0]->segundo_apellido_1 }}</b>,  <b>{{ $infractor[0]->placa1  }}</b>; presenta mediante boleta de remisión con folio <b>{{ $infractor[0]->boleta_remision  }}</b>, a quien dice llamarse:
       </div>
       <br>
@@ -65,35 +64,42 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
       <div>Lugar de los hechos: <b>{{ $infractor[0]->calle_h .' '. $infractor[0]->exterior_h.' '.$infractor[0]->interior_h }}</b>, COL: <b>{{ $infractor[0]->colonia_h }}</b>, ALCALDÍA: <b>{{ $infractor[0]->desalcaldia }} </b></div><br>
       <div>Objetos relacionados con la falta administrativa: @if ($infractor[0]->objetos=="") Sin objetos relacionados @else <b>{{ $infractor[0]->objetos }} </b> @endif </div>
       <br>
-      @if ($infractor[0]->n!="") <div class="lcc">{{ $infractor[0]->n }}</div> @endif
-      @if ($infractor[0]->o!="") <div class="lcc">{{ $infractor[0]->o }}</div> @endif
+      @if ($infractor[0]->o!="") <div class="lcc"><i>{{ $infractor[0]->o }}</i></div> @endif
+      @if ($infractor[0]->p!="") <div class="lcc"><i>{{ $infractor[0]->p }}</i></div> @endif
      <div class="page-break"></div>
       <div>
-          <h3>RADICACIÓN</h3>
+          <h3>c) RADICACIÓN</h3>
           <br>
 <div >En concordancia con lo anterior y con fundamento en:</div>
-<div class="lccr">Constitución Política de los Estados Unidos Mexicanos, Art. 14 Párrafo 2, 3, Art. 16 Párrafo 1, 2, 3, 4, 6. Art. 21 Párrafo 4.</div>
-@if ($infractor[0]->p!="") <div class="lcc">Ley de Cultura Cívica de la Ciudad de México, Art. 1, 3, Fracc. XI; 4, 5, 7 Fracc. VII.</div> @endif
-@if ($infractor[0]->q!="") <div class="lcc">Reglamento de la Ley de Cultura Cívica de la Ciudad de México, Art. 1, 2, Fracc. XII, Art. 6, 8, 14, 15.</div> @endif
-<div class="lccr">Convención Americana de los Derechos Humanos, Art. 1, Numeral 1; Art. 7 Numeral 1, 2, 3.</div>
-<br><br>
+      @if ($infractor[0]->q!="") <div class="lcc"><i>{{ $infractor[0]->q }}</i></div> @endif
+      @if ($infractor[0]->r!="") <div class="lcc"><i>{{ $infractor[0]->r }}</i></div> @endif
+      @if ($infractor[0]->s!="") <div class="lcc"><i>{{ $infractor[0]->s }}</i></div> @endif
+      @if ($infractor[0]->t!="") <div class="lcc"><i>{{ $infractor[0]->t }}</i></div> @endif
+<br>
+<div >El juzgado se declara competente para conocer y resolver del presente asunto./div>
+<br>
+          <h3>d) RECEPCIÓN DE REPORTE MÉDICO</h3>
+<br>
 <div >Se ordena dar intervención al Médico de apoyo al Juzgado, para que determine el estado Psico-físico de la Persona probable infractor</div>
-@if ($infractor[0]->v!="")<div class="lcc">Ley de Cultura Cívica de la Ciudad de México, Art. 124, Fracc. II</div> @endif
-@if ($infractor[0]->w!="")<div class="lcc">Reglamento de la Ley de Cultura Cívica de la Ciudad de México, Art. 61, Fracc. I</div> @endif
-<div class="lccr">Código Nacional de Procedimientos Penales, Art. 368 (supletorio)</div>
+      @if ($infractor[0]->u!="") <div class="lcc"><i>{{ $infractor[0]->u }}</i></div> @endif
+      @if ($infractor[0]->v!="") <div class="lcc"><i>{{ $infractor[0]->v }}</i></div> @endif
 <br><br>
 <div class="cadf">Conste, autorizo y doy Fe.</div>
 <br><br><br>
-          <h3>ENVIO Y CERTIFICACIÓN DEL MÉDICO LEGISTA.</h3>
+          <h3>e) ENVIO Y CERTIFICACIÓN DEL MÉDICO LEGISTA.</h3>
 <br><br>
 <div >La persona secretario, hace constar que se agrega al expediente el certificado médico emitido por el médico legista del juzgado cívico.</div>
-<div class="lccr">Ley de Cultura Cívica de la Ciudad de México, Art. 124, Fracc. II</div>
-<div class="lccr">Reglamento de la Ley de Cultura Cívica de la Ciudad de México, Art. 61, Fracc. I</div>
-<br><br><br><br>
+      @if ($infractor[0]->w!="") <div class="lcc"><i>{{ $infractor[0]->w }}</i></div> @endif
+      @if ($infractor[0]->x!="") <div class="lcc"><i>{{ $infractor[0]->x }}</i></div> @endif
+<br><br>
+          <h3>f) ACUERDO de SUSPENSIÓN POR TIEMPO DE RECUPERACIÓN.</h3>
+      @if ($infractor[0]->y!="") <div class="lcc"><i>{{ $infractor[0]->y }}</i></div> @endif
+      @if ($infractor[0]->z!="") <div class="lcc"><i>{{ $infractor[0]->z }}</i></div> @endif
+<br><br>
           <h3>SECRETARIO</h3>
       </div>
      <div class="page-break"></div>
-          <h3>INICIO DE AUDIENCIA</h3>
+          <h3>g) INICIO DE AUDIENCIA</h3>
 <div >Derechos del probable infractor:</div>
 <div class="iw" ><b>I</b>. Que se le informe en todo momento, los hechos que se le atribuyen y los derechos que le asisten; le sean leídos los derechos contemplados por el artículo 20 de la Constitución Política de los Estados Unidos Mexicanos y la Constitución Política de la Ciudad de México;</div>
 <div ><b>II</b>. Que se reconozca su derecho a la presunción de inocencia;</div>
@@ -102,7 +108,7 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
 <div class="iw" ><b>V</b>. Solicitar la conmutación de la pena por trabajo en favor de la comunidad en los casos que proceda;</div>
 <div ><b>VI</b>. Contar con un defensor de su confianza;</div>
 <div ><b>VII</b>. Ser oído en audiencia pública por la Persona Juzgadora;</div>
-<div class="iw"><b>VIII</b<. Hacer del conocimiento de un familiar o persona que desee, los motivos de su detención y el lugar en que se hallará bajo custodia en todo momento (LLAMADA TELEFÓNICA);</div>
+<div class="iw"><b>VIII</b>. Hacer del conocimiento de un familiar o persona que desee, los motivos de su detención y el lugar en que se hallará bajo custodia en todo momento (LLAMADA TELEFÓNICA);</div>
 <div ><b>IX</b>. Recurrir las sanciones impuestas por la Persona Juzgadora, en los términos de esta Ley;</div>
 <div ><b>X</b>. Cumplir su arresto en espacios dignos;</div>
 <div class="iw" ><b>XI</b>. No recibir sanciones que excedan lo dispuesto en la Constitución Política de los Estados Unidos Mexicanos;</div>
@@ -112,7 +118,8 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
 @if ($infractor[0]->aa!="")<div class="lcc">{{ $infractor[0]->aa }}</div></div>@endif
 @if ($infractor[0]->ab!="")<div class="lcc">{{ $infractor[0]->ab }}</div>@endif
 @if ($infractor[0]->ac!="")<div class="lcc">{{ $infractor[0]->ac }}</div>@endif
-<div class="lccr">Convención Americana de los Derechos Humanos, Art. 1, Numeral 2; Art. 6 Numeral 1, 2</div>
+@if ($infractor[0]->ad!="")<div class="lcc">{{ $infractor[0]->ad }}</div>@endif
+@if ($infractor[0]->ae!="")<div class="lcc">{{ $infractor[0]->ae }}</div>@endif
 <br>
 <div >Una vez que el probable infractor fue enterado de los anteriores derechos, en uso de la voz manifestó lo siguiente:</div>
 <br>
@@ -122,7 +129,8 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
 @if ($infractor[0]->aa!="")<div class="lcc">{{ $infractor[0]->aa }} </div></div>@endif
 @if ($infractor[0]->ab!="")<div class="lcc">{{ $infractor[0]->ab }} </div>@endif
 @if ($infractor[0]->ac!="")<div class="lcc">{{ $infractor[0]->ac }} </div>@endif
-<div class="lccr">Convención Americana de los Derechos Humanos, Art. 1, Numeral 2; Art. 6 Numeral 1, 2</div>
+@if ($infractor[0]->ad!="")<div class="lcc">{{ $infractor[0]->ad }} </div>@endif
+@if ($infractor[0]->ae!="")<div class="lcc">{{ $infractor[0]->ae }} </div>@endif
           <h3>Autorizo y doy Fe.</h3>
 <div>
 <table class="tabla" >
@@ -138,17 +146,14 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
 </tr>
 </table>
      <div class="page-break"></div>
-          <h3>LECTURA DE BOLETA DE REMISIÓN</h3>
+          <h3>h) LECTURA DE BOLETA DE REMISIÓN</h3>
 <br>
 <div>Se procede hacerle saber al probable infractor la naturaleza del hecho que se les atribuye, a fin de que conozca la infracción que se le atribuye y pueda contestar el cargo; para ello se dará lectura a la boleta de remisión {{ $infractor[0]->boleta_remision }}</div>
 <br>
-<div class="lccr">Constitución Política de los Estados Unidos Mexicanos, Art. 14 Párrafo 2, 3, Art. 16 Párrafo 1, 2, 3, 4, 6. Art. 21 Párrafo 4.</div>
-@if ($infractor[0]->ae!="")<div class="lcc">{{ $infractor[0]->ae }}</div>@endif
-<div class="lccr">Reglamento de la Ley de Cultura Cívica de la Ciudad de México, Art. 1, 2, Fracc. XII, Art. 6, 8, 14, 15.</div>
-<div class="lccr">Convención Americana de los Derechos Humanos, Art. 1, Numeral 1; Art. 7 Numeral 1, 2, 3.</div>
+@if ($infractor[0]->af!="")<div class="lcc">{{ $infractor[0]->af }}</div>@endif
 <br>
 <br>
-          <h3>DECLARACIÓN DEL PROBABLE INFRACTOR</h3>
+          <h3>i) DECLARACIÓN DEL PROBABLE INFRACTOR</h3>
 <br>
 <div>En acto continuo, una vez enterado de lo anterior, el (la) presunto infractor, en relación a los hechos imputados manifestó lo siguiente:</div>
 <br>
@@ -158,10 +163,9 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
 <br>
 <div>{{ $infractor[0]->nombres }} </div>
 <br>
-<div class="lccr">Ley de Cultura Cívica de la Ciudad de México, Art. 124, Fracc. II</div>
-<div class="lccr">Reglamento de la Ley de Cultura Cívica de la Ciudad de México, Art. 61, Fracc. I</div>
-<div class="lccr">Código Nacional de Procedimientos Penales, Art. 368 (supletorio)</div>
+@if ($infractor[0]->ag!="")<div class="lcc">{{ $infractor[0]->ag }}</div>@endif
 <br>
+          <h3>AUTORIZO Y DOY FE.</h3>
 <table class="tabla" >
 <tr> <td> JUEZ </td>
      <td> SECRETARIO </td>
@@ -175,16 +179,15 @@ del Reglamento de la Ley de Cultura Cívica de la Ciudad de México, el (la) per
 </tr>
 </table>
      <div class="page-break"></div>
-          <h3>ADMISIÓN Y DESAHOGO DE PRUEBAS</h3>
+          <h3>j) ADMISIÓN Y DESAHOGO DE PRUEBAS</h3>
 <br>
 <div>Acto seguido, la persona juzgadora respecto a la admisión y desahogo de las pruebas en el
 presente procedimiento acuerda y se admiten:</div>
 <br>
-@if ($infractor[0]->ag!="")<div class="lcc">{{ $infractor[0]->ag }} </div>@endif
 @if ($infractor[0]->ah!="")<div class="lcc">{{ $infractor[0]->ah }} </div>@endif
-<div class="lccr">Reglamento de la Ley de Cultura Cívica del Distrito Federal, art. 27</div>
+@if ($infractor[0]->ai!="")<div class="lcc">{{ $infractor[0]->ai }} </div>@endif
 <br>
-<div><b>PRIMERA. - LAS DOCUMENTALES PÚBLICAS</b>, consistentes en la boleta de remisión con Nùmero de
+<div><b>PRIMERA. - LAS DOCUMENTALES PÚBLICAS</b>, consistentes en la boleta de remisión con Número de
 folio: {{ $infractor[0]->boleta_remision }}  donde los policías remitentes refieren que la presentación del probable infractor es:
 ,
 {{ $infractor[0]->nombres }}
@@ -210,15 +213,16 @@ aducidas, no habiendo alguna pendiente por desahogarse, ni ofrecerse por alguna 
 procede a declarar por cerrada la audiencia oral, por lo que esta autoridad procede a valorar y
 resolver sobre la responsabilidad del presunto responsable.
 </div>
-@if ($infractor[0]->ag!="")<div class="lcc">{{ $infractor[0]->ag }}</div>@endif
+@if ($infractor[0]->ah!="")<div class="lcc">{{ $infractor[0]->ah }}</div>@endif
+@if ($infractor[0]->ai!="")<div class="lcc">{{ $infractor[0]->ai }}</div>@endif
 <br>
      <div class="page-break"></div>
-          <h3>CONSIDERANDO</h3>
+          <h3>k) RESOLUCIÓN (Resultando y Considerando)</h3>
 <br>
 <div>PRIMERO. - Esta autoridad procede a valorar las siguientes pruebas:</div>
 <br>
-@if ($infractor[0]->ai!="")<div class="lcc">{{ $infractor[0]->ai }}</div>@endif
 @if ($infractor[0]->aj!="")<div class="lcc">{{ $infractor[0]->aj }}</div>@endif
+@if ($infractor[0]->ak!="")<div class="lcc">{{ $infractor[0]->ak }}</div>@endif
 <br>
 <div>
 LA DOCUMENTAL PÚBLICA, consistente en la boleta de remisión no. {{ $infractor[0]->boleta_remision }} debidamente
@@ -246,7 +250,8 @@ de la que se desprende que acepta la falta imputada, toda vez que reconoce haber
 falta señalada.
 </div>
 <br>
-<div class="lccr">Ley de Cultura Cívica de la Ciudad de México, Art. 54.</div>
+@if ($infractor[0]->aj!="")<div class="lcc">{{ $infractor[0]->aj }}</div>@endif
+@if ($infractor[0]->ak!="")<div class="lcc">{{ $infractor[0]->ak }}</div>@endif
 <br>
 <div>
 LA INSTRUMENTAL DE ACTUACIONES Y LA PRESUNCIONAL LEGAL Y HUMANA, se tienen
@@ -271,12 +276,14 @@ sociales y administrativas, en consecuencia, es dolosamente culpable de la condu
 SEGUNDO. - Por lo que hace a los objetos recogidos consistentes: <span  class='divide'>{{ $infractor[0]->objetos }}</span>
 </div>
 <br>
-<div class="lcc">Reglamento de la Ley de Cultura Cívica de la Ciudad de México, Art. 56</div>
+@if ($infractor[0]->aj!="")<div class="lcc">{{ $infractor[0]->aj }}</div>@endif
+@if ($infractor[0]->ak!="")<div class="lcc">{{ $infractor[0]->ak }}</div>@endif
      <div class="page-break"></div>
-          <h3>RESOLUTIVOS</h3>
+          <h3>l) RESUELVE</h3>
 <div>Con base en lo anteriormente considerado y valorado, esta unidad administrativa, resuelve:</div>
-@if ($infractor[0]->ak!="")<div class="lcc">$infractor[0]->ak</div>@endif
-@if ($infractor[0]->al!="")<div class="lcc">$infractor[0]->al</div>@endif
+<br>
+@if ($infractor[0]->al!="")<div class="lcc"><i>{{ $infractor[0]->al }}</i></div>@endif
+@if ($infractor[0]->am!="")<div class="lcc"><i>{{ $infractor[0]->am }}</i></div>@endif
 <br>
 <div>PRIMERO. – Este Juzgado Cívico es competente para conocer del presente asunto.</div>
 <br>
@@ -296,28 +303,30 @@ administrativamente responsable de la conducta atribuida, por lo que se le sanci
         @break
 @endswitch
 </div>
-<div class="lccr">{{ $infractor[0]->infraccion }}, {{ $infractor[0]->fraccion }}</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 30, Art. 31, Art. 32.</div>
+<div class="lcc">{{ $infractor[0]->infraccion }}</div>
+<div class="lcc">Fracción {{ $infractor[0]->fraccion }}</div>
 <br>
 <div>TERCERO. – Notifíquese personalmente al infractor, sobre el contenido de la presente resolución…</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 41</div>
+@if ($infractor[0]->an!="")<div class="lcc"><i>{{ $infractor[0]->an }}</i></div>@endif
+@if ($infractor[0]->ao!="")<div class="lcc"><i>{{ $infractor[0]->ao }}</i></div>@endif
 <br>
 <div>CUARTO. – Para el caso de que el infractor no desee pagar su multa…</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 10 fracc. III</div>
+@if ($infractor[0]->ap!="")<div class="lcc"><i>{{ $infractor[0]->ap }}</i></div>@endif
+@if ($infractor[0]->aq!="")<div class="lcc"><i>{{ $infractor[0]->aq }}</i></div>@endif
 <br>
 <div>QUINTO. – Procédase a integrar y resguardar el presente expediente.</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 124 fracc. V</div>
+<div class="lcc">Ley de Cultura Cívica, Art. 124 fracc. V</div>
 <br>
 <div>SEXTO. – Se ordena a dar cumplimiento a lo dispuesto</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 138</div>
+<div class="lcc">Ley de Cultura Cívica, Art. 138</div>
 <br>
 <div>SEPTIMO. – Hágase del conocimiento del servicio público de localización telefónica del Distrito
 Federal.</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 68, Art. 115 fracc. XI</div>
+<div class="lcc">Ley de Cultura Cívica, Art. 68, Art. 115 fracc. XI</div>
 <br>
 <div>OCTAVO. – Apercíbase de no reincidir y cúmplase</div>
-<div class="lccr">Ley de Cultura Cívica, Art. 115 fracc. I,II,IV; Art. 124 fracc I, II</div>
-<div class="lccr">Reglamento de la Ley de Cultura Cívica, Art. 61 fracc. I</div>
+<div class="lcc">Ley de Cultura Cívica, Art. 115 fracc. I,II,IV; Art. 124 fracc I, II</div>
+<div class="lcc">Reglamento de la Ley de Cultura Cívica, Art. 61 fracc. I</div>
 <br>
           <h3>Consté y doy Fe.</h3>
 <div>

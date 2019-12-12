@@ -69,7 +69,7 @@ protected $guarded = [];
                                        ',  infra.id idinfractor, infra.declaracion, infra.tirilla,infra.tiposancion,infra.sancionaplicada '.
                                        ',  ones.n, ones.o, ones.p, ones.q,  ones.r, ones.s, ones.t, ones.u,  ones.v, ones.w, ones.x, ones.y, ones.z'.
                                        ',  ones.aa, ones.ab, ones.ac, ones.ad,  ones.ae, ones.af, ones.ag, ones.ah,  ones.ai, ones.aj, ones.ak, ones.al, ones.am'.
-                                       ',  ones.an, ones.ao '.
+                                       ',  ones.an, ones.ao, ones.ap, ones.aq '.
                                        ',  id_filesystem '.
                                        ' from boletas bole'.
                                        ' left join infractores infra on bole.id=infra.idboleta '.

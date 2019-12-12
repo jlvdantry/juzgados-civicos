@@ -219,7 +219,7 @@ class boletasController extends Controller
                    if ($inmu[0]['horahechos']=="") {
                       return response()->json([ 'errors' => ['horahechos' => 'Falta registrar la hora en que sucedieron los hechos', 'seccion' => 'b_motivo' ]],430);
                    } 
-                   if ($inmu[0]['id_alcaldia_h']=="") {
+                   if ($inmu[0]['id_alcaldia_h']=="" || $inmu[0]['id_alcaldia_h']=="0") {
                       return response()->json([ 'errors' => ['id_alcaldia_h' => 'Falta seleccionar la alcaldia donde fueron los hechos'
                                                            , 'seccion' => 'b_motivo' ]],430);
                    } 
