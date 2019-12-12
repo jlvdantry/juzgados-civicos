@@ -392,6 +392,50 @@
                </div>
              </div>
 
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="dia_examen">*Fecha del examen médico:</label>
+                    <input type="date" name="diahechos" id="dia_examen" class="form-control form-control-custom street-names" maxlength="10" value="" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label-custom" for="hora_examen">*Hora en que se realizo el examen médico:</label>
+                    <input type="text" name="horahechos" id="hora_examen" class="form-control form-control-custom" maxlength="5" value="" placeholder="00:00" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                </div>
+
+             <div class="row col-md-12  mb-3">
+               <div class="form-check-inline col-md-3">
+                <input class="form-check-input" type="checkbox" name="conlesiones" id="conlesiones" value="1" >
+                <label class="form-check-label label-custom-check" for="conlesiones" id="l_conlesiones">
+                                        Con lesiones?
+                </label>
+               </div>
+                  <div class="col-md-2 mb-3">
+                    <label class="form-label-custom" for="edad_clinica">Edad clinica:</label>
+                    <input type="text" name="edad_clinica" id="edad_clinica" class="form-control form-control-custom numbers" maxlength="3" value="" placeholder="000" pattern="^[0-9]{4,5}$" required>
+                    <div class="invalid-feedback">
+                      Ingresa los cuatro o cinco dígitos de tu código postal
+                    </div>
+                    <div class="col-md-8 pl-0" id="nom">
+                     <label class="form-label-custom" for="otro" >Otro:</label>
+                     <input type="text" class="form-control form-control-custom street-names" id="otro" maxlength="50" placeholder="Escribe si se detecto otro problema" >
+                     <div class="invalid-feedback">
+                             Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+
+
+             </div>
+
+
+
         <div class="row  col-md-12 mb-3">
           <div class="col-md-8 pl-0" id="nom">
             <label class="form-label-custom" for="nombremedico" >*Médico:</label>

@@ -36,10 +36,13 @@ select * from infractores where idboleta=(select id from boletas where boleta_re
 --update boletas set estatus=0,expediente=0 where boleta_remision='456345634563';
 --select * from boletas where boleta_remision='456345634563';
 --select * from infractores where idboleta=(select id from boletas where boleta_remision='456345634563');
+/*
 select id,boleta_remision from boletas where
 (select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
 delete from boletas where
 (select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
+*/
+update boletas set estatus=0,expediente=0 where boleta_remision='78787';
 
 
 fin
