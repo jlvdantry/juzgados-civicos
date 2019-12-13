@@ -99,6 +99,51 @@
           <h3>SECRETARIO</h3>
       </div>
      <div class="page-break"></div>
+          <h3>CERTIFICADO DE ESTADO PSICO – FÍSICO</h3>
+<div>
+<table class="tabla" ><tr>
+<td>Lesiones @if ($infractor[0]->conlesiones==true) <ins>  X  </ins> @else ____ @endif </td><td>Sin Lesiones @if ($infractor[0]->conlesiones==false) <ins> X </ins>  @else ____ @endif </td><td></ins> Edad clínica <ins>{{ $infractor[0]->edad_clinica }}</ins></td><td> Otro: @if ($infractor[0]->otro == "") &nbsp; @else {{ $infractor[0]->otro  }} @endif  </td>
+</tr>
+</table>
+</div>
+<br>
+<div class="tddeclaracion">El que suscribe, Médico legista legalmente autorizado para ejercer su profesión, a solicitud de la autoridad.<br><br>
+Que siendo las {{ $infractor[0]->hora_examen }} horas de la fecha {{ $infractor[0]->dia_examen }} se realiza el examen médico legal del 
+sexo: {{ $infractor[0]->sexo }} quien dijo llamarse: {{ $infractor[0]->nombres }} Y tener una edad de  {{ $infractor[0]->edad }}.
+</div>
+<br>
+<div class="tddeclaracion">PREVIA EXPLICACIÓN DE LA ATENCIÓN MÉDICO LEGAL Y ENTERADO DEL PROCEDIMIENTO.<br>
+Nombre: {{ $infractor[0]->nombres }} <br>
+<table class="tabla" ><tr>
+<td>ACEPTO @if ($infractor[0]->acepto_examen==true) <ins>  X  </ins> @else ____ @endif </td><td>NO ACEPTO @if ($infractor[0]->acepto_examen==false) <ins> X </ins>  @else ____ @endif </td><td></ins> FIRMA <ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ins></td>
+</tr>
+</table>
+<div>En caso de ser menor de edad o incapaz mental (madre, padre o tutor)<br>
+Nombre: {{ $infractor[0]->nombres_autorizzo}}<br>
+</div>
+<br>
+<div class="centra">Autorización de realización de procedimiento.</div>
+</div>
+<br>
+<div class="tddeclaracion">ANTECEDENTES PERSONALES PATOLÓGICOS:<br><br>
+Refiere padecer alguna enfermedad: @if ($infractor[0]->padece_enfermedad==true) SI @else NO @endif <br>
+Especifique: {{ $infractor[0]->especifique_enfermedad }}<br>
+Refiere ingerir algún medicamento:: @if ($infractor[0]->ingiere_medicamento==true) SI @else NO @endif <br>
+Especifique: {{ $infractor[0]->especifique_enfermedad }}<br><br>
+Otros: {{ $infractor[0]->otros }}
+</div>
+<br>
+<div class="tddeclaracion">EXPLORACIÓN MÉDICO LEGAL:<br><br>
+ {{ $infractor[0]->resultado }}
+</div>
+<br>
+<div class="tddeclaracion">Clasificación Provisional de lesiones y/o conclusiones:<br><br>
+ {{ $infractor[0]->prescripcion }}
+</div>
+<br>
+Nombre del Médico: {{ $infractor[0]->nombremedico }}<br>
+CED.PROF.: {{ $infractor[0]->cedulaprofesinal }}
+     <div class="page-break"></div>
           <h3>g) INICIO DE AUDIENCIA</h3>
 <div >Derechos del probable infractor:</div>
 <div class="iw" ><b>I</b>. Que se le informe en todo momento, los hechos que se le atribuyen y los derechos que le asisten; le sean leídos los derechos contemplados por el artículo 20 de la Constitución Política de los Estados Unidos Mexicanos y la Constitución Política de la Ciudad de México;</div>

@@ -40,8 +40,8 @@ select * from infractores where idboleta=(select id from boletas where boleta_re
 --delete from boletas where (select count(*) from infractores infra where  infra.idboleta=boletas.id)=0;
 --select * from migrations
 --select * from boletas;
---update boletas set estatus=0,expediente=0 where boleta_remision='48787';
-select * from infracciones;
+update boletas set estatus=0,expediente=0 where boleta_remision='78787';
+--select * from infracciones;
 fin
 psql -h $DB_HOST -d $DB_DATABASE -U $DB_USERNAME  < $0.sql
 ##psql -U $DB_USERNAME  < $0.sql     ## para crear la bse de datos

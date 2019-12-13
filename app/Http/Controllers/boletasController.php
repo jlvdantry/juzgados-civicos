@@ -245,6 +245,10 @@ class boletasController extends Controller
                          return response()->json([ 'errors' => ['sexo' => 'Falta seleccionar el sexo del infractor <br><b>'.$infra->nombre_i
                                                             , 'seccion' => 'infractores' ]],444);
                       }
+                      if ($infra->nacimiento=="") {
+                         return response()->json([ 'errors' => ['nacimiento' => 'Falta seleccionar la fecha de nacimiento del infractor <br><b>'.$infra->nombre_i
+                                                            , 'seccion' => 'infractores','subseccion' => 'datosgenerales' ]],444);
+                      }
                       if ($infra->curp!="") {
                           if (!$this->validate_curp($infra->curp)) {
                              return response()->json([ 'errors' => ['curp' => 'El curp del infractor '.$infra->nombre_i.' esta erroneo'
@@ -253,33 +257,58 @@ class boletasController extends Controller
                       }
 
                       if ($infra->declaracion=="") {
-                             return response()->json([ 'errors' => ['declaracion' => 'Falta tecelar la declaración del infractor '.$infra->nombre_i
+                             return response()->json([ 'errors' => ['declaracion' => 'Falta teclear la declaración del infractor '.$infra->nombre_i
                                                             , 'seccion' => 'infractores' ]],444);
                       }
 
                       if ($infra->nacimiento!="") {
                          $edad=$this->edad($infra->nacimiento);
                          if ($edad<13) {
-                            return response()->json([ 'errors' => ['nacimiento' => 'La edad del infractor es menor a 13 años '.$infra->nombre_i." ".$edad
+                            return response()->json([ 'errors' => ['nacimiento' => 'La edad es menor a 13 años del infractor '.$infra->nombre_i
                                                             , 'seccion' => 'infractores' ]],444);
+                         }
+                         if ($edad<18) {
+                            if ($infra->nombres_autorizzo=="") {
+                               return response()->json([ 'errors' => ['nombres_autorizzo' => 'Falta registrar quien autorizo realizar el examen medico al infractor '.
+                                                          $infra->nombre_i." por ser menor de edad"
+                                                            , 'seccion' => 'infractores', 'subseccion' => 'medico' ]],444);
+                            }
                          }
                       } 
                       if ($infra->aplicacertificado==false) {
+                         if ($infra->dia_examen=="") {
+                            return response()->json([ 'errors' => ['dia_examen' => 'Falta registrar la fecha en que se efectuo examén médico al infractor<br><b>'
+                                                                  .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico' ]],444);
+                         }
+                         if ($infra->hora_examen=="") {
+                            return response()->json([ 'errors' => ['hora_examen' => 'Falta registrar la hora en que se efecturo del examén médico al infractor<br><b>'
+                                                                  .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico' ]],444);
+                         }
+                         if ($infra->edad_clinica=="") {
+                            return response()->json([ 'errors' => ['edad_clinica' => 'Falta registrar la edad clinica del probable infroactor <br><b>'
+                                                                  .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico' ]],444);
+                         }
                          if ($infra->nombremedico=="") {
-                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar el nombre del médico que examino al infractor  <br><b>'
-                                                                  .$infra->nombre_i , 'seccion' => 'infractores' ]],444);
+                            return response()->json([ 'errors' => ['nombremedico' => 'Falta registrar el nombre del médico que examino al infractor  <br><b>'
+                                                                  .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico'  ]],444);
+                         }
+                         if ($infra->cedulaprofesinal=="" || $infra->cedulaprofesinal=="0") {
+                            return response()->json([ 'errors' => ['cedulaprofesinal' => 
+                                                                  'Falta registrar la cédula profesional del médico que examino al infractor<br><b>'
+                                                                  .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico'  ]],444);
                          }
                          if ($infra->tirilla=="") {
                             return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar el número de tirilla del infractor  <br><b>'
                                                                 .$infra->nombre_i , 'seccion' => 'infractores' ]],444);
                          }
                          if ($infra->resultado=="") {
-                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta registrar el resultado del examen médico del infractor  <br><b>'
-                                                               .$infra->nombre_i , 'seccion' => 'infractores' ]],444);
+                            return response()->json([ 'errors' => ['resultado' => 'Falta registrar la exploración médico legal del infractor<br><b>'
+                                                               .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico' ]],444);
                          }
                          if ($infra->prescripcion=="") {
-                            return response()->json([ 'errors' => ['idinfraccion' => 'Falta escribir la preescripción médica del infractor  <br><b>'.$infra->nombre_i
-                                                            , 'seccion' => 'infractores' ]],444);
+                            return response()->json([ 'errors' => ['prescripcion' => 
+                                                            'Falta escribir la clasificación provisional de lesiones y/o conclusiones del infractor <br><b>'
+                                                            .$infra->nombre_i , 'seccion' => 'infractores', 'subseccion' => 'medico' ]],444);
                          }
                       }
                       if ($infra->procesosupendido==true) {

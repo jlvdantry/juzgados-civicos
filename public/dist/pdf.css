@@ -43,6 +43,7 @@ td{
     word-wrap: break-word;
     border: 1px solid black;
     border-radius: .1em;
+    padding: .2rem;
 }
 .divide {
     word-wrap: break-word;
@@ -60,6 +61,11 @@ td{
 h3 {
   text-align: center;
 }
+
+.centra {
+  text-align: center;
+}
+
 h2 {
   text-align: center;
   border: .1em solid #33FFF9;

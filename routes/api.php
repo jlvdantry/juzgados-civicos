@@ -27,7 +27,7 @@ Route::post('restacontra', 'userController@restacontra');
 
 
 Route::group(['middleware' => 'auth:web'], function() {
-     log::debug('routes/api.php entro en middleware');
+     log::debug('routes/api.php entro en middleware path'.\Request::path());
      Route::put('users/{id}', 'userController@update');
      Route::get('users', 'userController@index');
      Route::get('users/estadistica', 'userController@estadistica');
@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth:web'], function() {
      Route::put('infractores/{boleta}', 'infractoresController@store');
      Route::put('infractores/{boleta}/{id}', 'infractoresController@update');
      Route::post('infractores/{boleta}/{id}', 'infractoresController@update');
+     Route::delete('infractores/{id}', 'infractoresController@destroy');
 
      Route::get('infractores/{boleta}', 'infractoresController@index');
      Route::get('infractores/{boleta}/{id}', 'infractoresController@show');

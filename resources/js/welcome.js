@@ -200,6 +200,7 @@ $(document).ready(function() {
                                                , sexon :  { header : 'Sexo', 'class' : 'font-weight-bold' }
                                                , desentidad :  { header : 'Lugar de nacimiento', 'class' : 'font-weight-bold' }
                                                , ver : { header : 'Editar', 'boton' : true ,'classb' : 'btn-editar', 'funcion' : 'infra_ed' }
+                                               , Eliminar : { header : 'Eliminar', 'boton' : true ,'classb' : 'btn-eliminar', 'funcion' : 'infra_el' }
                                              }
                                   armadatagrid(data,dis,'dg_infractores',true);
                                   var formi = $('form[id="f_infractores"]')[0];
@@ -258,7 +259,10 @@ $(document).ready(function() {
                                         $('#'+errores.seccion).trigger('click');
                                      }
                                      crearMensaje(true,"Error ", errores[x]).then(function() {
-                                         $('#'+x)[0].focus();
+                                        if ('subseccion' in errores) {
+                                           $('#'+errores.subseccion).trigger('click');
+                                        }
+                                        $('#'+x)[0].focus();
                                      });
                                      break;
                           }
@@ -1396,28 +1400,28 @@ window.crearMensaje = function (error,titulo,mensaje,tiempo=2000) {
      }
 
 
-     window.inmu_el = function (ren){  /* elimina un inmueble */
+     window.infra_el = function (ren){  /* elimina un infractor */
             $('#siacepto').click(function(e){
                  $('#d_siacepto')[0].classList.add('d-none');
                  $('#msgModal').modal('hide');
-                 console.log('entro a eliminar el establecimiento'+ren);
-                 inmu_el_aceptado(ren);
+                 console.log('entro a eliminar un infractor'+ren);
+                 infra_el_aceptado(ren);
             });
             $('#d_siacepto')[0].classList.remove('d-none');
 
-            crearMensaje(true,"Atención", " Esta seguro de eliminar el inmueble?",0);
+            crearMensaje(true,"Atención", " Esta seguro de eliminar el infractor?",0);
 
      }
-     window.inmu_el_aceptado = function (ren){  /* elimina un inmueble */
+     window.infra_el_aceptado = function (ren){  /* elimina el infractor */
           console.log(ren);
           $.ajax({
                             type: 'delete',
-                            url:  'api/inmuebles/'+ren.getElementsByTagName('td')[0].innerText,   /* obtiene el numero de RFC */
+                            url:  mipath()+'api/infractores/'+ren.getElementsByTagName('td')[0].innerText,   /* obtiene el numero de RFC */
                             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                             success: function(data){
                                   //crearMensaje(true,"Atención", ' El inmueble fue borrado');
                                   var pn=ren.parentNode;
-                                  $("#"+pn.parentNode.parentNode.parentNode.dataset.pnid)[0].getElementsByTagName('td')[0].getElementsByTagName('p')[0].innerText=pn.getElementsByTagName('tr').length-2;
+                                  //$("#"+pn.parentNode.parentNode.parentNode.dataset.pnid)[0].getElementsByTagName('td')[0].getElementsByTagName('p')[0].innerText=pn.getElementsByTagName('tr').length-2;
                                   pn.removeChild(ren);
                                   return;
                          },

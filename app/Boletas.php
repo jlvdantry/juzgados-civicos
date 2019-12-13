@@ -70,7 +70,9 @@ protected $guarded = [];
                                        ',  ones.n, ones.o, ones.p, ones.q,  ones.r, ones.s, ones.t, ones.u,  ones.v, ones.w, ones.x, ones.y, ones.z'.
                                        ',  ones.aa, ones.ab, ones.ac, ones.ad,  ones.ae, ones.af, ones.ag, ones.ah,  ones.ai, ones.aj, ones.ak, ones.al, ones.am'.
                                        ',  ones.an, ones.ao, ones.ap, ones.aq '.
-                                       ',  id_filesystem '.
+                                       ',  conlesiones,dia_examen, hora_examen, edad_clinica, otro, acepto_examen, nombres_autorizzo, padece_enfermedad '.
+                                       ',  especifique_enfermedad, ingiere_medicamento, especifique_medicamento, otros, cedulaprofesinal, resultado,prescripcion'.
+                                       ',  id_filesystem,nombremedico '.
                                        ' from boletas bole'.
                                        ' left join infractores infra on bole.id=infra.idboleta '.
                                        ' left join infracciones  ones on ones.id=infra.idinfraccion '.

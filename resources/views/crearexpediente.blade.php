@@ -365,6 +365,9 @@
                         <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
                   </button>
+                <div class="contenedor-boton justify-content-end seccion">
+                  <button class="btn-01" type="submit" name="guardarexpediente" id="grabamotivo" >Crear expediente</button>
+                </div>
               </div>
             </div>
   
@@ -392,10 +395,10 @@
                </div>
              </div>
 
-                <div class="row">
-                  <div class="col-md-6 mb-3">
+                <div class="row col-md-12">
+                  <div class="col-md-6 pl-0">
                     <label class="form-label-custom" for="dia_examen">*Fecha del examen médico:</label>
-                    <input type="date" name="diahechos" id="dia_examen" class="form-control form-control-custom street-names" maxlength="10" value="" required>
+                    <input type="date" name="dia_examen" id="dia_examen" class="form-control form-control-custom street-names" maxlength="10" value="" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
@@ -403,38 +406,68 @@
 
                   <div class="col-md-6 mb-3">
                     <label class="form-label-custom" for="hora_examen">*Hora en que se realizo el examen médico:</label>
-                    <input type="text" name="horahechos" id="hora_examen" class="form-control form-control-custom" maxlength="5" value="" placeholder="00:00" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required>
+                    <input type="text" name="hora_examen" id="hora_examen" class="form-control form-control-custom" maxlength="5" value="" placeholder="00:00" pattern="([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}" required>
                     <div class="invalid-feedback">
                       Asegúrate de introducir la información correctamente
                     </div>
                   </div>
                 </div>
 
-             <div class="row col-md-12  mb-3">
-               <div class="form-check-inline col-md-3">
+             <div class="row col-md-12  mb-3 d-flex align-items-center justify-content-between">
+               <div class="form-check-inline col-md-2 d-flex align-items-center pr-0">
                 <input class="form-check-input" type="checkbox" name="conlesiones" id="conlesiones" value="1" >
                 <label class="form-check-label label-custom-check" for="conlesiones" id="l_conlesiones">
                                         Con lesiones?
                 </label>
                </div>
-                  <div class="col-md-2 mb-3">
-                    <label class="form-label-custom" for="edad_clinica">Edad clinica:</label>
+               <div class="col-md-3">
+                    <label class="form-label-custom" for="edad_clinica">*Edad clinica:</label>
                     <input type="text" name="edad_clinica" id="edad_clinica" class="form-control form-control-custom numbers" maxlength="3" value="" placeholder="000" pattern="^[0-9]{4,5}$" required>
                     <div class="invalid-feedback">
                       Ingresa los cuatro o cinco dígitos de tu código postal
                     </div>
-                    <div class="col-md-8 pl-0" id="nom">
+                </div>
+                 <div class="col-md-6" id="nom">
                      <label class="form-label-custom" for="otro" >Otro:</label>
                      <input type="text" class="form-control form-control-custom street-names" id="otro" maxlength="50" placeholder="Escribe si se detecto otro problema" >
                      <div class="invalid-feedback">
                              Asegúrate de introducir la información correctamente
                     </div>
-                  </div>
-
-
+                </div>
              </div>
 
+             <div class="row col-md-12  mb-3">
+               <div class="form-check-inline col-md-12">
+                <input class="form-check-input" type="checkbox" name="acepto_examen" id="acepto_examen" value="1" >
+                <label class="form-check-label label-custom-check" for="acepto_examen" id="l_acepto_examen">
+                                        El probable infractor acepto que se le realizara un examén médico?
+                </label>
+               </div>
+             </div>
+             <div class="row col-md-12  mb-3 d-flex align-items-center">
+                 <div class="col-md-12 pl-0" id="nom">
+                     <label class="form-label-custom" for="nombres_autorizzo" >Nombre:</label>
+                     <input type="text" class="form-control form-control-custom street-names" id="nombres_autorizzo" maxlength="100" placeholder="Persona que acepto el examen médico en caso de ser menor de edad el presunto responsable" >
+                     <div class="invalid-feedback">
+                             Asegúrate de introducir la información correctamente
+                    </div>
+                 </div>
+             </div>
 
+                  <div class="row col-md-12 mb-3">
+                    <label class="form-label-custom" for="resultado">*Exploración médico legal:</label>
+                    <textarea autofocus name="sancionaplicada" id="resultado" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe la exploración médico legal" autofocus required></textarea>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
+                  <div class="row col-md-12 mb-3">
+                    <label class="form-label-custom" for="prescripcion">*Clasificación provisional de lesiones y/o conclusiones:</label>
+                    <textarea autofocus name="sancionaplicada" id="prescripcion" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe la clasificación provisional de lesiones y/o conclusiones:" autofocus required></textarea>
+                    <div class="invalid-feedback">
+                      Asegúrate de introducir la información correctamente
+                    </div>
+                  </div>
 
         <div class="row  col-md-12 mb-3">
           <div class="col-md-8 pl-0" id="nom">
@@ -445,6 +478,15 @@
             </div>
           </div>
           <div class="col-md-4" id="nom">
+            <label class="form-label-custom" for="cedulaprofesinal" >*Cédula profesional:</label>
+            <input type="text" class="form-control form-control-custom street-names" id="cedulaprofesinal" maxlength="10" placeholder="Escribe el número de cédula profesional" >
+            <div class="invalid-feedback">
+              Asegúrate de introducir la información correctamente
+            </div>
+          </div>
+        </div>
+        <div class="row  col-md-12 mb-3">
+          <div class="col-md-4 pl-0" id="nom">
             <label class="form-label-custom" for="tirilla" >*Número de tirilla:</label>
             <input type="text" class="form-control form-control-custom street-names" id="tirilla" maxlength="30" placeholder="Escribe el número de tirilla" >
             <div class="invalid-feedback">
@@ -452,28 +494,19 @@
             </div>
           </div>
         </div>
-                  <div class="row col-md-12 mb-3">
-                    <label class="form-label-custom" for="resultado">*Resultado:</label>
-                    <textarea autofocus name="sancionaplicada" id="resultado" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe el resultado" autofocus required></textarea>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
-                  <div class="row col-md-12 mb-3">
-                    <label class="form-label-custom" for="prescripcion">*Preescripción médica:</label>
-                    <textarea autofocus name="sancionaplicada" id="prescripcion" class="form-control form-control-custom street-names" maxlength="1000" value="" placeholder="Escribe la preescripción médica" autofocus required></textarea>
-                    <div class="invalid-feedback">
-                      Asegúrate de introducir la información correctamente
-                    </div>
-                  </div>
+
              <div class="row col-md-12  mb-3">
                <div class="form-check-inline col-md-12">
                 <input class="form-check-input" type="checkbox" name="procesosupendido" id="procesosupendido" value="1" >
                 <label class="form-check-label label-custom-check" for="procesosupendido" id="l_estatus">
-                                        El procesa queda suspendido
+                                        El proceso queda suspendido
                 </label>
                </div>
              </div>
+
+
+
+
 
 
 
@@ -748,9 +781,9 @@
                         <label class="Infractores-del-expe mb-0 py-2" name="button" >Infractores del expediente</label>
                     </div>
 
-                    <div name='agregarinfractor' class="col-md-4">
+                    <div name='agregarinfractor' class="col-md-4 d-flex align-items-center justify-content-end">
                         <label class="Crear-expediente mb-0 py-2" name="button" >Agregar infractor</label>
-                        <img class="Crear-expediente-svg" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
+                        <img class="Crear-expediente-svg ml-2" type="img" src="{{url('')}}/src/img/agregarexpediente.svg" />
                     </div>
                   </div>
 
